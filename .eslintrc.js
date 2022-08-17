@@ -30,7 +30,7 @@ module.exports = {
 		// 禁止出现console
 		"no-console": "warn",
 		// 禁用debugger
-		"no-debugger": "warn"
+		"no-debugger": "off"
 		// 禁止出现空语句块
 		// "no-empty": "warn",
 		// // 禁止不必要的括号
