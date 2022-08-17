@@ -1,7 +1,7 @@
 module.exports = {
 	// 每行最多多少个字符换行
 	printWidth: 9808,
-	// 指定每个缩进级别的空格数。默认为 2
+	// 指定每个缩进级别的空格数。默认为 4
 	tabWidth: 4,
 	// 用制表符而不是空格缩进行。
 	useTabs: true,

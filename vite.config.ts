@@ -5,17 +5,20 @@ import viteCompression from "vite-plugin-compression";
 // import federation from "@originjs/vite-plugin-federation"
 
 // https://vitejs.dev/config/
+debugger;
+
 export default defineConfig({
 	base: "./", //打包路径
 	plugins: [
 		vue(),
-		// gzip压缩 生产环境生成 .gz 文件
+		// 静态资源压缩
 		viteCompression({
 			verbose: true,
-			disable: false,
-			threshold: 10240,
-			algorithm: "gzip",
-			ext: ".gz"
+			disable: false, // 不禁用压缩
+			deleteOriginFile: false, // 压缩后是否删除原文件
+			threshold: 10240, // 压缩前最小文件大小
+			algorithm: "gzip", // 压缩算法
+			ext: ".gz" // 文件类型
 		})
 		// federation({
 		// 	name: "app1",
