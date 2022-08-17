@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
-//@ts-ignore
 import viteCompression from "vite-plugin-compression";
 // import federation from "@originjs/vite-plugin-federation"
 
@@ -17,7 +16,7 @@ export default defineConfig({
 			threshold: 10240,
 			algorithm: "gzip",
 			ext: ".gz"
-		}),
+		})
 		// federation({
 		// 	name: "app1",
 		// 	filename: "remoteEntry.js",
@@ -39,7 +38,7 @@ export default defineConfig({
 	css: {
 		preprocessorOptions: {
 			less: {
-				additionalData: ""
+				additionalData: "@import '@/assets/style/common.less';"
 			}
 		}
 	},
@@ -52,9 +51,9 @@ export default defineConfig({
 			"/api": {
 				target: "http://XXX.XXX.com",
 				changeOrigin: true,
-				rewrite: (path: string) => path.replace(/^\/api/, ""),
-			},
-		},
+				rewrite: (path: string) => path.replace(/^\/api/, "")
+			}
+		}
 	},
 	// 生产环境打包配置
 	//去除 console debugger

@@ -1,12 +1,3 @@
-<script setup lang="ts">
-import { ref } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
-
-const sum = ref();
-
-sum.value = 10 + 10;
-</script>
-
 <template>
 	<div class="container">
 		<a href="https://vitejs.dev" target="_blank">
@@ -20,6 +11,15 @@ sum.value = 10 + 10;
 	</div>
 	<HelloWorld msg="Vite + Vue" />
 </template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import HelloWorld from "./components/HelloWorld.vue";
+
+const sum = ref();
+
+sum.value = 10 + 10;
+</script>
 
 <style scoped lang="less">
 .container {
