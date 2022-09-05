@@ -5,8 +5,6 @@ import viteCompression from "vite-plugin-compression";
 // import federation from "@originjs/vite-plugin-federation"
 
 // https://vitejs.dev/config/
-debugger;
-
 export default defineConfig({
 	base: "./", //打包路径
 	plugins: [

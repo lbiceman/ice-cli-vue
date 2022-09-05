@@ -1,85 +1,52 @@
+/**
+ * author: libing
+ * git: https://github.com/lbiceman
+ * email: lbiceman@126.com
+ */
+/** 
 import { reactive, ToRefs, toRefs, UnwrapRef } from "vue";
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { isString, isPlainObject, upperFirst, isFunction } from "lodash-es";
+import axios, { AxiosInstance } from "axios";
+import { isFun } from "@/utils/index";
 
-export declare interface AxiosExtraConfig {
-	// 是否可取消
-	cancelable?: boolean;
-	// 请求模块
-	module?: string;
-	[key: string]: any;
+export interface AxiosConfig {
+	data?: any
+	params?: any
+	cancel?: () => void
 }
 
-export declare type AxiosAbort = () => void;
+export interface AxiosResponse<R, E> {}
 
-export declare interface AxiosOptionApiResult<R, E> {
-	// 是否正在加载
-	loading: boolean;
-	// 请求成功返回的数据,如果请求失败则为 null
-	data: R | null;
-	// 请求失败返回的数据,如果请求成功则为 null
-	error: E | null;
+export interface AxiosOptionApiResult<R, E> {
+	loading: boolean
+	data: any | null
+	error: any | null
+	cancel?: () => void
 }
 
-export declare interface AxiosOptionApiResultAll<R, E> {
-	loading: boolean;
-	data: R[] | null;
-	error: E | E[] | null;
+export interface AxiosOptionApiResultAll<R, E> {
+	loading: boolean
+	data: any | null
+	error: any | null
+	cancel?: () => void
 }
 
-export declare interface AxiosResponse<R, E> extends ToRefs<AxiosOptionApiResult<R, E>> {
-	abort: AxiosAbort;
-	run: (runConfig?: Partial<Pick<AxiosConfig, "params" | "data">>) => Promise<AxiosResponse<R, E>>;
-}
+export interface AxiosResponseAll<R, E> {}
 
-export declare interface AxiosResponseAll<R, E> extends ToRefs<AxiosOptionApiResultAll<R, E>> {
-	abort: AxiosAbort;
-	run: () => Promise<AxiosResponse<R, E>>;
-}
-
-export declare interface AxiosConfig extends AxiosRequestConfig, AxiosExtraConfig {
-	params?: (() => any) | any;
-	data?: (() => any) | any;
-}
-
-declare function OptionApiAxios<R = any, E = any>(url: string | AxiosConfig, config?: AxiosConfig): AxiosResponse<R, E>;
-
-export declare interface OptionApiMethods {
-	usePostAxios: typeof OptionApiAxios;
-	usePutAxios: typeof OptionApiAxios;
-	useDeleteAxios: typeof OptionApiAxios;
-	usePatchAxios: typeof OptionApiAxios;
-	[key: string]: typeof OptionApiAxios;
-}
-
-let _axiosInstance: AxiosInstance;
+let axiosInstance: AxiosInstance;
 export function getAxiosInstance(): AxiosInstance {
-	if (_axiosInstance) return _axiosInstance;
-	return (_axiosInstance = axios.create());
+	if(axiosInstance) return axiosInstance;
+	return (axiosInstance = axios.create())
 }
 
-function getRequestConfig(url: string | AxiosConfig, config?: AxiosConfig): AxiosConfig {
-	let requestConfig: AxiosConfig = {};
-	if (isString(url)) {
-		requestConfig["url"] = url;
-		if (isPlainObject(config)) {
-			requestConfig = {
-				...requestConfig,
-				...config
-			};
-		}
-		return requestConfig;
-	}
-	return url;
+function formatQuery(query?: any | (() => any)): any {
+	return isFun(query) ? query() : query
 }
 
-function formatQuery(query?: () => any | any): any {
-	return isFunction(query) ? query() : query;
+function getRequestConfig(url: string | AxiosConfig, config?: AxiosConfig) {
+	return { cancel: "", params: "", data: "" }
 }
 
-export function useAxios<R = any, E = any>(url: string, config?: AxiosConfig): AxiosResponse<R, E>;
-export function useAxios<R = any, E = any>(config: AxiosConfig): AxiosResponse<R, E>;
-export function useAxios<R = any, E = any>(url: string | AxiosConfig, config?: AxiosConfig): AxiosResponse<R, E> {
+export function useAxios<R = any, E = any>(url: string | AxiosConfig, config?: AxiosConfig) {
 	let controller: AbortController | undefined;
 	const abort = () => controller?.abort();
 	const state = reactive<AxiosOptionApiResult<R, E>>({
@@ -88,11 +55,13 @@ export function useAxios<R = any, E = any>(url: string | AxiosConfig, config?: A
 		error: null
 	});
 	const axiosInstance = getAxiosInstance();
-	const run = (runConfig?: Partial<Pick<AxiosConfig, "params" | "data">>): Promise<AxiosResponse<R, E>> => {
+	const run = (
+		runConfig?: Partial<Pick<AxiosConfig, "params" | "data">>
+	): Promise<AxiosResponse<R, E>> => {
 		state.loading = true;
-		const { cancelable, params, data, ...requestConfig } = getRequestConfig(url, config);
+		const { cancel, params, data, ...requestConfig } = getRequestConfig(url, config);
 		const { params: runParams, data: runData } = runConfig || {};
-		controller = cancelable ? new AbortController() : undefined;
+		controller = cancel ? new AbortController() : undefined;
 		return axiosInstance
 			.request<R>({
 				...requestConfig,
@@ -103,39 +72,28 @@ export function useAxios<R = any, E = any>(url: string | AxiosConfig, config?: A
 			.then((res) => {
 				state.error = null;
 				state.data = res.data as UnwrapRef<R>;
-				return res.data;
+				return res.data
 			})
 			.catch((e) => {
 				state.data = null;
 				state.error = e;
-				return e;
+				return e
 			})
 			.finally(() => {
-				state.loading = false;
-			});
+				state.loading = false
+			})
 	};
 
 	return {
 		...(toRefs(state) as ToRefs<AxiosOptionApiResult<R, E>>),
 		abort,
 		run
-	};
+	}
 }
-
-export const { usePostAxios, usePutAxios, useDeleteAxios, usePatchAxios } = ["POST", "PUT", "DELETE", "PATCH"].reduce<OptionApiMethods>((acc: OptionApiMethods, method) => {
-	acc[`use${upperFirst(method.toLowerCase())}Axios`] = function <R = any, E = any>(url: string | AxiosConfig, config?: AxiosConfig): AxiosResponse<R, E> {
-		return useAxios<R, E>({
-			...(typeof url === "string" ? { url } : url),
-			...(config || {}),
-			method
-		});
-	};
-	return acc;
-}, {} as OptionApiMethods);
 
 export function useAxiosAll<R = any[], E = any>(configs: AxiosConfig[]) {
 	let controller: AbortController | undefined;
-	const abort = () => controller?.abort();
+	const cancel = () => controller?.abort();
 	const state = reactive<AxiosOptionApiResultAll<R, E>>({
 		loading: false,
 		data: null,
@@ -145,8 +103,8 @@ export function useAxiosAll<R = any[], E = any>(configs: AxiosConfig[]) {
 	const run = (): Promise<AxiosResponseAll<R, E>> => {
 		state.loading = true;
 		// promise 是否可取消
-		const cancelable = configs.some((config) => config.cancelable);
-		controller = cancelable ? new AbortController() : undefined;
+		const cancel = configs.some((config) => config.cancel);
+		controller = cancel ? new AbortController() : undefined;
 		return Promise.all(
 			configs.map((config) =>
 				axiosInstance.request({
@@ -157,25 +115,26 @@ export function useAxiosAll<R = any[], E = any>(configs: AxiosConfig[]) {
 				})
 			)
 		)
-			.then((responses) => {
-				state.error = null;
-				const responseList = responses.map((response) => response.data);
-				state.data = responseList;
-				return responseList;
-			})
-			.catch((e) => {
-				state.data = null;
-				state.error = e;
-				return e;
-			})
-			.finally(() => {
-				state.loading = false;
-			});
+		.then((responses) => {
+			state.error = null;
+			const responseList = responses.map((response) => response.data);
+			state.data = responseList;
+			return responseList;
+		})
+		.catch((err) => {
+			state.data = null;
+			state.error = err;
+			return err
+		})
+		.finally(() => {
+			state.loading = false
+		})
 	};
 
 	return {
 		...(toRefs(state) as ToRefs<AxiosOptionApiResult<R, E>>),
-		abort,
+		cancel,
 		run
-	};
+	}
 }
+*/

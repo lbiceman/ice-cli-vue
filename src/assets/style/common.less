@@ -1,102 +1,121 @@
+@charset "UTF-8";
+
+/*css 初始化 */
 html,
 body,
-div,
-span,
-applet,
-object,
-iframe,
+ul,
+li,
+ol,
+dl,
+dd,
+dt,
+p,
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
-p,
-blockquote,
-pre,
-a,
-img,
-small,
-strong,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
 form,
-label,
+fieldset,
 legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-footer,
-header,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+img {
 	margin: 0;
 	padding: 0;
-	border: 0;
-	font: inherit;
-	font-size: 100%;
-	vertical-align: baseline;
 }
 
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-	display: block;
+fieldset,
+img,
+input,
+button {
+	border: none;
+	padding: 0;
+	margin: 0;
+	outline-style: none;
 }
 
-body {
-	line-height: 1;
-}
-
-ol,
-ul {
+ul,
+ol {
 	list-style: none;
 }
 
-blockquote,
-q {
-	quotes: none;
+input {
+	padding-top: 0;
+	padding-bottom: 0;
+	font-family: "SimSun", "宋体";
 }
 
-blockquote::before,
-blockquote::after,
-q::before,
-q::after {
-	content: "";
-	content: none;
+select,
+input {
+	vertical-align: middle;
 }
 
+select,
+input,
+textarea {
+	font-size: 12px;
+	margin: 0;
+}
+
+textarea {
+	resize: none;
+}
+
+/*防止拖动*/
+img {
+	border: 0;
+	vertical-align: middle;
+}
+
+/* 去掉图片低测默认的3像素空白缝隙*/
 table {
 	border-collapse: collapse;
-	border-spacing: 0;
+}
+
+body {
+	font: 12px/150% Arial, Verdana, "\5b8b\4f53";
+	color: #666;
+	background: #fff;
+}
+
+a {
+	color: #666;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #c81623;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-decoration: none;
+	font-weight: normal;
+	font-size: 100%;
+}
+
+s,
+i,
+em {
+	font-style: normal;
+	text-decoration: none;
+}
+
+/*公共类*/
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.clear {
+	display: block;
+	clear: both;
 }
