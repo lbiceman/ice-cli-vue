@@ -5,6 +5,7 @@ import router from "./router";
 import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 import { message } from "ant-design-vue";
+import loading from "./directive/loading/index";
 
 message.config({
 	top: `80px`,
@@ -13,6 +14,12 @@ message.config({
 });
 
 const iceApp = createApp(App);
+
+// 屏蔽警告信息
+// iceApp.config.warnHandler = () => null;
+
+// 加载中...指令
+iceApp.directive("loading", loading);
 
 iceApp.use(createPinia());
 iceApp.use(Antd);

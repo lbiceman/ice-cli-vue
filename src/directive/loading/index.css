@@ -1,0 +1,51 @@
+.loading-mask {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.8);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1000;
+}
+.loading-con {
+	position: relative;
+	width: 48px;
+	height: 48px;
+	animation: satellite 3s infinite linear;
+	border: 1px solid #33aafa;
+	border-radius: 100%;
+	z-index: 1001;
+}
+
+.loading-con:before,
+.loading-con:after {
+	position: absolute;
+	left: 1px;
+	top: 1px;
+	width: 12px;
+	height: 12px;
+	content: "";
+	border-radius: 100%;
+	background-color: #33aafa;
+	box-shadow: 0 0 10px #33aafa;
+}
+
+.loading-con:after {
+	width: 22px;
+	height: 22px;
+	margin: 11px;
+	background-color: #33aafa;
+}
+
+@keyframes satellite {
+	from {
+		transform: rotate(0) translateZ(0);
+	}
+
+	to {
+		transform: rotate(360deg) translateZ(0);
+	}
+}
