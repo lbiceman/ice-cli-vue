@@ -3,155 +3,105 @@
  * git: https://github.com/lbiceman
  * email: lbiceman@126.com
  */
-/** 
+
 import { reactive, ToRefs, toRefs, UnwrapRef } from "vue";
-import axios, { AxiosInstance } from "axios";
-import { isFun } from "@/utils/index";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import { isFun, isStr, isObj } from "@/utils/index";
 
-export interface AxiosConfig {
-	data?: any
-	params?: any
-	cancel?: () => void
+export declare interface AxiosExtraConfig {
+	// 是否可取消
+	cancelable?: boolean;
 }
 
-export interface AxiosResponse<R, E> {}
+export declare type AxiosCancel = () => void;
 
-export interface AxiosOptionApiResult<R, E> {
-	loading: boolean
-	data: any | null
-	error: any | null
-	cancel?: () => void
+export declare interface AxiosOptionApiResult<R, E> {
+	loading: boolean;
+	data: R | null;
+	error: E | null;
 }
 
-export interface AxiosOptionApiResultAll<R, E> {
-	loading: boolean
-	data: any | null
-	error: any | null
-	cancel?: () => void
+export declare interface AxiosResponse<R, E> extends ToRefs<AxiosOptionApiResult<R, E>> {
+	cancel: AxiosCancel;
+	run: (
+		runConfig?: Partial<Pick<AxiosConfig, "params" | "data">>
+	) => Promise<AxiosResponse<R, E>>;
 }
 
-export interface AxiosResponseAll<R, E> {}
+export declare interface AxiosConfig extends AxiosRequestConfig, AxiosExtraConfig {
+	params?: (() => any) | any;
+	data?: (() => any) | any;
+}
 
-let axiosInstance: AxiosInstance;
+let axios_instance: AxiosInstance;
 export function getAxiosInstance(): AxiosInstance {
-	if(axiosInstance) return axiosInstance;
-	return (axiosInstance = axios.create())
+	if (axios_instance) return axios_instance;
+	return (axios_instance = axios.create());
 }
 
-function formatQuery(query?: any | (() => any)): any {
-	return isFun(query) ? query() : query
+function getConfig(url: string | AxiosConfig, config?: AxiosConfig): AxiosConfig {
+	let requestConfig: AxiosConfig = {};
+	if (isStr(url)) {
+		requestConfig.url = url;
+		if (isObj(config)) {
+			requestConfig = {
+				...requestConfig,
+				...config
+			};
+		}
+		return requestConfig;
+	}
+	return url;
 }
 
-function getRequestConfig(url: string | AxiosConfig, config?: AxiosConfig) {
-	return { cancel: "", params: "", data: "" }
+function fmtParams(query?: (() => any) | any): any {
+	return isFun(query) ? query() : query;
 }
 
-export function useAxios<R = any, E = any>(url: string | AxiosConfig, config?: AxiosConfig) {
-	let controller: AbortController | undefined;
-	const abort = () => controller?.abort();
+export function useAxios<R = any, E = any>(
+	url: string | AxiosConfig,
+	config?: AxiosConfig
+): AxiosResponse<R, E> {
+	let ctrl: AbortController | undefined;
+	const cancel = () => ctrl?.abort();
 	const state = reactive<AxiosOptionApiResult<R, E>>({
 		loading: false,
 		data: null,
 		error: null
 	});
-	const axiosInstance = getAxiosInstance();
+	const instance = getAxiosInstance();
 	const run = (
 		runConfig?: Partial<Pick<AxiosConfig, "params" | "data">>
 	): Promise<AxiosResponse<R, E>> => {
 		state.loading = true;
-		const { cancel, params, data, ...requestConfig } = getRequestConfig(url, config);
+		const { cancelable, params, data, ...requestConfig } = getConfig(url, config);
 		const { params: runParams, data: runData } = runConfig || {};
-		controller = cancel ? new AbortController() : undefined;
-		return axiosInstance
+		ctrl = cancelable ? new AbortController() : undefined;
+		return instance
 			.request<R>({
 				...requestConfig,
-				signal: controller?.signal,
-				data: runData || formatQuery(data),
-				params: runParams || formatQuery(params)
+				signal: ctrl?.signal,
+				data: runData || fmtParams(data),
+				params: runParams || fmtParams(params)
 			})
 			.then((res) => {
 				state.error = null;
 				state.data = res.data as UnwrapRef<R>;
-				return res.data
+				return res.data;
 			})
 			.catch((e) => {
 				state.data = null;
 				state.error = e;
-				return e
+				return e;
 			})
 			.finally(() => {
-				state.loading = false
-			})
-	};
-
-	return {
-		...(toRefs(state) as ToRefs<AxiosOptionApiResult<R, E>>),
-		abort,
-		run
-	}
-}
-
-export function useAxiosAll<R = any[], E = any>(configs: AxiosConfig[]) {
-	let controller: AbortController | undefined;
-	const cancel = () => controller?.abort();
-	const state = reactive<AxiosOptionApiResultAll<R, E>>({
-		loading: false,
-		data: null,
-		error: null
-	});
-	const axiosInstance = getAxiosInstance();
-	const run = (): Promise<AxiosResponseAll<R, E>> => {
-		state.loading = true;
-		// promise 是否可取消
-		const cancel = configs.some((config) => config.cancel);
-		controller = cancel ? new AbortController() : undefined;
-		return Promise.all(
-			configs.map((config) =>
-				axiosInstance.request({
-					...config,
-					params: formatQuery(config?.params),
-					data: formatQuery(config?.data),
-					signal: controller?.signal
-				})
-			)
-		)
-		.then((responses) => {
-			state.error = null;
-			const responseList = responses.map((response) => response.data);
-			state.data = responseList;
-			return responseList;
-		})
-		.catch((err) => {
-			state.data = null;
-			state.error = err;
-			return err
-		})
-		.finally(() => {
-			state.loading = false
-		})
+				state.loading = false;
+			});
 	};
 
 	return {
 		...(toRefs(state) as ToRefs<AxiosOptionApiResult<R, E>>),
 		cancel,
 		run
-	}
+	};
 }
-if (error && error.response) {
-      switch (error.response.status) {
-        case 400: error.message = '请求错误'; break
-        case 401: error.message = '未授权，请登录'; break
-        case 403: error.message = '拒绝访问'; break
-        case 404: error.message = `请求地址出错: ${error.response.config.url}`; break
-        case 408: error.message = '请求超时'; break
-        case 500: error.message = '服务器内部错误'; break
-        case 501: error.message = '服务未实现'; break
-        case 502: error.message = '网关错误'; break
-        case 503: error.message = '服务不可用'; break
-        case 504: error.message = '网关超时'; break
-        case 505: error.message = 'HTTP版本不受支持'; break
-        default: break
-      }
-    }
-    return Promise.reject(error)
-*/

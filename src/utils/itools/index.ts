@@ -4,32 +4,32 @@ export const getType = (obj: any) => {
 	const str: string = Object.prototype.toString.call(obj);
 	return str.slice(8, str.length - 1);
 };
-export const isArr = (arr: any) => {
-	return getType(arr) === "Array";
+export const isArr = (val: any): val is Array<[]> => {
+	return getType(val) === "Array";
 };
 
-export const isObj = (obj: any) => {
-	return getType(obj) === "Object";
+export const isObj = (val: any) => {
+	return getType(val) === "Object";
 };
 
-export const isStr = (obj: any) => {
-	return getType(obj) === "String";
+export const isStr = (val: any): val is string => {
+	return getType(val) === "String";
 };
 
-export const isNum = (obj: any) => {
-	return getType(obj) === "Number";
+export const isNum = (val: any): val is number => {
+	return getType(val) === "Number";
 };
 
-export const isFun = (obj: any) => {
-	return getType(obj) === "Function";
+export const isFun = (val: any) => {
+	return getType(val) === "Function";
 };
 
-export const getObjKeys = (obj: any) => {
-	return Object.getOwnPropertyNames(obj);
+export const getObjKeys = (val: any): string[] => {
+	return Object.getOwnPropertyNames(val);
 };
 
-export const getObjKeysSize = (obj: any) => {
-	return getObjKeys(obj).length;
+export const getObjKeysSize = (val: any): number => {
+	return getObjKeys(val).length;
 };
 
 export const clone = (obj: any, newObj: any) => {
@@ -48,7 +48,7 @@ export const clone = (obj: any, newObj: any) => {
 };
 
 // 判断两个对象是否相等
-export const equals = (obj1: any, obj2: any) => {
+export const equals = (obj1: any, obj2: any): boolean => {
 	const type = getType(obj1);
 	const errMsg = "The current type (Function, RegExp) is not supported";
 	if (type === getType(obj2)) {
