@@ -23,4 +23,3 @@
 	revert: 恢复
 	perf: 优化
 	types: TS 类型修改
-	build: 外部依赖项的更改

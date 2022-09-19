@@ -123,11 +123,6 @@
 						"title": "Type change",
 						"emoji": "🏆 "
 					},
-					"build": {
-						"description": "外部依赖项更改",
-						"title": "package change",
-						"emoji": "♻️"
-					},
 					"script": {
 						"description": "脚本变动",
 						"title": "Script Update",
