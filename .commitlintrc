@@ -1,0 +1,147 @@
+{
+	"rules": {
+		"subject-exclamation-mark": [
+			2,
+			"never"
+		],
+		"body-leading-blank": [
+			1,
+			"always"
+		],
+		"footer-leading-blank": [
+			1,
+			"always"
+		],
+		"header-max-length": [
+			2,
+			"always",
+			100
+		],
+		"scope-case": [
+			2,
+			"always",
+			"lower-case"
+		],
+		"subject-case": [
+			2,
+			"never",
+			[
+				"sentence-case",
+				"start-case",
+				"pascal-case",
+				"upper-case"
+			]
+		],
+		"subject-empty": [
+			2,
+			"never"
+		],
+		"subject-full-stop": [
+			2,
+			"never",
+			"."
+		],
+		"type-case": [
+			2,
+			"always",
+			"lower-case"
+		],
+		"type-empty": [
+			2,
+			"never"
+		],
+		"type-enum": [
+			2,
+			"always",
+			[
+				"feat",
+				"fix",
+				"docs",
+				"style",
+				"refactor",
+				"test",
+				"chore",
+				"revert",
+				"perf",
+				"workflow",
+				"ci",
+				"types",
+				"wip",
+				"release",
+				"deps",
+				"script"
+			]
+		]
+	},
+	"prompt": {
+		"questions": {
+			"type": {
+				"description": "type",
+				"enum": {
+					"feat": {
+						"description": "新功能",
+						"title": "Features",
+						"emoji": "✨"
+					},
+					"fix": {
+						"description": "修复 BUG",
+						"title": "Bug Fixes",
+						"emoji": "🐛"
+					},
+					"docs": {
+						"description": "更新文档",
+						"title": "Documentation",
+						"emoji": "📚"
+					},
+					"style": {
+						"description": "代码格式,样式调整",
+						"title": "Styles",
+						"emoji": "💎"
+					},
+					"test": {
+						"description": "测试",
+						"title": "Tests",
+						"emoji": "🚨"
+					},
+					"chore": {
+						"description": "不修改 src",
+						"title": "Chores",
+						"emoji": "♻️"
+					},
+					"revert": {
+						"description": "恢复",
+						"title": "Reverts",
+						"emoji": "🗑"
+					},
+					"perf": {
+						"description": "优化",
+						"title": "Performance Improvements",
+						"emoji": "🚀"
+					},
+					"types": {
+						"description": "TS 类型变动",
+						"title": "Type change",
+						"emoji": "🏆 "
+					},
+					"build": {
+						"description": "外部依赖项更改",
+						"title": "package change",
+						"emoji": "♻️"
+					},
+					"script": {
+						"description": "脚本变动",
+						"title": "Script Update",
+						"emoji": "🦶 "
+					}
+				}
+			},
+			"scope": {
+				"description": "scope(可选)"
+			},
+			"subject": {
+				"description": "subject"
+			}
+		}
+	}
+}
+
