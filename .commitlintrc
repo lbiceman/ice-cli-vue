@@ -58,17 +58,9 @@
 				"fix",
 				"docs",
 				"style",
-				"refactor",
-				"test",
 				"chore",
-				"revert",
 				"perf",
-				"workflow",
-				"ci",
 				"types",
-				"wip",
-				"release",
-				"deps",
 				"script"
 			]
 		]
