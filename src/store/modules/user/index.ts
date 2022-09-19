@@ -3,11 +3,6 @@
  * git: https://github.com/lbiceman
  * email: lbiceman@126.com
  */
-
-/**
- * 这一块的TS约束参考作者--vyron
- * vyron: https://github.com/vfiee
- */
 import { defineStore } from "pinia";
 
 export interface User {

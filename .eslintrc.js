@@ -3,7 +3,7 @@ module.exports = {
 		browser: true,
 		node: true,
 		es2021: true,
-		// 防止setup语法糖报错
+		// 允许setup语法糖
 		"vue/setup-compiler-macros": true
 	},
 	parser: "vue-eslint-parser",
