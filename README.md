@@ -1,5 +1,6 @@
 # ice-cli
-	vite+ts+antd
+
+    vite+ts+antd
     contains:
 
     	1.vite
