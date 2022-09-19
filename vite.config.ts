@@ -39,7 +39,7 @@ export default defineConfig({
 	css: {
 		preprocessorOptions: {
 			less: {
-				additionalData: "@import '@/assets/style/common.less';"
+				additionalData: "@import '@/assets/style/index.less';"
 			}
 		}
 	},
