@@ -36,6 +36,10 @@ module.exports = {
 		// 要求使用剩余参数而不是 arguments
 		"prefer-rest-params": "off",
 		// 禁止直接调用 Object.prototypes 的内置属性
-		"no-prototype-builtins": "off"
+		"no-prototype-builtins": "off",
+		// Forbidden non-null assertion
+		"@typescript-eslint/no-non-null-assertion": "off",
+		// 允许使用空函数
+		"@typescript-eslint/no-empty-function": "off"
 	}
 };
