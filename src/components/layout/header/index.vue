@@ -5,12 +5,13 @@
 <script lang="ts" setup></script>
 
 <style lang="less" scoped>
+@import "@/assets/style/global.less";
 .header {
 	display: flex;
 	align-items: center;
-	height: 60px;
+	height: @ice-header-height;
 	padding: 10px 20px;
-	background-color: #466208;
+	background-color: @ice-primary-color;
 	color: #fff;
 }
 </style>

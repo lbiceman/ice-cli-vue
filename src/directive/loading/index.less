@@ -1,3 +1,4 @@
+@import "@/assets/style/global.less";
 .loading-mask {
 	display: flex;
 	justify-content: center;
@@ -15,7 +16,7 @@
 	width: 48px;
 	height: 48px;
 	animation: satellite 3s infinite linear;
-	border: 1px solid #33aafa;
+	border: 1px solid @ice-primary-color;
 	border-radius: 100%;
 	z-index: 1001;
 }
@@ -29,15 +30,15 @@
 	height: 12px;
 	content: "";
 	border-radius: 100%;
-	background-color: #33aafa;
-	box-shadow: 0 0 10px #33aafa;
+	background-color: @ice-primary-color;
+	box-shadow: 0 0 10px @ice-primary-color;
 }
 
 .loading-con:after {
 	width: 22px;
 	height: 22px;
 	margin: 11px;
-	background-color: #33aafa;
+	background-color: @ice-primary-color;
 }
 
 @keyframes satellite {

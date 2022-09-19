@@ -15,8 +15,17 @@
 </template>
 
 <script lang="ts" setup>
-import Header from "./components/header/index.vue";
-import Menu from "./components/menu/index.vue";
+import Header from "@/components/layout/header/index.vue";
+import Menu from "@/components/layout/menu/index.vue";
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+@import "@/assets/style/global.less";
+.layout {
+	height: 100vh;
+	.layout-content {
+		height: calc(100vh - @ice-header-height);
+		display: flex;
+	}
+}
+</style>

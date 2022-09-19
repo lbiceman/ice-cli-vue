@@ -1,4 +1,4 @@
-import "./index.css";
+import "./index.less";
 
 function getLoadingImg(el: HTMLDivElement) {
 	// 查找imgDOM

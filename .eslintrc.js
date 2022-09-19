@@ -2,7 +2,9 @@ module.exports = {
 	env: {
 		browser: true,
 		node: true,
-		es2021: true
+		es2021: true,
+		// 防止setup语法糖报错
+		"vue/setup-compiler-macros": true
 	},
 	parser: "vue-eslint-parser",
 	extends: [
