@@ -55,7 +55,7 @@
 	},
 	"commotlint": {
 		"extends": [
-		  "@commitlint/config-conventional"
+			"@commitlint/config-conventional"
 		]
 	},
 	"lint-staged": {
