@@ -6,7 +6,7 @@ function getLoadingImg(el: HTMLDivElement) {
 	return el.querySelector("#loading-mask");
 }
 
-function createLoadingMask(el: HTMLDivElement) {
+function createLoadingMask(el: HTMLDivElement): Element {
 	// 创建mask
 	const mask = document.createElement("div");
 	const loadDiv = document.createElement("div");
@@ -14,6 +14,7 @@ function createLoadingMask(el: HTMLDivElement) {
 	loadDiv.className = "loading-con";
 	mask.style.width = el.offsetWidth == 0 ? "100px" : el.offsetWidth + "px";
 	mask.style.height = el.offsetHeight == 0 ? "100px" : el.offsetHeight + "px";
+	el.style.position = "relative";
 	mask.appendChild(loadDiv);
 	return mask;
 }
@@ -24,9 +25,7 @@ export default (el: HTMLDivElement, data: any) => {
 		// 显示
 		if (!loadingDom) {
 			// 不存在  创建  插入
-			const mask = createLoadingMask(el);
-			el.style.position = "relative";
-			el.appendChild(mask);
+			el.appendChild(createLoadingMask(el));
 		}
 	} else {
 		// 不显示
