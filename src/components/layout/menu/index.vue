@@ -1,5 +1,5 @@
 <template>
-	<div class="ice-menu" :style="collapsed ? 'width: 80px' : 'width: 200px'">
+	<div class="ice-menu" :class="collapsed ? 'ice-menu_min-width' : 'ice-menu_max-width'">
 		<a-menu
 			v-model:selectedKeys="state.selectedKeys"
 			:inline-collapsed="collapsed"
@@ -59,6 +59,7 @@ const onOpenChange = (openKeys: string[]) => {
 
 const switchCollapsed = function () {
 	collapsed.value = !collapsed.value;
+	store.updateCollapsed(collapsed.value);
 };
 </script>
 
@@ -72,7 +73,7 @@ const switchCollapsed = function () {
 .ice-menu {
 	position: relative;
 	height: 100%;
-	transition: all 0.3s ease-out;
+	transition: @ice-transition;
 	.ice-menu-collapsed {
 		position: absolute;
 		bottom: 20px;
@@ -80,11 +81,17 @@ const switchCollapsed = function () {
 		span {
 			font-size: 30px;
 			cursor: pointer;
-			transition: all 0.3s ease-out;
+			transition: @ice-transition;
 			&:hover {
 				transform: rotate(180deg);
 			}
 		}
 	}
+}
+.ice-menu_max-width {
+	width: @ice-menu-max-width;
+}
+.ice-menu_min-width {
+	width: @ice-menu-min-width;
 }
 </style>

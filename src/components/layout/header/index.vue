@@ -1,17 +1,18 @@
 <template>
-	<div class="ice-header">header</div>
+	<div class="ice-header">
+		<Logo />
+	</div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import Logo from "./components/logo.vue";
+</script>
 
 <style lang="less" scoped>
-@import "@/assets/style/global.less";
 .ice-header {
 	display: flex;
 	align-items: center;
 	height: @ice-header-height;
-	padding: 10px 20px;
-	background-color: @ice-primary-color;
 	color: #fff;
 }
 </style>

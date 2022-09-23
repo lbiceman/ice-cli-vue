@@ -20,11 +20,10 @@ import Menu from "@/components/layout/menu/index.vue";
 </script>
 
 <style lang="less" scoped>
-@import "@/assets/style/global.less";
 .layout {
-	height: 100vh;
+	height: 100%;
 	.layout-content {
-		height: calc(100vh - @ice-header-height);
+		height: calc(@ice-page-height - @ice-header-height);
 		display: flex;
 	}
 }

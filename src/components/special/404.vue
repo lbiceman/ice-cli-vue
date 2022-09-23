@@ -1,5 +1,5 @@
 <template>
-	<div class="content-not-found">
+	<div class="ice-not-found">
 		<div class="not-found-img">
 			<img v-bind="finalImageProps" />
 		</div>
@@ -55,7 +55,7 @@ const onButtonClick = () => {
 </script>
 
 <style lang="less" scoped>
-.content-not-found {
+.ice-not-found {
 	width: 100vw;
 	height: 100vh;
 	display: flex;
