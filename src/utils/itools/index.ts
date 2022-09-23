@@ -1,5 +1,11 @@
+/**
+ * author: libing
+ * git: https://github.com/lbiceman
+ * email: lbiceman@126.com
+ */
 const basicTypes = ["Number", "String", "Boolean", "Null", "Undefined", "RegExp"];
 const quoteTypes = ["Array", "Function", "Object"];
+
 export const getType = (obj: any) => {
 	const str: string = Object.prototype.toString.call(obj);
 	return str.slice(8, str.length - 1);

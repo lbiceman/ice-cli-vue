@@ -10,6 +10,11 @@ import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 
 dayjs.locale("zh-cn");
+
+// 获取环境变量
+const env = import.meta.env.MODE;
+
+console.log(env);
 </script>
 
 <style lang="less" scoped></style>

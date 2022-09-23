@@ -2,11 +2,14 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
 import viteCompression from "vite-plugin-compression";
-// import federation from "@originjs/vite-plugin-federation"
+import federation from "@originjs/vite-plugin-federation";
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	base: "./", //打包路径
+	// 环境变量按照这个数组匹配
+	// 例如：SELF-TYPE  在这里就需要填写SELF，否则项目获取不到SELF开头的环境变量
+	envPrefix: ["VITE", "VUE", "APP", "SELF"],
 	plugins: [
 		vue(),
 		// 静态资源压缩
@@ -19,14 +22,14 @@ export default defineConfig({
 			ext: ".gz" // 文件类型
 		})
 		// federation({
-		// 	name: "app1",
-		// 	filename: "remoteEntry.js",
+		// 	name: "iceCliRemote",
+		// 	filename: "iceCliRemote.js",
 		// 	remotes: {
-		// 		app2: "https://127.0.0.1:8080/assets/remoteEntry.js"
+		// 		app2: "https://127.0.0.1:9809/assets/iceCliRemoteBase.js"
 		// 	},
 		// 	shared: ["vue"],
 		// 	exposes: {
-		// 		"./App": "./src/App.vue"
+		// 		"./404": "./src/components/special/404.vue"
 		// 	}
 		// }),
 	],

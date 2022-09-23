@@ -1,9 +1,10 @@
 {
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"license": "ISC",
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite --mode development",
 		"build:dev": "vite build --mode development",
+		"build:test": "vite build --mode production",
 		"build:prod": "vite build --mode production",
 		"serve": "vite preview",
 		"lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
