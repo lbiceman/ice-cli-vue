@@ -1,7 +1,7 @@
 <template>
 	<div class="ice-logo" :class="collapsed ? 'ice-logo_min-width' : 'ice-logo_max-width'">
 		<p>
-			{{ collapsed ? "IKUN" : "ICE-CLI(IKUN)" }}
+			{{ collapsed ? "IKUN" : "IKUN-CLI(IKUN)" }}
 		</p>
 	</div>
 </template>
@@ -22,8 +22,8 @@ const collapsed = storeRef.getCollapsed;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
-	padding: 0px 20px;
 	font-size: 16px;
+	padding: 0px 20px;
 	color: #555;
 	transition: @ice-transition;
 	overflow: hidden;

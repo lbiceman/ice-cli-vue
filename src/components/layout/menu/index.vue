@@ -74,6 +74,7 @@ const switchCollapsed = function () {
 	position: relative;
 	height: 100%;
 	transition: @ice-transition;
+	border-top: 1px solid #eee;
 	.ice-menu-collapsed {
 		position: absolute;
 		bottom: 20px;

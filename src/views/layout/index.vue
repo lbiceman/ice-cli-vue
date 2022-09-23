@@ -26,5 +26,10 @@ import Menu from "@/components/layout/menu/index.vue";
 		height: calc(@ice-page-height - @ice-header-height);
 		display: flex;
 	}
+	.layout-content-main {
+		width: 100%;
+		background-color: #f0f0f0;
+		padding: 20px;
+	}
 }
 </style>

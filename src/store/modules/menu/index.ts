@@ -32,7 +32,7 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 	"menu",
 	{
 		state: () => ({
-			collapsed: false, // 是否展开  true 展开  false 缩小
+			collapsed: false, // 是否展开  true 缩小  false 展开
 			menus: [
 				{
 					id: "1",
