@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from "vue-router";
 import { specialRouters } from "./special";
 import { indexRouters } from "./index/index";
+import { loginRoutes } from "./login";
 
 const layoutRouters: RouteRecordRaw[] = [
 	{
@@ -15,6 +16,7 @@ export const routes: RouteRecordRaw[] = [
 	// 这里放和layout同级别的路由
 	...specialRouters,
 	...layoutRouters,
+	...loginRoutes,
 	{
 		path: "/:pathMatch(.*)",
 		redirect: "/404"

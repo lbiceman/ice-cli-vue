@@ -1,10 +1,15 @@
+/**
+ * author: libing
+ * git: https://github.com/lbiceman
+ * email: lbiceman@126.com
+ */
 import App from "./App.vue";
 import { createPinia } from "pinia";
 import { createApp } from "vue";
 import router from "./router";
 import { message } from "ant-design-vue";
 import loading from "./directive/loading/index";
-import { registerComponents } from "./register/index";
+import { registerComponents } from "./componentRegister/index";
 import "@/assets/style/reset.less";
 
 message.config({
@@ -12,6 +17,10 @@ message.config({
 	duration: 2,
 	maxCount: 3
 });
+
+setTimeout(() => {
+	message.success("test");
+}, 2000);
 
 const iceApp = createApp(App);
 
