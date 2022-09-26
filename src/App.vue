@@ -13,7 +13,6 @@ dayjs.locale("zh-cn");
 
 // 获取环境变量
 const env = import.meta.env.MODE;
-
 console.log(env);
 </script>
 

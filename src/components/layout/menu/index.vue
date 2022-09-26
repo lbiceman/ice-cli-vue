@@ -64,8 +64,33 @@ const switchCollapsed = function () {
 </script>
 
 <style lang="less">
-.ice-menu .ice-menu-layout {
-	height: 100%;
+.ice-menu {
+	.ant-menu-inline .ant-menu-item,
+	.ant-menu-inline .ant-menu-submenu-title {
+		width: auto;
+	}
+	.ant-menu-submenu-selected,
+	.ant-menu-item-selected,
+	.ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow,
+	.ant-menu-light .ant-menu-submenu-active {
+		color: @ice-primary-color;
+	}
+	.ant-menu-inline .ant-menu-item::after {
+		border-right: 3px solid @ice-primary-color;
+	}
+	.ant-menu-light .ant-menu-item:hover {
+		color: @ice-primary-color;
+	}
+	.ant-menu-light .ant-menu-submenu-title:hover {
+		color: @ice-primary-color;
+	}
+	.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+		background-color: @ice-primary-opacity-color;
+	}
+	.ant-menu-item:active,
+	.ant-menu-submenu-title:active {
+		background-color: @ice-primary-opacity-color;
+	}
 }
 </style>
 
@@ -74,7 +99,11 @@ const switchCollapsed = function () {
 	position: relative;
 	height: 100%;
 	transition: @ice-transition;
+	box-sizing: border-box;
 	border-top: 1px solid #eee;
+	.ice-menu-layout {
+		height: 100%;
+	}
 	.ice-menu-collapsed {
 		position: absolute;
 		bottom: 20px;

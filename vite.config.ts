@@ -2,12 +2,14 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
 import viteCompression from "vite-plugin-compression";
-import federation from "@originjs/vite-plugin-federation";
+// 手动按需加载
+import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
+// import federation from "@originjs/vite-plugin-federation";
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	base: "./", //打包路径
-	// 环境变量按照这个数组匹配
+	// 环境变量匹配规则
 	// 例如：SELF-TYPE  在这里就需要填写SELF，否则项目获取不到SELF开头的环境变量
 	envPrefix: ["VITE", "VUE", "APP", "SELF"],
 	plugins: [
@@ -20,7 +22,8 @@ export default defineConfig({
 			threshold: 10240, // 压缩前最小文件大小
 			algorithm: "gzip", // 压缩算法
 			ext: ".gz" // 文件类型
-		})
+		}),
+		viteCommonjs()
 		// federation({
 		// 	name: "iceCliRemote",
 		// 	filename: "iceCliRemote.js",
@@ -33,6 +36,12 @@ export default defineConfig({
 		// 	}
 		// }),
 	],
+	// 手动按需引入antd
+	optimizeDeps: {
+		esbuildOptions: {
+			plugins: [esbuildCommonjs(["ant-design-vue"])]
+		}
+	},
 	// 配置别名
 	resolve: {
 		alias: {
@@ -42,7 +51,8 @@ export default defineConfig({
 	css: {
 		preprocessorOptions: {
 			less: {
-				additionalData: "@import '@/assets/style/index.less';"
+				javascriptEnabled: true,
+				additionalData: "@import '@/assets/style/global.less';"
 			}
 		}
 	},

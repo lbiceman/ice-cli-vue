@@ -1,15 +1,22 @@
 <template>
 	<div class="ice-user">
 		<div class="user-avator">
-			<img src="@/assets/images/user/kunkun-avator.png" alt="" />
+			<img :src="getUser.avator || defaultAvator" alt="" />
 		</div>
 		<div class="user-name">
-			<p>ikun-ckf</p>
+			<p>{{ getUser.name }}</p>
 		</div>
 	</div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useUserStore } from "@/store/index";
+import { storeToRefs } from "pinia";
+import defaultAvator from "@/assets/images/user/kunkun-avator.png";
+
+const store = useUserStore();
+const { getUser } = storeToRefs(store);
+</script>
 
 <style lang="less" scoped>
 .ice-user {

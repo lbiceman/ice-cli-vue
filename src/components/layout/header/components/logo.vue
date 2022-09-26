@@ -1,7 +1,7 @@
 <template>
-	<div class="ice-logo" :class="collapsed ? 'ice-logo_min-width' : 'ice-logo_max-width'">
+	<div class="ice-logo" :class="getCollapsed ? 'ice-logo_min-width' : 'ice-logo_max-width'">
 		<p>
-			{{ collapsed ? "IKUN" : "IKUN-CLI(IKUN)" }}
+			{{ getCollapsed ? "IKUN" : "IKUN-CLI(IKUN)" }}
 		</p>
 	</div>
 </template>
@@ -11,9 +11,7 @@ import { useMenuStore } from "@/store/index";
 import { storeToRefs } from "pinia";
 
 const store = useMenuStore();
-const storeRef = storeToRefs(store);
-
-const collapsed = storeRef.getCollapsed;
+const { getCollapsed } = storeToRefs(store);
 </script>
 
 <style lang="less" scoped>
@@ -23,7 +21,6 @@ const collapsed = storeRef.getCollapsed;
 	justify-content: center;
 	height: 100%;
 	font-size: 16px;
-	padding: 0px 20px;
 	color: #555;
 	transition: @ice-transition;
 	overflow: hidden;

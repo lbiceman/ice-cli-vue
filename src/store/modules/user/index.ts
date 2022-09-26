@@ -14,6 +14,7 @@ export interface User {
 	address?: string;
 	phone?: string;
 	token?: string;
+	avator?: string;
 }
 
 export interface UserStoreState {
@@ -30,7 +31,7 @@ export interface UserStoreGetters<T = UserStoreState> {
 }
 
 export const useUserStore = defineStore<string, UserStoreState, UserStoreGetters, UserSotreActions>(
-	"menu",
+	"user",
 	{
 		state: () => ({
 			user: {

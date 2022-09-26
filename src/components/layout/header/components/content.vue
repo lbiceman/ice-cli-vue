@@ -1,5 +1,5 @@
 <template>
-	<div class="ice-content">this is content</div>
+	<div class="ice-content"></div>
 </template>
 
 <style lang="less" scoped>
