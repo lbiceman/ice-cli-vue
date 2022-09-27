@@ -18,10 +18,6 @@ message.config({
 	maxCount: 3
 });
 
-setTimeout(() => {
-	message.success("test");
-}, 2000);
-
 const iceApp = createApp(App);
 
 // 注册组件

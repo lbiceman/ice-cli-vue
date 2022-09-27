@@ -1,13 +1,6 @@
 <template>
 	<div class="ice-menu" :class="collapsed ? 'ice-menu_min-width' : 'ice-menu_max-width'">
-		<a-menu
-			v-model:selectedKeys="state.selectedKeys"
-			:inline-collapsed="collapsed"
-			mode="inline"
-			class="ice-menu-layout"
-			:open-keys="state.openKeys"
-			@open-change="onOpenChange"
-		>
+		<a-menu v-model:selectedKeys="state.selectedKeys" :inline-collapsed="collapsed" mode="inline" class="ice-menu-layout" :open-keys="state.openKeys" @open-change="onOpenChange">
 			<template v-for="item of menus">
 				<template v-if="item.children && item.children.length > 0">
 					<SubMenu :id="item.id" :key="item.id" :menu="item" />
@@ -41,9 +34,7 @@ const menus = toRaw(store.getMenus);
 const collapsed = ref(false);
 const state = reactive({
 	// 获取当前菜单所有key
-	rootSubmenuKeys: menus
-		.filter((menu) => menu.children && menu.children.length > 0)
-		.map((menu) => menu.id),
+	rootSubmenuKeys: menus.filter((menu) => menu.children && menu.children.length > 0).map((menu) => menu.id),
 	openKeys: menus.map((item) => item.id),
 	selectedKeys: []
 });

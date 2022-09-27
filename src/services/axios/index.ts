@@ -23,9 +23,7 @@ export declare interface AxiosOptionApiResult<R, E> {
 
 export declare interface AxiosResponse<R, E> extends ToRefs<AxiosOptionApiResult<R, E>> {
 	cancel: AxiosCancel;
-	run: (
-		runConfig?: Partial<Pick<AxiosConfig, "params" | "data">>
-	) => Promise<AxiosResponse<R, E>>;
+	run: (runConfig?: Partial<Pick<AxiosConfig, "params" | "data">>) => Promise<AxiosResponse<R, E>>;
 }
 
 export declare interface AxiosConfig extends AxiosRequestConfig, AxiosExtraConfig {
@@ -58,10 +56,7 @@ function fmtParams(query?: (() => any) | any): any {
 	return isFun(query) ? query() : query;
 }
 
-export function useAxios<R = any, E = any>(
-	url: string | AxiosConfig,
-	config?: AxiosConfig
-): AxiosResponse<R, E> {
+export function useAxios<R = any, E = any>(url: string | AxiosConfig, config?: AxiosConfig): AxiosResponse<R, E> {
 	let ctrl: AbortController | undefined;
 	const cancel = () => ctrl?.abort();
 	const state = reactive<AxiosOptionApiResult<R, E>>({
@@ -70,9 +65,7 @@ export function useAxios<R = any, E = any>(
 		error: null
 	});
 	const instance = getAxiosInstance();
-	const run = (
-		runConfig?: Partial<Pick<AxiosConfig, "params" | "data">>
-	): Promise<AxiosResponse<R, E>> => {
+	const run = (runConfig?: Partial<Pick<AxiosConfig, "params" | "data">>): Promise<AxiosResponse<R, E>> => {
 		state.loading = true;
 		const { cancelable, params, data, ...requestConfig } = getConfig(url, config);
 		const { params: runParams, data: runData } = runConfig || {};
