@@ -1,6 +1,6 @@
 <template>
 	<div class="ice-menu" :class="collapsed ? 'ice-menu_min-width' : 'ice-menu_max-width'">
-		<a-menu v-model:selectedKeys="state.selectedKeys" :inline-collapsed="collapsed" mode="inline" class="ice-menu-layout" :open-keys="state.openKeys" @open-change="onOpenChange">
+		<a-menu v-model:selectedKeys="state.selectedKeys" :inline-collapsed="collapsed" mode="inline" class="ice-menu-layout" :open-keys="state.openKeys" @click="menuItemClick" @open-change="onOpenChange">
 			<template v-for="item of menus">
 				<template v-if="item.children && item.children.length > 0">
 					<SubMenu :id="item.id" :key="item.id" :menu="item" />
@@ -25,37 +25,57 @@
 
 <script lang="ts" setup>
 import { reactive, ref, toRaw } from "vue";
-import { useMenuStore } from "@/store/index";
+import { useMenuStore, Menu } from "@/store/index";
 import SubMenu from "./sub-menu.vue";
+import { findTree } from "@/utils/index";
 import { HomeOutlined, RetweetOutlined } from "@ant-design/icons-vue";
+import router from "@/router";
+
+interface MenuItem {
+	key: string;
+	item: Menu;
+	keyPath: string[];
+}
 
 const store = useMenuStore();
 const menus = toRaw(store.getMenus);
 const collapsed = ref(false);
+
+// 获取有children的菜单项
+let rootSubmenuKeys = menus.filter((menu) => menu.children && menu.children.length > 0).map((menu) => menu.id);
+
 const state = reactive({
-	// 获取当前菜单所有key
-	rootSubmenuKeys: menus.filter((menu) => menu.children && menu.children.length > 0).map((menu) => menu.id),
-	openKeys: menus.map((item) => item.id),
+	openKeys: ["2"],
 	selectedKeys: []
 });
 
-const onOpenChange = (openKeys: string[]) => {
-	const latestOpenKey = openKeys.find((key) => state.openKeys.indexOf(key) === -1);
-	if (state.rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
-		state.openKeys = openKeys;
+const onOpenChange = (keys: string[]) => {
+	const latestOpenKey = keys.find((key) => state.openKeys.indexOf(key) === -1);
+
+	if (rootSubmenuKeys.indexOf(latestOpenKey + "") === -1) {
+		state.openKeys = keys;
 	} else {
 		state.openKeys = latestOpenKey ? [latestOpenKey] : [];
 	}
 };
 
-const switchCollapsed = function () {
+const switchCollapsed = () => {
 	collapsed.value = !collapsed.value;
 	store.updateCollapsed(collapsed.value);
+};
+
+const menuItemClick = (menuItem: MenuItem) => {
+	const id = menuItem.item.id;
+	const currMenu: Menu = findTree(menus, "children", (item: Menu) => item.id == id) || {};
+	router.push(currMenu.url || "/");
 };
 </script>
 
 <style lang="less">
 .ice-menu {
+	.ant-menu.ant-menu-inline-collapsed {
+		width: @ice-menu-min-width;
+	}
 	.ant-menu-inline .ant-menu-item,
 	.ant-menu-inline .ant-menu-submenu-title {
 		width: auto;
@@ -98,7 +118,7 @@ const switchCollapsed = function () {
 	.ice-menu-collapsed {
 		position: absolute;
 		bottom: 20px;
-		right: 25px;
+		right: 16px;
 		span {
 			font-size: 30px;
 			cursor: pointer;

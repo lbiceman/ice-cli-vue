@@ -4,7 +4,14 @@
 			<img :src="getUser.avator || defaultAvator" alt="" />
 		</div>
 		<div class="user-name">
-			<p>{{ getUser.name }}</p>
+			<a-dropdown>
+				<p class="user-name-dropdown-title">ikun-ckf</p>
+				<template #overlay>
+					<a-menu @click="dropdownClick">
+						<a-menu-item name="signout">退出</a-menu-item>
+					</a-menu>
+				</template>
+			</a-dropdown>
 		</div>
 	</div>
 </template>
@@ -13,9 +20,17 @@
 import { useUserStore } from "@/store/index";
 import { storeToRefs } from "pinia";
 import defaultAvator from "@/assets/images/user/kunkun-avator.png";
+import { useRouter } from "vue-router";
 
 const store = useUserStore();
 const { getUser } = storeToRefs(store);
+const router = useRouter();
+
+const dropdownClick = (item: any) => {
+	if (item.item.name == "signout") {
+		router.push("/login");
+	}
+};
 </script>
 
 <style lang="less" scoped>
@@ -34,6 +49,13 @@ const { getUser } = storeToRefs(store);
 	}
 	.user-name {
 		margin-left: 10px;
+		.user-name-dropdown-title {
+			cursor: pointer;
+			transition: @ice-transition;
+			&:hover {
+				color: @ice-primary-color;
+			}
+		}
 	}
 }
 </style>

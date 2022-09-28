@@ -8,7 +8,7 @@
 		</template>
 		<template v-for="v of menu.children" :key="v.id">
 			<SubMenu v-if="v.children && v.children.length > 0" :id="v.id" :key="v.id" :level="v.id" :menu="v" />
-			<a-menu-item v-else-if="v.name" :id="level + v.id" :key="level + v.id">
+			<a-menu-item v-else-if="v.name" :id="v.id" :key="v.id">
 				{{ v.name }}
 			</a-menu-item>
 		</template>

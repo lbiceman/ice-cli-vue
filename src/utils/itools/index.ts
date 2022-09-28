@@ -140,3 +140,20 @@ export const debounce = (callback: any, wait: number, state?: boolean) => {
 		}
 	};
 };
+
+export const findTree = (tree: any, child: string, callback: any) => {
+	if (!isArr(tree)) return;
+	let obj = {};
+	function findChild(list: any, child: string, callback: any) {
+		for (let i = 0; i < list.length; i++) {
+			if (callback(list[i])) {
+				obj = list[i];
+			}
+			if (list[i][child] && list[i][child].length > 0) {
+				findChild(list[i][child], child, callback);
+			}
+		}
+	}
+	findChild(tree, child, callback);
+	return obj;
+};

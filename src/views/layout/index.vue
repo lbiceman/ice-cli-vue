@@ -1,5 +1,5 @@
 <template>
-	<div class="layout">
+	<div class="ice-layout">
 		<div class="layout-header">
 			<Header />
 		</div>
@@ -20,7 +20,7 @@ import Menu from "@/components/layout/menu/index.vue";
 </script>
 
 <style lang="less" scoped>
-.layout {
+.ice-layout {
 	height: 100%;
 	.layout-content {
 		height: calc(@ice-page-height - @ice-header-height);

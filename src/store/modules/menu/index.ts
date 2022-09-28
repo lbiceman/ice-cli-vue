@@ -56,11 +56,6 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 						id: "22",
 						name: "菜单管理",
 						url: "/admin/menu"
-					},
-					{
-						id: "23",
-						name: "权限管理",
-						url: "/admin/root"
 					}
 				]
 			}
