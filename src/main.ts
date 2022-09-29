@@ -22,10 +22,12 @@ const iceApp = createApp(App);
 
 // 注册组件
 /**
- * 用到的组件需要先去register/index文件里边注册
- * 然后再去register/css文件里边引入css
+ * 由于项目里边会用到component动态组件。
+ * 使用  unplugin-vue-components/resolvers,unplugin-vue-components/vite（自动按需加载）会导致动态组件注册不上
+ * 所以这里使用手动按需加载
  *
- * 这样做是为了构建之后的依赖最小化
+ * 用到的组件需要先去componentRegister/index文件里边注册
+ * 然后再去componentRegister/css文件里边引入css
  */
 registerComponents(iceApp);
 
