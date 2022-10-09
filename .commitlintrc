@@ -58,6 +58,7 @@
 				"fix",
 				"docs",
 				"style",
+				"test",
 				"chore",
 				"perf",
 				"types",
@@ -99,11 +100,6 @@
 						"description": "不修改 src",
 						"title": "Chores",
 						"emoji": "♻️"
-					},
-					"revert": {
-						"description": "恢复",
-						"title": "Reverts",
-						"emoji": "🗑"
 					},
 					"perf": {
 						"description": "优化",
