@@ -58,6 +58,7 @@
 				"fix",
 				"docs",
 				"style",
+				"test",
 				"chore",
 				"perf",
 				"types",
@@ -77,12 +78,12 @@
 					},
 					"fix": {
 						"description": "修复 BUG",
-						"title": "Bug Fixes",
+						"title": "fix bug",
 						"emoji": "🐛"
 					},
 					"docs": {
 						"description": "更新文档",
-						"title": "Documentation",
+						"title": "update doc",
 						"emoji": "📚"
 					},
 					"style": {
@@ -99,11 +100,6 @@
 						"description": "不修改 src",
 						"title": "Chores",
 						"emoji": "♻️"
-					},
-					"revert": {
-						"description": "恢复",
-						"title": "Reverts",
-						"emoji": "🗑"
 					},
 					"perf": {
 						"description": "优化",
