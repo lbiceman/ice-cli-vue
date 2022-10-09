@@ -11,6 +11,8 @@
 const jumpToGithub = () => {
 	window.open("https://github.com/lbiceman/ikun-cli");
 };
+console.log("Welcome");
+// 测试代码合并
 </script>
 
 <style lang="less" scoped>
