@@ -1,5 +1,6 @@
 <template>
 	<div class="ice-index">
+		<h2>Welcome!</h2>
 		<h3>author: libing</h3>
 		<h3 @click="jumpToGithub">git: https://github.com/lbiceman/ikun-cli</h3>
 		<h3>email: lbiceman@126.com</h3>
@@ -19,6 +20,10 @@ const jumpToGithub = () => {
 	align-items: center;
 	flex-direction: column;
 	height: 100%;
+	h2 {
+		font-size: 18px;
+		font-weight: bold;
+	}
 	h3 {
 		cursor: pointer;
 		font-size: 16px;

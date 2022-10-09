@@ -31,7 +31,7 @@ const tableProps = computed(() => {
 <template>
 	<div class="ice-table-wrap">
 		<div ref="tableRef" class="ice-table">
-			<a-table v-bind="tableProps"> </a-table>
+			<a-table v-bind="tableProps"></a-table>
 		</div>
 	</div>
 </template>
