@@ -78,12 +78,12 @@
 					},
 					"fix": {
 						"description": "修复 BUG",
-						"title": "Bug Fixes",
+						"title": "fix bug",
 						"emoji": "🐛"
 					},
 					"docs": {
 						"description": "更新文档",
-						"title": "Documentation",
+						"title": "update doc",
 						"emoji": "📚"
 					},
 					"style": {
