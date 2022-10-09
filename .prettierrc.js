@@ -1,6 +1,6 @@
 module.exports = {
 	// 每行最多多少个字符换行
-	printWidth: 1000,
+	printWidth: 120,
 	// 指定每个缩进级别的空格数。默认为 4
 	tabWidth: 4,
 	// 用制表符而不是空格缩进行。
@@ -15,8 +15,8 @@ module.exports = {
 	trailingComma: "none",
 	// 在对象字面量中添加空格
 	bracketSpacing: true,
-	// 在(HTML,JSX,VUE,Angular)中,另起一行打印闭合标签 ">"
-	bracketSameLine: false,
+	// 在(HTML,JSX,VUE)中,另起一行打印闭合标签 ">"  false 是   true 否
+	bracketSameLine: true,
 	// 在唯一的箭头函数参数周围包括括号 [always,avoid]
 	arrowParens: "always",
 	// 默认情况下，Prettier 不会更改折价文本的包装，因为一些服务使用了一个对换行符敏感的渲染器，

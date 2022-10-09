@@ -4,7 +4,7 @@ export default { name: "IceTable" };
 
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { isFun, isStr, isObj } from "@/utils/index";
+// import { isFun, isStr, isObj } from "@/utils/index";
 
 const props = defineProps<{
 	table: any;
