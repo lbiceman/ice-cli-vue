@@ -1,7 +1,14 @@
 <template>
 	<div class="ice-login">
 		<div class="login-container">
-			<a-form class="login-form" :model="form" name="basic" :label-col="{ span: 6 }" :wrapper-col="{ span: 16 }" autocomplete="off" @finish="onFinish">
+			<a-form
+				class="login-form"
+				:model="form"
+				name="basic"
+				:label-col="{ span: 6 }"
+				:wrapper-col="{ span: 16 }"
+				autocomplete="off"
+				@finish="onFinish">
 				<a-form-item name="username" label="用户名" :rules="[{ required: true, message: '请填写用户名' }]">
 					<a-input v-model:value="form.username" />
 				</a-form-item>

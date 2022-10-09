@@ -6,8 +6,7 @@
 				shape: 'round',
 				size: 'large'
 			}"
-			button-text="找点乐子吧"
-		/>
+			button-text="找点乐子吧" />
 	</div>
 </template>
 
