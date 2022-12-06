@@ -7,16 +7,11 @@ import App from "./App.vue";
 import { createPinia } from "pinia";
 import { createApp } from "vue";
 import router from "./router";
-import { message } from "ant-design-vue";
 import loading from "./directive/loading/index";
 import { registerComponents } from "./componentRegister/index";
+import "@/config/antd/index";
 import "@/assets/style/reset.less";
-
-message.config({
-	top: `80px`,
-	duration: 2,
-	maxCount: 3
-});
+import "@/assets/style/common.less";
 
 const iceApp = createApp(App);
 

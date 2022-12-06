@@ -21,7 +21,10 @@ h6,
 form,
 fieldset,
 legend,
-img {
+img,
+input,
+button,
+textarea {
 	margin: 0;
 	padding: 0;
 }
@@ -31,19 +34,12 @@ img,
 input,
 button {
 	border: none;
-	padding: 0;
-	margin: 0;
 	outline-style: none;
 }
 
 ul,
 ol {
 	list-style: none;
-}
-
-input {
-	padding-top: 0;
-	padding-bottom: 0;
 }
 
 select,
@@ -56,10 +52,6 @@ input,
 textarea {
 	font-size: 14px;
 	margin: 0;
-}
-
-textarea {
-	resize: none;
 }
 
 /*防止拖动*/
@@ -79,12 +71,7 @@ body {
 }
 
 a {
-	color: #666;
 	text-decoration: none;
-}
-
-a:hover {
-	color: #c81623;
 }
 
 h1,
@@ -107,25 +94,5 @@ em {
 
 p {
 	display: inline-block;
-	margin: 0 !important;
-}
-
-/*公共类*/
-
-.fl {
-	float: left;
-}
-
-.fr {
-	float: right;
-}
-
-.clear {
-	display: block;
-	clear: both;
-}
-
-::selection {
-	background-color: #bbbbbb;
-	color: #ffffff;
+	margin: 0;
 }
