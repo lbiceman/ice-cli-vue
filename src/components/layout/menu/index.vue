@@ -31,12 +31,12 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, toRaw } from "vue";
+import { reactive, ref, toRaw, watchEffect } from "vue";
 import { useMenuStore, Menu } from "@/store/index";
 import SubMenu from "./sub-menu.vue";
 import { findTree } from "@/utils/index";
 import { HomeOutlined, RetweetOutlined } from "@ant-design/icons-vue";
-import router from "@/router";
+import { useRouter } from "vue-router";
 
 interface MenuItem {
 	key: string;
@@ -47,19 +47,46 @@ interface MenuItem {
 const store = useMenuStore();
 const menus = toRaw(store.getMenus);
 const collapsed = ref(false);
+const router = useRouter();
 
 // 获取有children的菜单项
-let rootSubmenuKeys = menus.filter((menu) => menu.children && menu.children.length > 0).map((menu) => menu.id);
+let allSubmenuKeys = menus.filter((menu) => menu.children && menu.children.length > 0).map((menu) => menu.id);
+
+const getCurrRoute = () => {
+	const path = router.currentRoute.value.path;
+	let openMenus: Menu[] = [];
+	let selectedMenu: Menu | undefined = {};
+
+	const findParentToChild = (list: Menu[]): Menu | undefined => {
+		for (let i = 0; i < list.length; i++) {
+			openMenus.push(list[i]);
+			const { url, children } = list[i];
+			if (children && children.length > 0) {
+				let r = findParentToChild(children);
+				if (r) return r;
+			} else if (url == path) return list[i];
+			openMenus.pop();
+		}
+	};
+	selectedMenu = findParentToChild(menus);
+
+	return {
+		openKeys: openMenus.map((item: Menu) => item.id),
+		selectedKeys: [selectedMenu ? selectedMenu.id : ""]
+	};
+};
+
+const { openKeys, selectedKeys } = getCurrRoute();
 
 const state = reactive({
-	openKeys: ["2"],
-	selectedKeys: []
+	openKeys,
+	selectedKeys
 });
 
 const onOpenChange = (keys: string[]) => {
 	const latestOpenKey = keys.find((key) => state.openKeys.indexOf(key) === -1);
 
-	if (rootSubmenuKeys.indexOf(latestOpenKey + "") === -1) {
+	if (allSubmenuKeys.indexOf(latestOpenKey + "") === -1) {
 		state.openKeys = keys;
 	} else {
 		state.openKeys = latestOpenKey ? [latestOpenKey] : [];

@@ -8,8 +8,15 @@
 		</template>
 		<template v-for="v of menu.children">
 			<SubMenu v-if="v.children && v.children.length > 0" :id="v.id" :key="v.id" :menu="v" />
-			<a-menu-item v-else-if="v.name" :id="v.id" :key="level + v.id">
-				{{ v.name }}
+			<a-menu-item v-else-if="v.name" :id="v.id" :key="v.id + ''">
+				<a-tooltip placement="top">
+					<template #title>
+						<span>{{ v.name }}</span>
+					</template>
+					<span>
+						{{ v.name }}
+					</span>
+				</a-tooltip>
 			</a-menu-item>
 		</template>
 	</a-sub-menu>
@@ -26,10 +33,10 @@ import { Menu } from "@/store/index";
 const props = withDefaults(
 	defineProps<{
 		menu: Menu;
-		level: string;
+		// level: string;
 	}>(),
 	{
-		level: "1"
+		// level: "1"
 	}
 );
 </script>

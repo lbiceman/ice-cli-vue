@@ -30,11 +30,11 @@ console.log("Welcome");
 	min-height: 100%;
 	background-color: #fff;
 	padding: 20px;
-	border-radius: 3px;
+	border-radius: @ice-border-radius;
 	.ice-index-welcome {
 		line-height: 50px;
 		font-size: 36px;
-		background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(@ice-primary-color), to(#15e5f0));
+		background-image: -webkit-gradient(linear, 100 200, 0 bottom, from(@ice-primary-color), to(#1ceac6));
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}

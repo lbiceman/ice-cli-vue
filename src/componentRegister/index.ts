@@ -13,7 +13,8 @@ import {
 	Dropdown,
 	Table,
 	Descriptions,
-	DescriptionsItem
+	DescriptionsItem,
+	Tooltip
 } from "ant-design-vue";
 import "./css";
 
@@ -31,7 +32,8 @@ const components: Component[] = [
 	Dropdown,
 	Table,
 	Descriptions,
-	DescriptionsItem
+	DescriptionsItem,
+	Tooltip
 ];
 
 export const registerComponents = (app: App): App => {

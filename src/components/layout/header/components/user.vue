@@ -5,7 +5,7 @@
 		</div>
 		<div class="user-name">
 			<a-dropdown>
-				<p class="user-name-dropdown-title">ikun-ckf</p>
+				<p class="user-name-dropdown-title">{{ getUser.name }}</p>
 				<template #overlay>
 					<a-menu @click="dropdownClick">
 						<a-menu-item name="signout">退出</a-menu-item>
