@@ -21,15 +21,15 @@ import Menu from "@/components/layout/menu/index.vue";
 
 <style lang="less" scoped>
 .ice-layout {
-	height: 100%;
+	min-height: 100%;
 	.layout-content {
-		height: calc(@ice-page-height - @ice-header-height);
+		min-height: calc(@ice-page-height - @ice-header-height);
 		display: flex;
 	}
 	.layout-content-main {
 		width: 100%;
-		background-color: #f0f0f0;
-		padding: 20px;
+		background-color: #f6f6f6;
+		padding: 10px;
 	}
 }
 </style>

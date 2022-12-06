@@ -10,7 +10,8 @@ import {
 	Form,
 	FormItem,
 	InputPassword,
-	Dropdown
+	Dropdown,
+	Table
 } from "ant-design-vue";
 import "./css";
 
@@ -25,7 +26,8 @@ const components: Component[] = [
 	Form,
 	FormItem,
 	InputPassword,
-	Dropdown
+	Dropdown,
+	Table
 ];
 
 export const registerComponents = (app: App): App => {

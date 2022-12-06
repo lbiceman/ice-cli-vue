@@ -6,7 +6,7 @@
 import { defineStore } from "pinia";
 
 export interface Menu {
-	id?: string;
+	id: string;
 	name?: string;
 	url?: string;
 	children?: Menu[];

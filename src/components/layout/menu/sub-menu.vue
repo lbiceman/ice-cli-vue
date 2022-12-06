@@ -6,9 +6,9 @@
 		<template #title>
 			{{ menu.name }}
 		</template>
-		<template v-for="v of menu.children" :key="v.id">
-			<SubMenu v-if="v.children && v.children.length > 0" :id="v.id" :key="v.id" :level="v.id" :menu="v" />
-			<a-menu-item v-else-if="v.name" :id="v.id" :key="v.id">
+		<template v-for="v of menu.children">
+			<SubMenu v-if="v.children && v.children.length > 0" :id="v.id" :key="v.id" :menu="v" />
+			<a-menu-item v-else-if="v.name" :id="v.id" :key="level + v.id">
 				{{ v.name }}
 			</a-menu-item>
 		</template>
@@ -21,14 +21,15 @@ export default { name: "SubMenu" };
 
 <script lang="ts" setup>
 import { OrderedListOutlined } from "@ant-design/icons-vue";
-defineProps({
-	menu: {
-		type: Object,
-		default: () => {}
-	},
-	level: {
-		type: String,
-		default: "1"
+import { Menu } from "@/store/index";
+
+const props = withDefaults(
+	defineProps<{
+		menu: Menu;
+		level: string;
+	}>(),
+	{
+		level: "1"
 	}
-});
+);
 </script>

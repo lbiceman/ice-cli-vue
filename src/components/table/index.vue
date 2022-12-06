@@ -4,20 +4,24 @@ export default { name: "IceTable" };
 
 <script lang="ts" setup>
 import { computed, ref } from "vue";
+import { IceTableProps } from "./type";
 // import { isFun, isStr, isObj } from "@/utils/index";
 
-const props = defineProps<{
-	table: any;
-}>();
+const props = withDefaults(
+	defineProps<{
+		table: IceTableProps;
+	}>(),
+	{}
+);
 
 const tableRef = ref(null);
 
-const tableProps = computed(() => {
+const tableProps = computed((): IceTableProps => {
 	return Object.assign({ bordered: true }, props.table ?? {}, {
 		pagination: {
 			hideOnSinglePage: true,
-			defaultPageSize: 20,
-			position: ["bottomRight"],
+			defaultPageSize: 15,
+			position: ["bottomLeft"],
 			showQuickJumper: true,
 			showLessItems: true,
 			showSizeChanger: true,
@@ -46,16 +50,11 @@ const tableProps = computed(() => {
 	border-radius: 6px;
 	display: flex;
 	flex-direction: column;
-
 	.ice-table {
 		flex: 1;
 		overflow: hidden;
 		margin-top: 12px;
 		background-color: #fff;
-
-		:deep(.ant-table-wrapper) {
-			height: 100%;
-		}
 	}
 }
 </style>

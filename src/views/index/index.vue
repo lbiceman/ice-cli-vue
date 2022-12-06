@@ -21,7 +21,7 @@ console.log("Welcome");
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	height: 100%;
+	min-height: 100%;
 	h2 {
 		font-size: 18px;
 		font-weight: bold;
