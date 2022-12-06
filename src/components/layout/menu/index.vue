@@ -57,18 +57,18 @@ const getCurrRoute = () => {
 	let openMenus: Menu[] = [];
 	let selectedMenu: Menu | undefined = {};
 
-	const findParentToChild = (list: Menu[]): Menu | undefined => {
+	const findParentChain = (list: Menu[]): Menu | undefined => {
 		for (let i = 0; i < list.length; i++) {
 			openMenus.push(list[i]);
 			const { url, children } = list[i];
 			if (children && children.length > 0) {
-				let r = findParentToChild(children);
+				let r = findParentChain(children);
 				if (r) return r;
 			} else if (url == path) return list[i];
 			openMenus.pop();
 		}
 	};
-	selectedMenu = findParentToChild(menus);
+	selectedMenu = findParentChain(menus);
 
 	return {
 		openKeys: openMenus.map((item: Menu) => item.id),
