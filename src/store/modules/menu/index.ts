@@ -39,21 +39,26 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 			},
 			{
 				id: "2",
+				name: "特殊页",
+				url: "/404"
+			},
+			{
+				id: "9",
 				name: "系统管理",
 				url: "/admin",
 				children: [
 					{
-						id: "20",
+						id: "90",
 						name: "角色管理",
 						url: "/admin/role"
 					},
 					{
-						id: "21",
+						id: "91",
 						name: "用户管理",
 						url: "/admin/user"
 					},
 					{
-						id: "22",
+						id: "92",
 						name: "菜单管理",
 						url: "/admin/menu"
 					}

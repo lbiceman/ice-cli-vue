@@ -1,3 +1,8 @@
+<script lang="ts" setup>
+import Header from "@/components/layout/header/index.vue";
+import Menu from "@/components/layout/menu/index.vue";
+</script>
+
 <template>
 	<div class="ice-layout">
 		<div class="layout-header">
@@ -13,11 +18,6 @@
 		</div>
 	</div>
 </template>
-
-<script lang="ts" setup>
-import Header from "@/components/layout/header/index.vue";
-import Menu from "@/components/layout/menu/index.vue";
-</script>
 
 <style lang="less" scoped>
 .ice-layout {

@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, toRaw, watchEffect } from "vue";
+import { reactive, ref, toRaw } from "vue";
 import { useMenuStore, Menu } from "@/store/index";
 import SubMenu from "./sub-menu.vue";
 import { findTree } from "@/utils/index";

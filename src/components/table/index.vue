@@ -17,10 +17,10 @@ const props = withDefaults(
 const tableRef = ref(null);
 
 const tableProps = computed((): IceTableProps => {
-	return Object.assign({ bordered: true }, props.table ?? {}, {
+	return Object.assign({ bordered: true }, props.table || {}, {
 		pagination: {
 			hideOnSinglePage: true,
-			defaultPageSize: 15,
+			defaultPageSize: 10,
 			position: ["bottomLeft"],
 			showQuickJumper: true,
 			showLessItems: true,
@@ -42,19 +42,13 @@ const tableProps = computed((): IceTableProps => {
 
 <style lang="less" scoped>
 .ice-table-wrap {
-	flex: 1;
 	overflow: hidden;
 	padding: 12px;
 	background-color: #fff;
-	margin-top: 20px;
-	border-radius: 6px;
-	display: flex;
-	flex-direction: column;
+	border-radius: @ice-border-radius;
 	.ice-table {
 		flex: 1;
 		overflow: hidden;
-		margin-top: 12px;
-		background-color: #fff;
 	}
 }
 </style>
