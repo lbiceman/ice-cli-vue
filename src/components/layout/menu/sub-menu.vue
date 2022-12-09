@@ -6,7 +6,7 @@ export default { name: "SubMenu" };
 import { OrderedListOutlined } from "@ant-design/icons-vue";
 import { Menu } from "@/store/index";
 
-const props = withDefaults(
+withDefaults(
 	defineProps<{
 		menu: Menu;
 		// level: string;

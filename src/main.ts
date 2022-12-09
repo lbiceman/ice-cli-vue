@@ -15,7 +15,6 @@ import "@/assets/style/common.less";
 
 const iceApp = createApp(App);
 
-// 注册组件
 /**
  * 由于项目里边会用到component动态组件。
  * 使用  unplugin-vue-components/resolvers,unplugin-vue-components/vite（自动按需加载）会导致动态组件注册不上

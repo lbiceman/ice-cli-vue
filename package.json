@@ -15,7 +15,7 @@
 		"@ant-design/icons-vue": "^6.1.0",
 		"@vueuse/components": "^8.9.4",
 		"@vueuse/core": "^8.9.4",
-		"ant-design-vue": "^3.2.10",
+		"ant-design-vue": "^3.2.14",
 		"axios": "^0.27.2",
 		"dayjs": "^1.11.4",
 		"pinia": "^2.0.16",

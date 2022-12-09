@@ -15,6 +15,7 @@ const form = reactive<Form>({
 });
 
 const onFinish = (val: Form) => {
+	console.log(val);
 	router.push("/index");
 };
 </script>

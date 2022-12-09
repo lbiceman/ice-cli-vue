@@ -21,7 +21,7 @@ const { getCollapsed } = storeToRefs(store);
 	justify-content: center;
 	height: 100%;
 	font-size: 16px;
-	color: #555;
+	color: @ice-font-color;
 	transition: @ice-transition;
 	overflow: hidden;
 	p {
