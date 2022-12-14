@@ -128,8 +128,6 @@ const tableChange = (pagination: TablePaginationConfig, filters: ColumnFilterIte
 };
 
 const rowSelection = ref<TableRowSelection>({
-	// 子级是否与父级关联（子级选中父级会拥有半选状态）
-	// false 管理   true 不关联
 	checkStrictly: false,
 	onChange: (selectedRowKeys: (string | number)[], selectedRows: any[]) => {
 		console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
