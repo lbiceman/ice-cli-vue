@@ -1,9 +1,14 @@
 <script lang="ts" setup>
 import IceTable from "@/components/iceTable/index.vue";
 import { computed, ref } from "vue";
-import { TablePaginationConfig } from "ant-design-vue/es/table/interface";
+import {
+	TablePaginationConfig,
+	SorterResult,
+	TableRowSelection,
+	ColumnFilterItem
+} from "ant-design-vue/es/table/interface";
 
-let tableList = [
+let tableList = ref([
 	{
 		id: 1,
 		name: "小明",
@@ -17,19 +22,19 @@ let tableList = [
 		age: 18,
 		children: [
 			{
-				id: 3,
+				id: 21,
 				name: "小花1",
-				key: 3,
+				key: 20,
 				age: 10,
 				children: [
 					{
-						id: 4,
+						id: 201,
 						name: "小花1-1",
 						key: 4,
 						age: 1
 					},
 					{
-						id: 5,
+						id: 202,
 						name: "小花1-2",
 						key: 5,
 						age: 1
@@ -39,14 +44,14 @@ let tableList = [
 			{
 				id: 6,
 				name: "小花2",
-				key: 6,
+				key: 21,
 				age: 10,
 				children: [
 					{
 						id: 7,
 						name: "小花2-1",
-						key: 7,
-						age: 1
+						key: 210,
+						age: 21
 					}
 				]
 			}
@@ -55,23 +60,23 @@ let tableList = [
 	{
 		id: 8,
 		name: "小杨",
-		key: 8,
+		key: 3,
 		age: 18,
 		children: [
 			{
 				id: 9,
 				name: "小杨1",
-				key: 9,
+				key: 30,
 				age: 10,
 				children: [
 					{
-						id: 10,
+						id: 301,
 						name: "小杨1-1",
 						key: 10,
 						age: 1
 					},
 					{
-						id: 11,
+						id: 302,
 						name: "小杨1-2",
 						key: 11,
 						age: 1
@@ -81,53 +86,72 @@ let tableList = [
 			{
 				id: 12,
 				name: "小杨2",
-				key: 12,
+				key: 31,
 				age: 10,
 				children: [
 					{
 						id: 13,
 						name: "小杨2-1",
-						key: 13,
+						key: 310,
 						age: 1
 					}
 				]
 			}
 		]
 	}
-];
+]);
 
-const tableChange = (pagination: TablePaginationConfig) => {
-	console.log(pagination);
-};
+let columns = [
+	{
+		title: "序号",
+		dataIndex: "iceSque"
+	},
+	{
+		title: "名字",
+		dataIndex: "name"
+	},
+	{
+		title: "年龄",
+		sorter: true,
+		dataIndex: "age"
+	},
+	{
+		title: "操作",
+		dataIndex: "iceOperate"
+	}
+];
 
 const loading = ref(true);
 
+const tableChange = (pagination: TablePaginationConfig, filters: ColumnFilterItem, sorter: SorterResult) => {
+	console.log(pagination, filters, sorter.order);
+};
+
+const rowSelection = ref<TableRowSelection>({
+	// 子级是否与父级关联（子级选中父级会拥有半选状态）
+	// false 管理   true 不关联
+	checkStrictly: false,
+	onChange: (selectedRowKeys: (string | number)[], selectedRows: any[]) => {
+		console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
+	},
+	onSelect: (record: any, selected: boolean, selectedRows: any[]) => {
+		console.log(record, selected, selectedRows);
+	},
+	onSelectAll: (selected: boolean, selectedRows: any[], changeRows: any[]) => {
+		console.log(selected, selectedRows, changeRows);
+	}
+});
+
 setTimeout(() => {
 	loading.value = false;
-}, 1000);
+}, 2000);
 
 const tableConfig = computed(() => ({
 	onChange: tableChange,
+	columns,
+	rowSelection: rowSelection.value,
 	loading: loading.value,
-	columns: [
-		{
-			title: "序号",
-			dataIndex: "iceSque"
-		},
-		{
-			title: "名字",
-			dataIndex: "name"
-		},
-		{
-			title: "年龄",
-			dataIndex: "age"
-		},
-		{
-			title: "操作",
-			dataInde: "iceOperate"
-		}
-	],
-	dataSource: tableList
+	dataSource: tableList.value
 }));
 </script>
 

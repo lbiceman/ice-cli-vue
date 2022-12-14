@@ -1,19 +1,20 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { IceTableProps } from "./type";
+import { TableProps } from "ant-design-vue/lib/table";
+
 // import { CaretRightOutlined, CaretDownOutlined } from "@ant-design/icons-vue";
 
 // import { isFun, isStr, isObj } from "@/utils/index";
 const props = withDefaults(
 	defineProps<{
-		config: IceTableProps;
+		config: TableProps;
 	}>(),
 	{}
 );
 
 const tableRef = ref(null);
 
-const finalConfig = computed((): IceTableProps => {
+const finalConfig = computed(() => {
 	let config = Object.assign(props.config || {}, {
 		brdered: false,
 		pagination: {
@@ -27,6 +28,8 @@ const finalConfig = computed((): IceTableProps => {
 			...(props.config?.pagination || {})
 		}
 	});
+	console.log(config);
+
 	return config;
 });
 </script>

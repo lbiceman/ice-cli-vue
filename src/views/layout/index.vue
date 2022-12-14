@@ -28,7 +28,7 @@ import Menu from "@/components/layout/menu/index.vue";
 	}
 	.layout-content-main {
 		width: 100%;
-		background-color: #f6f6f6;
+		background-color: #f8f8f8;
 		padding: 10px;
 	}
 }

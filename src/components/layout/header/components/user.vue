@@ -9,7 +9,7 @@ const { getUser } = storeToRefs(store);
 const router = useRouter();
 
 const dropdownClick = (item: any) => {
-	if (item.name == "signout") {
+	if (item.item.name == "signout") {
 		router.push("/login");
 	}
 };

@@ -13,3 +13,5 @@ import "ant-design-vue/es/table/style/index.less";
 import "ant-design-vue/es/pagination/style/index.less";
 import "ant-design-vue/es/descriptions/style/index.less";
 import "ant-design-vue/es/tooltip/style/index.less";
+import "ant-design-vue/es/spin/style/index.less";
+import "ant-design-vue/es/checkbox/style/index.less";

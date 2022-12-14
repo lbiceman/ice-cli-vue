@@ -15,7 +15,9 @@ import {
 	Table,
 	Descriptions,
 	DescriptionsItem,
-	Tooltip
+	Tooltip,
+	Spin,
+	Checkbox
 } from "ant-design-vue";
 
 import { HomeOutlined, WarningOutlined, OrderedListOutlined } from "@ant-design/icons-vue";
@@ -38,7 +40,9 @@ const components: Component[] = [
 	Table,
 	Descriptions,
 	DescriptionsItem,
-	Tooltip
+	Tooltip,
+	Spin,
+	Checkbox
 ];
 
 // 图标注册
