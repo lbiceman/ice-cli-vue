@@ -60,7 +60,7 @@ const onFinish = (val: Form) => {
 		align-items: center;
 		justify-content: center;
 		background-color: rgba(255, 255, 255, 0.76);
-		border: 1px solid #d5d5d5;
+		border: 1px solid @ice-border-color;
 		padding: 50px 20px;
 		border-radius: @ice-border-radius;
 		.login-form {

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import { IceTableProps } from "./type";
+// import { CaretRightOutlined, CaretDownOutlined } from "@ant-design/icons-vue";
 
 // import { isFun, isStr, isObj } from "@/utils/index";
-
 const props = withDefaults(
 	defineProps<{
 		config: IceTableProps;
@@ -11,16 +11,11 @@ const props = withDefaults(
 	{}
 );
 
-const defaultTableOptions = computed(() => ({
-	bordered: false
-}));
-
 const tableRef = ref(null);
 
 const finalConfig = computed((): IceTableProps => {
-	console.log(props.config);
-
-	let config = Object.assign(defaultTableOptions.value, props.config || {}, {
+	let config = Object.assign(props.config || {}, {
+		brdered: false,
 		pagination: {
 			hideOnSinglePage: false,
 			defaultPageSize: 10,
@@ -38,7 +33,13 @@ const finalConfig = computed((): IceTableProps => {
 
 <template>
 	<div class="ice-table">
-		<a-table ref="tableRef" v-bind="finalConfig"> </a-table>
+		<a-table ref="tableRef" v-bind="finalConfig">
+			<!-- <template #expandIcon="s">
+			</template> -->
+			<template #bodyCell="{ record, column }">
+				{{ record[column.dataIndex] }}
+			</template>
+		</a-table>
 	</div>
 </template>
 
@@ -47,8 +48,14 @@ const finalConfig = computed((): IceTableProps => {
 .ant-table-tbody > tr > td,
 .ant-table tfoot > tr > th,
 .ant-table tfoot > tr > td {
-	padding: 10px 16px;
+	padding: 10px;
 	color: @ice-font-color;
+}
+.ant-table-thead > tr > th {
+	background-color: @ice-bg-color;
+	border-bottom: 1px solid #eee;
+	font-weight: bold;
+	color: #888;
 }
 </style>
 
@@ -56,7 +63,7 @@ const finalConfig = computed((): IceTableProps => {
 .ice-table {
 	overflow: hidden;
 	padding: 12px;
-	background-color: #fff;
+	background-color: @ice-bg-color;
 	border-radius: @ice-border-radius;
 }
 </style>

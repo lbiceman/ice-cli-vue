@@ -1,15 +1,21 @@
 <script lang="ts" setup>
 import { useMenuStore } from "@/store/index";
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 
 const store = useMenuStore();
 const { getCollapsed } = storeToRefs(store);
+const router = useRouter();
+
+const goHome = () => {
+	router.push("/index");
+};
 </script>
 
 <template>
-	<div class="ice-logo" :class="getCollapsed ? 'ice-logo_min-width' : 'ice-logo_max-width'">
+	<div class="ice-logo" :class="getCollapsed ? 'ice-logo_min-width' : 'ice-logo_max-width'" @click="goHome">
 		<p>
-			{{ getCollapsed ? "IKUN" : "IKUN-CLI(IKUN)" }}
+			{{ getCollapsed ? "ICE" : "ICE-CLI(ICE)" }}
 		</p>
 	</div>
 </template>
@@ -24,6 +30,7 @@ const { getCollapsed } = storeToRefs(store);
 	color: @ice-font-color;
 	transition: @ice-transition;
 	overflow: hidden;
+	cursor: pointer;
 	p {
 		white-space: nowrap;
 	}

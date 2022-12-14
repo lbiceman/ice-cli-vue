@@ -3,24 +3,20 @@ export default { name: "SubMenu" };
 </script>
 
 <script lang="ts" setup>
-import { OrderedListOutlined } from "@ant-design/icons-vue";
 import { Menu } from "@/store/index";
 
 withDefaults(
 	defineProps<{
 		menu: Menu;
-		// level: string;
 	}>(),
-	{
-		// level: "1"
-	}
+	{}
 );
 </script>
 
 <template>
 	<a-sub-menu :key="menu.id">
 		<template #icon>
-			<OrderedListOutlined />
+			<component :is="menu.icon || 'HomeOutlined'"> </component>
 		</template>
 		<template #title>
 			{{ menu.name }}

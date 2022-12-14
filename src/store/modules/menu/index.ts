@@ -9,6 +9,7 @@ export interface Menu {
 	id?: string;
 	name?: string;
 	url?: string;
+	icon?: string;
 	children?: Menu[];
 }
 
@@ -35,17 +36,20 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 			{
 				id: "1",
 				name: "首页",
-				url: "/index"
+				url: "/index",
+				icon: "HomeOutlined"
 			},
 			{
 				id: "2",
 				name: "特殊页",
-				url: "/404"
+				url: "/404",
+				icon: "WarningOutlined"
 			},
 			{
 				id: "9",
 				name: "系统管理",
 				url: "/admin",
+				icon: "OrderedListOutlined",
 				children: [
 					{
 						id: "90",

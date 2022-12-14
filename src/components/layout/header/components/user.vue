@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useUserStore } from "@/store/index";
 import { storeToRefs } from "pinia";
-import defaultAvator from "@/assets/images/user/kunkun-avator.png";
+import defaultAvator from "@/assets/images/user/user-icon.jpg";
 import { useRouter } from "vue-router";
 
 const store = useUserStore();
@@ -9,7 +9,7 @@ const { getUser } = storeToRefs(store);
 const router = useRouter();
 
 const dropdownClick = (item: any) => {
-	if (item.item.name == "signout") {
+	if (item.name == "signout") {
 		router.push("/login");
 	}
 };

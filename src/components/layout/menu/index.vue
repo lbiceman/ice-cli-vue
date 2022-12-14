@@ -1,48 +1,11 @@
-<template>
-	<div class="ice-menu" :class="collapsed ? 'ice-menu_min-width' : 'ice-menu_max-width'">
-		<a-menu
-			v-model:selectedKeys="state.selectedKeys"
-			:inline-collapsed="collapsed"
-			mode="inline"
-			class="ice-menu-layout"
-			:open-keys="state.openKeys"
-			@click="menuItemClick"
-			@open-change="onOpenChange">
-			<template v-for="item of menus">
-				<template v-if="item.children && item.children.length > 0">
-					<SubMenu :id="item.id" :key="item.id" :menu="item" />
-				</template>
-				<template v-else-if="item.name">
-					<a-menu-item :id="item.id" :key="item.id">
-						<template #icon>
-							<HomeOutlined />
-						</template>
-						{{ item.name }}
-					</a-menu-item>
-				</template>
-			</template>
-		</a-menu>
-		<div class="ice-menu-collapsed">
-			<span @click="switchCollapsed">
-				<RetweetOutlined />
-			</span>
-		</div>
-	</div>
-</template>
-
 <script lang="ts" setup>
 import { reactive, ref, toRaw } from "vue";
 import { useMenuStore, Menu } from "@/store/index";
 import SubMenu from "./sub-menu.vue";
 import { findTree } from "@/utils/index";
-import { HomeOutlined, RetweetOutlined } from "@ant-design/icons-vue";
+import { RetweetOutlined } from "@ant-design/icons-vue";
 import { useRouter } from "vue-router";
-
-interface MenuItem {
-	key: string;
-	item: Menu;
-	keyPath: string[];
-}
+import { MenuItem } from "./type";
 
 const store = useMenuStore();
 const menus = toRaw(store.getMenus);
@@ -104,6 +67,38 @@ const menuItemClick = (menuItem: MenuItem) => {
 	router.push(currMenu.url || "/");
 };
 </script>
+
+<template>
+	<div class="ice-menu" :class="collapsed ? 'ice-menu_min-width' : 'ice-menu_max-width'">
+		<a-menu
+			v-model:selectedKeys="state.selectedKeys"
+			:inline-collapsed="collapsed"
+			mode="inline"
+			class="ice-menu-layout"
+			:open-keys="state.openKeys"
+			@click="menuItemClick"
+			@open-change="onOpenChange">
+			<template v-for="item of menus">
+				<template v-if="item.children && item.children.length > 0">
+					<SubMenu :id="item.id" :key="item.id" :menu="item" />
+				</template>
+				<template v-else-if="item.name">
+					<a-menu-item :id="item.id" :key="item.id">
+						<template #icon>
+							<component :is="item.icon || 'HomeOutlined'"> </component>
+						</template>
+						{{ item.name }}
+					</a-menu-item>
+				</template>
+			</template>
+		</a-menu>
+		<div class="ice-menu-collapsed">
+			<span @click="switchCollapsed">
+				<RetweetOutlined />
+			</span>
+		</div>
+	</div>
+</template>
 
 <style lang="less">
 .ice-menu {
