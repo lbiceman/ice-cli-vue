@@ -15,3 +15,7 @@ import "ant-design-vue/es/descriptions/style/index.less";
 import "ant-design-vue/es/tooltip/style/index.less";
 import "ant-design-vue/es/spin/style/index.less";
 import "ant-design-vue/es/checkbox/style/index.less";
+import "ant-design-vue/es/tag/style/index.less";
+import "ant-design-vue/es/progress/style/index.less";
+import "ant-design-vue/es/popover/style/index.less";
+import "ant-design-vue/es/space/style/index.less";

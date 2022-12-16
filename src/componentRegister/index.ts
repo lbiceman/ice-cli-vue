@@ -17,10 +17,14 @@ import {
 	DescriptionsItem,
 	Tooltip,
 	Spin,
-	Checkbox
+	Tag,
+	Progress,
+	Checkbox,
+	Popover,
+	Space
 } from "ant-design-vue";
 
-import { HomeOutlined, WarningOutlined, OrderedListOutlined } from "@ant-design/icons-vue";
+import { HomeOutlined, WarningOutlined, OrderedListOutlined, DeleteOutlined } from "@ant-design/icons-vue";
 
 import "./css";
 
@@ -42,14 +46,19 @@ const components: Component[] = [
 	DescriptionsItem,
 	Tooltip,
 	Spin,
-	Checkbox
+	Tag,
+	Progress,
+	Popover,
+	Checkbox,
+	Space
 ];
 
 // 图标注册
 const iconComponents: IconComponents = {
 	HomeOutlined,
 	WarningOutlined,
-	OrderedListOutlined
+	OrderedListOutlined,
+	DeleteOutlined
 };
 
 export const registerComponents = (app: App): App => {

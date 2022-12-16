@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import { TableProps } from "ant-design-vue/lib/table";
+import IceTableCol from "./iceTableCol.vue";
 
 // import { CaretRightOutlined, CaretDownOutlined } from "@ant-design/icons-vue";
 
-// import { isFun, isStr, isObj } from "@/utils/index";
 const props = withDefaults(
 	defineProps<{
 		config: TableProps;
@@ -15,19 +15,23 @@ const props = withDefaults(
 const tableRef = ref(null);
 
 const finalConfig = computed(() => {
-	let config = Object.assign(props.config || {}, {
-		brdered: false,
-		pagination: {
-			hideOnSinglePage: false,
-			defaultPageSize: 10,
-			position: ["bottomLeft"],
-			showQuickJumper: true,
-			showLessItems: true,
-			showSizeChanger: true,
-			showTotal: (total: number) => `共 ${total} 条记录`,
-			...(props.config?.pagination || {})
-		}
-	});
+	let config = Object.assign(
+		{
+			brdered: false,
+			pagination: {
+				hideOnSinglePage: false,
+				defaultPageSize: 10,
+				position: ["bottomLeft"],
+				showQuickJumper: true,
+				showLessItems: true,
+				showSizeChanger: true,
+				showTotal: (total: number) => `共 ${total} 条记录`,
+				...(props.config?.pagination || {})
+			}
+		},
+		props.config || {}
+	);
+
 	console.log(config);
 
 	return config;
@@ -39,8 +43,8 @@ const finalConfig = computed(() => {
 		<a-table ref="tableRef" v-bind="finalConfig">
 			<!-- <template #expandIcon="s">
 			</template> -->
-			<template #bodyCell="{ record, column }">
-				{{ record[column.dataIndex] }}
+			<template #bodyCell="{ text, column, record, index }">
+				<IceTableCol :render-props="{ text, column, record, index }" />
 			</template>
 		</a-table>
 	</div>
@@ -59,6 +63,7 @@ const finalConfig = computed(() => {
 	border-bottom: 1px solid #eee;
 	font-weight: bold;
 	color: #888;
+	background-color: #fbfbfb;
 }
 </style>
 
