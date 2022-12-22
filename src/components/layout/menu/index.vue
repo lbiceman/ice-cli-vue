@@ -116,7 +116,9 @@ const menuItemClick = (menuItem: MenuItem) => {
 		color: @ice-primary-color;
 	}
 	.ant-menu-inline .ant-menu-item::after {
-		border-right: 3px solid @ice-primary-color;
+		border-right: 6px solid @ice-primary-color;
+		border-bottom-left-radius: @ice-border-radius;
+		border-top-left-radius: @ice-border-radius;
 	}
 	.ant-menu-light .ant-menu-item:hover {
 		color: @ice-primary-color;

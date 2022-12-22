@@ -32,8 +32,6 @@ const finalConfig = computed(() => {
 		props.config || {}
 	);
 
-	console.log(config);
-
 	return config;
 });
 </script>
@@ -43,8 +41,8 @@ const finalConfig = computed(() => {
 		<a-table ref="tableRef" v-bind="finalConfig">
 			<!-- <template #expandIcon="s">
 			</template> -->
-			<template #bodyCell="{ text, column, record, index }">
-				<IceTableCol :render-props="{ text, column, record, index }" />
+			<template #bodyCell="p">
+				<IceTableCol :render-props="p" />
 			</template>
 		</a-table>
 	</div>

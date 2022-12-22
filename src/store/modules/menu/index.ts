@@ -40,10 +40,10 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 				icon: "HomeOutlined"
 			},
 			{
-				id: "2",
-				name: "特殊页",
-				url: "/404",
-				icon: "WarningOutlined"
+				id: "3",
+				name: "主页",
+				url: "/home",
+				icon: "HomeOutlined"
 			},
 			{
 				id: "9",
@@ -67,6 +67,12 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 						url: "/admin/menu"
 					}
 				]
+			},
+			{
+				id: "2",
+				name: "特殊页",
+				url: "/404",
+				icon: "WarningOutlined"
 			}
 		]
 	}),

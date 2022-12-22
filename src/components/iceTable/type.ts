@@ -5,6 +5,8 @@ import type { TransformCellTextProps } from "ant-design-vue/es/table/interface";
 export interface Render {
 	component?: string | Component;
 	props?: (props: IceCellProps) => void;
+	text?: (props: IceCellProps) => void;
+	slot?: string;
 	render?: Render | Render[] | string[];
 }
 

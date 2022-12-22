@@ -42,9 +42,9 @@ const dropdownClick = (item: any) => {
 	justify-content: right;
 	.user-avator {
 		img {
-			width: 40px;
-			height: 40px;
-			border-radius: 50%;
+			width: 36px;
+			height: 36px;
+			border-radius: @ice-border-radius;
 		}
 	}
 	.user-name {

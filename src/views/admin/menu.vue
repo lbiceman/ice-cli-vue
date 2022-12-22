@@ -10,7 +10,7 @@ import {
 	TableCurrentDataSource
 } from "ant-design-vue/es/table/interface";
 import IceTable from "@/components/iceTable/index.vue";
-import { IceColumn, IceCellProps } from "@/components/iceTable/type";
+import { IceColumn } from "@/components/iceTable/type";
 
 interface DataItem {
 	id?: number;
@@ -142,7 +142,7 @@ let columns: IceColumn[] = [
 	{
 		title: "序号",
 		width: "100px",
-		type: "iceSque"
+		dataIndex: "sque"
 	},
 	{
 		title: "个人信息",
@@ -200,14 +200,20 @@ let columns: IceColumn[] = [
 		render: [
 			{
 				component: "a-button",
-				render: ["编辑"],
 				props: ({ record }) => ({
 					type: "link",
 					onClick: () => {
-						message.success("编辑");
-						console.log("update", record);
+						message.error("delete", record);
 					}
-				})
+				}),
+				render: {
+					component: "template",
+					slot: "icon",
+					text: () => "删除",
+					render: {
+						component: "DeleteOutlined"
+					}
+				}
 			},
 			{
 				component: "a-button",
@@ -252,6 +258,8 @@ setTimeout(() => {
 	loading.value = false;
 }, 500);
 
+const slot = "icon";
+
 const tableConfig = computed(
 	(): TableProps => ({
 		bordered: true,
@@ -267,6 +275,20 @@ const tableConfig = computed(
 
 <template>
 	<div class="ice-menu">
+		<!-- 测试动态组件嵌套 -->
+		<!-- <component
+			is="a-tag"
+			color="#C1F064">
+			<component
+				is="a-button"
+				type="link"
+				round>
+				<template v-slot:[slot]>
+					<DeleteOutlined />
+				</template>
+				textBtn
+			</component>
+		</component> -->
 		<div class="menu-table">
 			<IceTable :config="tableConfig" />
 		</div>

@@ -1,19 +1,13 @@
 <script lang="ts" setup>
 import { useMenuStore } from "@/store/index";
 import { storeToRefs } from "pinia";
-import { useRouter } from "vue-router";
 
 const store = useMenuStore();
 const { getCollapsed } = storeToRefs(store);
-const router = useRouter();
-
-const goHome = () => {
-	router.push("/index");
-};
 </script>
 
 <template>
-	<div class="ice-logo" :class="getCollapsed ? 'ice-logo_min-width' : 'ice-logo_max-width'" @click="goHome">
+	<div class="ice-logo" :class="getCollapsed ? 'ice-logo_min-width' : 'ice-logo_max-width'">
 		<p>
 			{{ getCollapsed ? "ICE" : "ICE-CLI(ICE)" }}
 		</p>
@@ -26,13 +20,14 @@ const goHome = () => {
 	align-items: center;
 	justify-content: center;
 	height: 100%;
-	font-size: 16px;
 	color: @ice-font-color;
 	transition: @ice-transition;
 	overflow: hidden;
 	cursor: pointer;
 	p {
+		font-size: 16px;
 		white-space: nowrap;
+		font-weight: bold;
 	}
 }
 .ice-logo_max-width {

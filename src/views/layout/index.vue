@@ -23,7 +23,7 @@ import Menu from "@/components/layout/menu/index.vue";
 .ice-layout {
 	min-height: 100%;
 	.layout-content {
-		min-height: calc(@ice-page-height - @ice-header-height);
+		min-height: calc(100vh - @ice-header-height);
 		display: flex;
 	}
 	.layout-content-main {
