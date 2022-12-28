@@ -1,20 +1,14 @@
 # ice-cli
 
-    vite+ts+antd
-
-
-    contains:
-    	1.vite
-    	2.ts
-    	3.vue3
-        4.pinia
-        5.antd
-    	6.componsition`s axios
-    	7.eslint
-    	8.prettier
-    	9.husky
-    	10.federation(暂未实现)
-
+-   vite4
+-   ts
+-   vue3
+-   pinia
+-   antd
+-   eslint
+-   prettier
+-   husky
+-   iconfont
 
     feat: 新功能
     fix: 修复BUG，问题
