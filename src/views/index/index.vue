@@ -1,16 +1,9 @@
 <template>
 	<div class="ice-index">
-		<div class="ice-index-welcome">Welcome to ice-cli</div>
-		<div class="ice-index-introduce">
-			<a-descriptions :column="4">
-				<a-descriptions-item label="author">libing</a-descriptions-item>
-				<a-descriptions-item label="git">
-					<span class="span_btn" @click="jumpToGithub">https://github.com/lbiceman/ikun-cli</span>
-				</a-descriptions-item>
-				<a-descriptions-item label="email">lbiceman@126.com</a-descriptions-item>
-				<a-descriptions-item label="address">henan,zhengzhou</a-descriptions-item>
-			</a-descriptions>
-		</div>
+		<h2>Welcome!</h2>
+		<h3>author: libing</h3>
+		<h3 @click="jumpToGithub">git: https://github.com/lbiceman/ikun-cli</h3>
+		<h3>email: lbiceman@126.com</h3>
 	</div>
 </template>
 
@@ -19,6 +12,7 @@ const jumpToGithub = () => {
 	window.open("https://github.com/lbiceman/ikun-cli");
 };
 console.log("Welcome");
+// 测试代码合并
 </script>
 
 <style lang="less" scoped>
@@ -27,27 +21,18 @@ console.log("Welcome");
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	min-height: 100%;
-	background-color: #fff;
-	padding: 20px;
-	border-radius: @ice-border-radius;
-	.ice-index-welcome {
-		line-height: 50px;
-		font-size: 36px;
-		background-image: -webkit-gradient(linear, 100 200, 0 bottom, from(@ice-primary-color), to(#1ceac6));
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
+	height: 100%;
+	h2 {
+		font-size: 18px;
+		font-weight: bold;
 	}
-	.ice-index-introduce {
-		display: flex;
-		justify-content: center;
-		margin-top: 20px;
-		.span_btn {
-			color: @ice-primary-color;
-			cursor: pointer;
-			&:hover {
-				text-decoration: underline;
-			}
+	h3 {
+		cursor: pointer;
+		font-size: 16px;
+		line-height: 40px;
+		color: @ice-primary-color;
+		&:hover {
+			text-decoration: underline;
 		}
 	}
 }

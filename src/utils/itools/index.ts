@@ -14,7 +14,7 @@ export const isArr = (val: any): val is Array<[]> => {
 	return getType(val) === "Array";
 };
 
-export const isObj = (val: any): val is object => {
+export const isObj = (val: any) => {
 	return getType(val) === "Object";
 };
 

@@ -7,15 +7,20 @@ import App from "./App.vue";
 import { createPinia } from "pinia";
 import { createApp } from "vue";
 import router from "./router";
+import { message } from "ant-design-vue";
 import loading from "./directive/loading/index";
 import { registerComponents } from "./componentRegister/index";
-import "@/config/antd/index";
 import "@/assets/style/reset.less";
-import "@/assets/style/common.less";
-import "@/assets/style/fonts.less";
+
+message.config({
+	top: `80px`,
+	duration: 2,
+	maxCount: 3
+});
 
 const iceApp = createApp(App);
 
+// 注册组件
 /**
  * 由于项目里边会用到component动态组件。
  * 使用  unplugin-vue-components/resolvers,unplugin-vue-components/vite（自动按需加载）会导致动态组件注册不上

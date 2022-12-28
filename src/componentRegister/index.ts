@@ -10,22 +10,11 @@ import {
 	Form,
 	FormItem,
 	InputPassword,
-	Dropdown,
-	Table,
-	Descriptions,
-	DescriptionsItem,
-	Tooltip,
-	Spin,
-	Tag,
-	Progress,
-	Checkbox,
-	Popover,
-	Space
+	Dropdown
 } from "ant-design-vue";
 
 import "./css";
 
-// 组件注册
 const components: Component[] = [
 	Input,
 	Select,
@@ -37,17 +26,7 @@ const components: Component[] = [
 	Form,
 	FormItem,
 	InputPassword,
-	Dropdown,
-	Table,
-	Descriptions,
-	DescriptionsItem,
-	Tooltip,
-	Spin,
-	Tag,
-	Progress,
-	Popover,
-	Checkbox,
-	Space
+	Dropdown
 ];
 
 export const registerComponents = (app: App): App => {
