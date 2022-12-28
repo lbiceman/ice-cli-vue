@@ -275,6 +275,7 @@ const tableConfig = computed(
 
 <template>
 	<div class="ice-menu">
+		<!-- 暂时用不上了 -->
 		<!-- 测试动态组件嵌套 -->
 		<!-- <component
 			is="a-tag"
