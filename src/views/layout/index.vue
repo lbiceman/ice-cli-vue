@@ -1,3 +1,8 @@
+<script lang="ts" setup>
+import Header from "@/components/layout/header/index.vue";
+import Menu from "@/components/layout/menu/index.vue";
+</script>
+
 <template>
 	<div class="ice-layout">
 		<div class="layout-header">
@@ -14,22 +19,17 @@
 	</div>
 </template>
 
-<script lang="ts" setup>
-import Header from "@/components/layout/header/index.vue";
-import Menu from "@/components/layout/menu/index.vue";
-</script>
-
 <style lang="less" scoped>
 .ice-layout {
-	height: 100%;
+	min-height: 100%;
 	.layout-content {
-		height: calc(@ice-page-height - @ice-header-height);
+		min-height: calc(100vh - @ice-header-height);
 		display: flex;
 	}
 	.layout-content-main {
 		width: 100%;
-		background-color: #f0f0f0;
-		padding: 20px;
+		background-color: #f8f8f8;
+		padding: 10px;
 	}
 }
 </style>
