@@ -3,14 +3,13 @@ import { specialRouters } from "./special";
 import { indexRouters } from "./index/index";
 import { loginRoutes } from "./login";
 import { adminRoutes } from "./admin";
-import { homeRoutes } from "./home";
 
 const layoutRouters: RouteRecordRaw[] = [
 	{
 		path: "/",
 		component: () => import("@/views/layout/index.vue"),
 		// 这里放layout的子集路由
-		children: [...indexRouters, ...adminRoutes, ...homeRoutes]
+		children: [...indexRouters, ...adminRoutes]
 	}
 ];
 

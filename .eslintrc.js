@@ -12,6 +12,7 @@ module.exports = {
 		"plugin:@typescript-eslint/recommended",
 		"plugin:vue/vue3-recommended",
 		"plugin:prettier/recommended",
+		// eslint-config-prettier 的缩写
 		"prettier"
 	],
 	parserOptions: {

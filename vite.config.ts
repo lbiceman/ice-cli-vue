@@ -4,6 +4,7 @@ import path from "path";
 import viteCompression from "vite-plugin-compression";
 // 手动按需加载
 import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
+// import federation from "@originjs/vite-plugin-federation";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -23,6 +24,17 @@ export default defineConfig({
 			ext: ".gz" // 文件类型
 		}),
 		viteCommonjs()
+		// federation({
+		// 	name: "iceCliRemote",
+		// 	filename: "iceCliRemote.js",
+		// 	remotes: {
+		// 		app2: "https://127.0.0.1:9809/assets/iceCliRemoteBase.js"
+		// 	},
+		// 	shared: ["vue"],
+		// 	exposes: {
+		// 		"./404": "./src/components/special/404.vue"
+		// 	}
+		// }),
 	],
 	// 手动按需引入antd
 	optimizeDeps: {

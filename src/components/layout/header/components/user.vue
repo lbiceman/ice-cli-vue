@@ -1,7 +1,25 @@
+<template>
+	<div class="ice-user">
+		<div class="user-avator">
+			<img :src="getUser.avator || defaultAvator" alt="" />
+		</div>
+		<div class="user-name">
+			<a-dropdown>
+				<p class="user-name-dropdown-title">ikun-ckf</p>
+				<template #overlay>
+					<a-menu @click="dropdownClick">
+						<a-menu-item name="signout">退出</a-menu-item>
+					</a-menu>
+				</template>
+			</a-dropdown>
+		</div>
+	</div>
+</template>
+
 <script lang="ts" setup>
 import { useUserStore } from "@/store/index";
 import { storeToRefs } from "pinia";
-import defaultAvator from "@/assets/images/user/user-icon.jpg";
+import defaultAvator from "@/assets/images/user/kunkun-avator.png";
 import { useRouter } from "vue-router";
 
 const store = useUserStore();
@@ -15,24 +33,6 @@ const dropdownClick = (item: any) => {
 };
 </script>
 
-<template>
-	<div class="ice-user">
-		<div class="user-avator">
-			<img :src="getUser.avator || defaultAvator" alt="" />
-		</div>
-		<div class="user-name">
-			<a-dropdown>
-				<p class="user-name-dropdown-title">{{ getUser.name }}</p>
-				<template #overlay>
-					<a-menu @click="dropdownClick">
-						<a-menu-item name="signout">退出</a-menu-item>
-					</a-menu>
-				</template>
-			</a-dropdown>
-		</div>
-	</div>
-</template>
-
 <style lang="less" scoped>
 .ice-user {
 	width: 200px;
@@ -42,9 +42,9 @@ const dropdownClick = (item: any) => {
 	justify-content: right;
 	.user-avator {
 		img {
-			width: 36px;
-			height: 36px;
-			border-radius: @ice-border-radius;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
 		}
 	}
 	.user-name {
