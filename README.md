@@ -12,6 +12,7 @@
 -   eslint
 -   prettier
 -   husky
+-   iconfont
 
 ### git 提交前缀
 
@@ -24,3 +25,4 @@
 -   revert: 恢复
 -   perf: 优化
 -   types: TS 类型修改
+
