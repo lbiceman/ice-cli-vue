@@ -37,19 +37,19 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 				id: "1",
 				name: "首页",
 				url: "/index",
-				icon: "HomeOutlined"
+				icon: "ice-icon-home"
 			},
 			{
 				id: "3",
 				name: "主页",
 				url: "/home",
-				icon: "HomeOutlined"
+				icon: "ice-icon-home"
 			},
 			{
 				id: "9",
 				name: "系统管理",
 				url: "/admin",
-				icon: "OrderedListOutlined",
+				icon: "ice-icon-sys",
 				children: [
 					{
 						id: "90",
@@ -72,7 +72,7 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 				id: "2",
 				name: "特殊页",
 				url: "/404",
-				icon: "WarningOutlined"
+				icon: "ice-icon-warning"
 			}
 		]
 	}),
