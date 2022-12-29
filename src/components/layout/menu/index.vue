@@ -3,7 +3,6 @@ import { reactive, ref, toRaw } from "vue";
 import { useMenuStore, Menu } from "@/store/index";
 import SubMenu from "./sub-menu.vue";
 import { findTree } from "@/utils/index";
-import { RetweetOutlined } from "@ant-design/icons-vue";
 import { useRouter } from "vue-router";
 import { MenuItem } from "./type";
 
@@ -84,18 +83,14 @@ const menuItemClick = (menuItem: MenuItem) => {
 				</template>
 				<template v-else-if="item.name">
 					<a-menu-item :id="item.id" :key="item.id">
-						<template #icon>
-							<component :is="item.icon || 'HomeOutlined'"> </component>
-						</template>
+						<span :class="[item.icon || 'ice-icon-home', 'iconfont', 'ice-menu-icon']"></span>
 						{{ item.name }}
 					</a-menu-item>
 				</template>
 			</template>
 		</a-menu>
 		<div class="ice-menu-collapsed">
-			<span @click="switchCollapsed">
-				<RetweetOutlined />
-			</span>
+			<span class="iconfont ice-icon-retweet" @click="switchCollapsed"></span>
 		</div>
 	</div>
 </template>
@@ -133,6 +128,9 @@ const menuItemClick = (menuItem: MenuItem) => {
 	.ant-menu-submenu-title:active {
 		background-color: @ice-primary-opacity-color;
 	}
+	.ant-menu-submenu-title .ant-menu-item-icon {
+		font-size: 16px;
+	}
 }
 </style>
 
@@ -145,12 +143,16 @@ const menuItemClick = (menuItem: MenuItem) => {
 	border-top: 1px solid #eee;
 	.ice-menu-layout {
 		height: 100%;
+		.ice-menu-icon {
+			margin-right: 5px;
+		}
 	}
 	.ice-menu-collapsed {
 		position: absolute;
 		bottom: 20px;
 		right: 16px;
 		span {
+			display: inline-block;
 			font-size: 30px;
 			cursor: pointer;
 			transition: @ice-transition;

@@ -12,6 +12,7 @@ import { registerComponents } from "./componentRegister/index";
 import "@/config/antd/index";
 import "@/assets/style/reset.less";
 import "@/assets/style/common.less";
+import "@/assets/style/fonts.less";
 
 const iceApp = createApp(App);
 

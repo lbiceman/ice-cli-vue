@@ -16,7 +16,7 @@ withDefaults(
 <template>
 	<a-sub-menu :key="menu.id">
 		<template #icon>
-			<component :is="menu.icon || 'HomeOutlined'"> </component>
+			<span :class="[menu.icon || 'ice-icon-home', 'iconfont']"></span>
 		</template>
 		<template #title>
 			{{ menu.name }}
