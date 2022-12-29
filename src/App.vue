@@ -1,9 +1,3 @@
-<template>
-	<a-config-provider :locale="zhCN">
-		<router-view />
-	</a-config-provider>
-</template>
-
 <script lang="ts" setup>
 import zhCN from "ant-design-vue/es/locale/zh_CN";
 import dayjs from "dayjs";
@@ -15,5 +9,11 @@ dayjs.locale("zh-cn");
 const env = import.meta.env.MODE;
 console.log(env);
 </script>
+
+<template>
+	<a-config-provider :locale="zhCN">
+		<router-view />
+	</a-config-provider>
+</template>
 
 <style lang="less" scoped></style>

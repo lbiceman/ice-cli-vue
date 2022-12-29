@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+import Logo from "./components/logo.vue";
+import Content from "./components/content.vue";
+import User from "./components/user.vue";
+</script>
+
 <template>
 	<div class="ice-header">
 		<Logo />
@@ -5,12 +11,6 @@
 		<User />
 	</div>
 </template>
-
-<script lang="ts" setup>
-import Logo from "./components/logo.vue";
-import Content from "./components/content.vue";
-import User from "./components/user.vue";
-</script>
 
 <style lang="less" scoped>
 .ice-header {

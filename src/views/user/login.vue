@@ -1,3 +1,25 @@
+<script lang="ts" setup>
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
+
+interface Form {
+	username: string;
+	password: string;
+}
+
+const router = useRouter();
+
+const form = reactive<Form>({
+	username: "lbiceman",
+	password: "123456"
+});
+
+const onFinish = (val: Form) => {
+	console.log(val);
+	router.push("/index");
+};
+</script>
+
 <template>
 	<div class="ice-login">
 		<div class="login-container">
@@ -23,27 +45,6 @@
 	</div>
 </template>
 
-<script lang="ts" setup>
-import { reactive } from "vue";
-import { useRouter } from "vue-router";
-
-interface Form {
-	username: string;
-	password: string;
-}
-
-const router = useRouter();
-
-const form = reactive<Form>({
-	username: "lbiceman",
-	password: "123456"
-});
-
-const onFinish = (val: Form) => {
-	router.push("/index");
-};
-</script>
-
 <style lang="less" scoped>
 .ice-login {
 	width: 100%;
@@ -59,9 +60,9 @@ const onFinish = (val: Form) => {
 		align-items: center;
 		justify-content: center;
 		background-color: rgba(255, 255, 255, 0.76);
-		border: 1px solid #d5d5d5;
+		border: 1px solid #eee;
 		padding: 50px 20px;
-		border-radius: @ice-border-radius;
+		border-radius: #eee;
 		.login-form {
 			width: 100%;
 			.login-form-btn {
