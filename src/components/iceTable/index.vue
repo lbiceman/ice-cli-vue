@@ -3,8 +3,6 @@ import { computed, ref } from "vue";
 import { TableProps } from "ant-design-vue/lib/table";
 import IceTableCol from "./iceTableCol.vue";
 
-// import { CaretRightOutlined, CaretDownOutlined } from "@ant-design/icons-vue";
-
 const props = withDefaults(
 	defineProps<{
 		config: TableProps;
