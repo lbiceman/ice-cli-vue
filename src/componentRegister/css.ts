@@ -19,3 +19,4 @@ import "ant-design-vue/es/tag/style/index.less";
 import "ant-design-vue/es/progress/style/index.less";
 import "ant-design-vue/es/popover/style/index.less";
 import "ant-design-vue/es/space/style/index.less";
+import "ant-design-vue/es/date-picker/style/index.less";

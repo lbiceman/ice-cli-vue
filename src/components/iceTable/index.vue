@@ -13,22 +13,19 @@ const props = withDefaults(
 const tableRef = ref(null);
 
 const finalConfig = computed(() => {
-	let config = Object.assign(
-		{
-			brdered: false,
-			pagination: {
-				hideOnSinglePage: false,
-				defaultPageSize: 10,
-				position: ["bottomLeft"],
-				showQuickJumper: true,
-				showLessItems: true,
-				showSizeChanger: true,
-				showTotal: (total: number) => `共 ${total} 条记录`,
-				...(props.config?.pagination || {})
-			}
-		},
-		props.config || {}
-	);
+	let config = Object.assign(props.config || {}, {
+		brdered: false,
+		pagination: {
+			hideOnSinglePage: false,
+			defaultPageSize: 10,
+			position: ["bottomLeft"],
+			showQuickJumper: true,
+			showLessItems: true,
+			showSizeChanger: true,
+			showTotal: (total: number) => `共 ${total} 条记录`,
+			...(props.config?.pagination || {})
+		}
+	});
 
 	return config;
 });

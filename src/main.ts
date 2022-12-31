@@ -10,6 +10,7 @@ import router from "./router";
 import loading from "./directive/loading/index";
 import { registerComponents } from "./componentRegister/index";
 import "@/config/antd/index";
+import "@/config/http/index";
 import "@/assets/style/reset.less";
 import "@/assets/style/common.less";
 import "@/assets/style/fonts.less";

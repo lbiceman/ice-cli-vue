@@ -20,6 +20,7 @@ import {
 	Progress,
 	Checkbox,
 	Popover,
+	DatePicker,
 	Space
 } from "ant-design-vue";
 
@@ -47,6 +48,7 @@ const components: Component[] = [
 	Progress,
 	Popover,
 	Checkbox,
+	DatePicker,
 	Space
 ];
 
