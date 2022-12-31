@@ -83,7 +83,9 @@ const menuItemClick = (menuItem: MenuItem) => {
 				</template>
 				<template v-else-if="item.name">
 					<a-menu-item :id="item.id" :key="item.id">
-						<span :class="[item.icon || 'ice-icon-home', 'iconfont', 'ice-menu-icon']"></span>
+						<template #icon>
+							<span :class="[item.icon || 'ice-icon-home', 'iconfont', 'ice-menu-icon']"></span>
+						</template>
 						{{ item.name }}
 					</a-menu-item>
 				</template>
@@ -109,6 +111,10 @@ const menuItemClick = (menuItem: MenuItem) => {
 	.ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow,
 	.ant-menu-light .ant-menu-submenu-active {
 		color: @ice-primary-color;
+	}
+	.ant-menu-submenu-expand-icon,
+	.ant-menu-submenu-arrow {
+		color: @ice-font-color;
 	}
 	.ant-menu-inline .ant-menu-item::after {
 		border-right: 6px solid @ice-primary-color;
@@ -154,6 +160,7 @@ const menuItemClick = (menuItem: MenuItem) => {
 		span {
 			display: inline-block;
 			font-size: 30px;
+			color: @ice-font-color;
 			cursor: pointer;
 			transition: @ice-transition;
 			&:hover {

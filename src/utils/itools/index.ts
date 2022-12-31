@@ -146,7 +146,7 @@ export const findTree = (tree: any, child: string, callback: any) => {
 	let obj = {};
 	function findChild(list: any, child: string, callback: any) {
 		for (let i = 0; i < list.length; i++) {
-			if (callback(list[i])) {
+			if (callback && callback(list[i])) {
 				obj = list[i];
 			}
 			if (list[i][child] && list[i][child].length > 0) {

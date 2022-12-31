@@ -13,7 +13,6 @@
     	7.eslint
     	8.prettier
     	9.husky
-    	10.federation(暂未实现)
 
 
     feat: 新功能

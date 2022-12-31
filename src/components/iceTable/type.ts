@@ -6,8 +6,7 @@ export interface Render {
 	component?: string | Component;
 	props?: (props: IceCellProps) => void;
 	text?: (props: IceCellProps) => void;
-	slot?: string;
-	render?: Render | Render[] | string[];
+	icon?: string;
 }
 
 export interface IceColumn extends ColumnType {

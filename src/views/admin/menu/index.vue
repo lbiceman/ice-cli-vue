@@ -154,7 +154,8 @@ let columns: IceColumn[] = [
 					component: "a-tag",
 					props: () => ({
 						color: "#66bbff"
-					})
+					}),
+					text: ({ text }) => text
 				}
 			},
 			{
@@ -167,7 +168,8 @@ let columns: IceColumn[] = [
 						return {
 							color: parseInt(text) >= 20 ? "#87d068" : parseInt(text) >= 15 ? "#2db7f5" : "#E8D82C"
 						};
-					}
+					},
+					text: ({ text }) => text
 				}
 			},
 			{
@@ -196,24 +198,17 @@ let columns: IceColumn[] = [
 	},
 	{
 		title: "操作",
-		dataIndex: "iceOperate",
 		render: [
 			{
 				component: "a-button",
 				props: ({ record }) => ({
 					type: "link",
 					onClick: () => {
-						message.error("delete", record);
+						message.info("update", record);
 					}
 				}),
-				render: {
-					component: "template",
-					slot: "icon",
-					text: () => "删除",
-					render: {
-						component: "DeleteOutlined"
-					}
-				}
+				icon: "iconfont ice-icon-edit",
+				text: () => " 修改"
 			},
 			{
 				component: "a-button",
@@ -221,10 +216,11 @@ let columns: IceColumn[] = [
 					type: "link",
 					danger: true,
 					onClick: () => {
-						message.error("删除");
-						console.log("delete", record);
+						message.error("删除", record);
 					}
-				})
+				}),
+				icon: "iconfont ice-icon-delete",
+				text: () => "删除"
 			}
 		]
 	}
@@ -258,8 +254,6 @@ setTimeout(() => {
 	loading.value = false;
 }, 500);
 
-const slot = "icon";
-
 const tableConfig = computed(
 	(): TableProps => ({
 		bordered: true,
@@ -275,20 +269,6 @@ const tableConfig = computed(
 
 <template>
 	<div class="ice-menu">
-		<!-- 测试动态组件嵌套 -->
-		<!-- <component
-			is="a-tag"
-			color="#C1F064">
-			<component
-				is="a-button"
-				type="link"
-				round>
-				<template v-slot:[slot]>
-					<DeleteOutlined />
-				</template>
-				textBtn
-			</component>
-		</component> -->
 		<div class="menu-table">
 			<IceTable :config="tableConfig" />
 		</div>

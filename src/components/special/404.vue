@@ -3,7 +3,6 @@ import { computed, toRefs } from "vue";
 import { useRouter, Router } from "vue-router";
 import type { ButtonProps } from "ant-design-vue";
 import notFoundImage from "@/assets/images/special/img_404.png";
-import "@/assets/style/global.less";
 
 const props = defineProps<{
 	text?: string;

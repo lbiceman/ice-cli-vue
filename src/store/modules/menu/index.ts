@@ -37,7 +37,7 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 				id: "1",
 				name: "首页",
 				url: "/index",
-				icon: "ice-icon-home"
+				icon: "ice-icon-computer"
 			},
 			{
 				id: "3",

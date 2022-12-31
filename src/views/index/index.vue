@@ -5,7 +5,7 @@
 			<a-descriptions :column="4">
 				<a-descriptions-item label="author">libing</a-descriptions-item>
 				<a-descriptions-item label="git">
-					<span class="span_btn" @click="jumpToGithub">https://github.com/lbiceman/ikun-cli</span>
+					<span class="span_btn" @click="jumpToGithub">https://github.com/lbiceman/ice-cli</span>
 				</a-descriptions-item>
 				<a-descriptions-item label="email">lbiceman@126.com</a-descriptions-item>
 				<a-descriptions-item label="address">henan,zhengzhou</a-descriptions-item>
