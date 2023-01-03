@@ -14,6 +14,7 @@ import IceTable from "@/components/iceTable/index.vue";
 import IceForm from "@/components/iceForm/index.vue";
 import { IceColumn } from "@/components/iceTable/type";
 import { IceFormProps } from "@/components/iceForm/type";
+import AuDrawer from "./components/auDrawer.vue";
 
 interface DataItem {
 	id?: number;
@@ -346,6 +347,9 @@ const formConfig = computed(
 		</div>
 		<div class="menu-table">
 			<IceTable :config="tableConfig" />
+		</div>
+		<div class="menu-drawer">
+			<AuDrawer />
 		</div>
 	</div>
 </template>
