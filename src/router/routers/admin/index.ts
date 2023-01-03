@@ -9,17 +9,17 @@ export const adminRoutes: RouteRecordRaw[] = [
 			{
 				path: "/admin/user",
 				meta: { title: "用户管理" },
-				component: () => import("@/views/admin/user.vue")
+				component: () => import("@/views/admin/user/index.vue")
 			},
 			{
 				path: "/admin/role",
 				meta: { title: "角色管理" },
-				component: () => import("@/views/admin/role.vue")
+				component: () => import("@/views/admin/role/index.vue")
 			},
 			{
 				path: "/admin/menu",
 				meta: { title: "菜单管理" },
-				component: () => import("@/views/admin/menu.vue")
+				component: () => import("@/views/admin/menu/index.vue")
 			}
 		]
 	}

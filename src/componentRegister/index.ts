@@ -10,11 +10,23 @@ import {
 	Form,
 	FormItem,
 	InputPassword,
-	Dropdown
+	Dropdown,
+	Table,
+	Descriptions,
+	DescriptionsItem,
+	Tooltip,
+	Spin,
+	Tag,
+	Progress,
+	Checkbox,
+	Popover,
+	DatePicker,
+	Space
 } from "ant-design-vue";
 
 import "./css";
 
+// 组件注册
 const components: Component[] = [
 	Input,
 	Select,
@@ -26,7 +38,18 @@ const components: Component[] = [
 	Form,
 	FormItem,
 	InputPassword,
-	Dropdown
+	Dropdown,
+	Table,
+	Descriptions,
+	DescriptionsItem,
+	Tooltip,
+	Spin,
+	Tag,
+	Progress,
+	Popover,
+	Checkbox,
+	DatePicker,
+	Space
 ];
 
 export const registerComponents = (app: App): App => {

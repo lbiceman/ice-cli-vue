@@ -14,7 +14,7 @@ export const isArr = (val: any): val is Array<[]> => {
 	return getType(val) === "Array";
 };
 
-export const isObj = (val: any) => {
+export const isObj = (val: any): val is object => {
 	return getType(val) === "Object";
 };
 
@@ -146,7 +146,7 @@ export const findTree = (tree: any, child: string, callback: any) => {
 	let obj = {};
 	function findChild(list: any, child: string, callback: any) {
 		for (let i = 0; i < list.length; i++) {
-			if (callback(list[i])) {
+			if (callback && callback(list[i])) {
 				obj = list[i];
 			}
 			if (list[i][child] && list[i][child].length > 0) {

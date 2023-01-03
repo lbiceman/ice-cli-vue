@@ -2,7 +2,4 @@
 	<div class="ice-content"></div>
 </template>
 
-<style lang="less" scoped>
-.ice-content {
-}
-</style>
+<style lang="less" scoped></style>
