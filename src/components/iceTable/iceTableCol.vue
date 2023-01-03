@@ -4,7 +4,7 @@ export default { name: "IceTableCol" };
 <script setup lang="ts">
 import { computed } from "vue";
 import { isFun, isStr, isObj, isArr } from "@/utils/index";
-import { IceColumn, IceCellProps } from "./type";
+import { IceColumn, IceCellProps, Render } from "./type";
 
 const props = withDefaults(
 	defineProps<{
@@ -21,7 +21,7 @@ const columnFinal = computed((): IceColumn => {
 	return props.renderProps.column || {};
 });
 
-const renderFinal = computed(() => {
+const renderFinal = computed((): Render => {
 	return columnFinal.value.render || {};
 });
 
@@ -30,7 +30,7 @@ const recordFinal = computed(() => {
 });
 
 const funcRender = computed(() => {
-	return columnFinal.value?.render(props.renderProps);
+	return columnFinal.value.render(props.renderProps);
 });
 </script>
 

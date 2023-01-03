@@ -220,10 +220,10 @@ let columns: IceColumn[] = [
 		render: [
 			{
 				component: "a-button",
-				props: ({ record }) => ({
+				props: () => ({
 					type: "link",
 					onClick: () => {
-						message.info("update", record);
+						message.info("update");
 					}
 				}),
 				icon: "iconfont ice-icon-edit",
@@ -231,11 +231,11 @@ let columns: IceColumn[] = [
 			},
 			{
 				component: "a-button",
-				props: ({ record }) => ({
+				props: () => ({
 					type: "link",
 					danger: true,
 					onClick: () => {
-						message.error("删除", record);
+						message.error("删除");
 					}
 				}),
 				icon: "iconfont ice-icon-delete",
@@ -352,6 +352,6 @@ const formConfig = computed(
 
 <style lang="less" scoped>
 .menu-table {
-	margin-top: 20px;
+	margin-top: 10px;
 }
 </style>
