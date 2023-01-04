@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 const jumpToGithub = () => {
-	window.open("https://github.com/lbiceman/ikun-cli");
+	window.open("https://github.com/lbiceman/ice-cli");
 };
 console.log("Welcome");
 </script>
@@ -29,7 +29,7 @@ console.log("Welcome");
 	flex-direction: column;
 	min-height: 100%;
 	background-color: #fff;
-	padding: 20px;
+	padding: @ice-padding;
 	border-radius: @ice-border-radius;
 	.ice-index-welcome {
 		line-height: 50px;

@@ -29,7 +29,7 @@ import Menu from "@/components/layout/menu/index.vue";
 	.layout-content-main {
 		width: 100%;
 		background-color: #f8f8f8;
-		padding: 10px;
+		padding: @ice-padding;
 	}
 }
 </style>

@@ -6,6 +6,8 @@
 
 <style lang="less" scoped>
 .ice-home {
+	padding: @ice-padding;
+	border-radius: @ice-border-radius;
 	background-color: @ice-bg-color;
 }
 </style>

@@ -184,7 +184,7 @@ let columns: IceColumn[] = [
 		title: "个人信息",
 		children: [
 			{
-				title: "名字",
+				title: "姓名",
 				dataIndex: "name",
 				render: {
 					component: "a-tag",
@@ -321,12 +321,14 @@ setTimeout(() => {
 const formList = [
 	{
 		component: "a-input",
-		label: "名字",
+		label: "姓名",
+		placeholder: "请填写姓名",
 		name: "name"
 	},
 	{
 		component: "a-select",
 		label: "性別",
+		placeholder: "请选择性别",
 		name: "sex",
 		allowClear: true,
 		options: [
@@ -336,7 +338,7 @@ const formList = [
 	},
 	{
 		component: "a-date-picker",
-		label: "日期",
+		label: "创建时间",
 		name: "createTime",
 		format: "YYYY-MM-DD",
 		allowClear: true
@@ -346,7 +348,7 @@ const formList = [
 const formState = ref({
 	name: "",
 	sex: 1,
-	createTime: dayjs("2022-12-31", "YYYY-MM-DD")
+	createTime: dayjs("2023-01-04", "YYYY-MM-DD")
 });
 
 const formConfig = computed(
@@ -394,7 +396,10 @@ const add = () => {
 		</div>
 		<div class="menu-table">
 			<div class="menu-table-operate">
-				<a-button type="primary" @click="add"> 新增 </a-button>
+				<div></div>
+				<div class="operate-btns">
+					<a-button type="primary" @click="add"> 新增 </a-button>
+				</div>
 			</div>
 			<IceTable :config="tableConfig" />
 		</div>
@@ -410,7 +415,9 @@ const add = () => {
 .menu-table {
 	.menu-table-operate {
 		background-color: #fff;
-		padding: 10px;
+		padding: @ice-padding;
+		display: flex;
+		justify-content: space-between;
 	}
 	margin-top: 10px;
 }

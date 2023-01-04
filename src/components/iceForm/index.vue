@@ -18,6 +18,11 @@ const formRef = ref();
 const finalConfig = computed(() =>
 	Object.assign(
 		{
+			labelCol: {
+				style: {
+					minWidth: "80px"
+				}
+			},
 			btnsState: true
 		},
 		props.config
@@ -67,7 +72,7 @@ const reset = () => {
 .ice-form {
 	background-color: @ice-bg-color;
 	overflow: hidden;
-	padding: 12px;
+	padding: @ice-padding;
 	border-radius: @ice-border-radius;
 }
 </style>
