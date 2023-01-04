@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, toRefs } from "vue";
+import { computed, ref } from "vue";
 import { IceFormProps, IceFormValue } from "./type";
 
 const props = withDefaults(
@@ -15,13 +15,18 @@ const emits = defineEmits<{
 }>();
 
 const formRef = ref();
-const { config } = toRefs(props);
+const finalConfig = computed(() =>
+	Object.assign(
+		{
+			btnsState: true
+		},
+		props.config
+	)
+);
 const finalFormList = computed(() => props.config.list);
 const finalFormState = computed(() => props.config.value);
 
 const submit = () => {
-	console.log(finalFormState.value);
-
 	emits("submit", finalFormState.value);
 };
 
@@ -32,7 +37,7 @@ const reset = () => {
 
 <template>
 	<div class="ice-form">
-		<a-form v-bind="config" ref="formRef" :model="finalFormState">
+		<a-form v-bind="finalConfig" ref="formRef" :model="finalFormState">
 			<template v-for="(item, i) of finalFormList" :key="i">
 				<a-form-item v-bind="item">
 					<component
@@ -43,7 +48,7 @@ const reset = () => {
 					</component>
 				</a-form-item>
 			</template>
-			<a-form-item>
+			<a-form-item v-if="finalConfig.btnsState">
 				<a-button type="primary" @click="submit">确认</a-button>
 				<a-button style="margin-left: 10px" @click="reset">重置</a-button>
 			</a-form-item>
@@ -53,7 +58,8 @@ const reset = () => {
 
 <style lang="less">
 .ice-form-item {
-	min-width: 100px;
+	width: 100%;
+	min-width: 210px;
 }
 </style>
 

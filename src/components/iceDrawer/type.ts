@@ -1,3 +1,7 @@
 import { DrawerProps } from "ant-design-vue/lib/drawer";
 
-export type IceDrawerProps = DrawerProps;
+export interface IceDrawerProps extends DrawerProps {
+	extraState?: boolean;
+	onCancel?: () => void;
+	onSubmit?: () => void;
+}

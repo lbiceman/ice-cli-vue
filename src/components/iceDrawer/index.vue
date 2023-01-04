@@ -1,19 +1,16 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { IceDrawerProps } from "./type";
 
 const props = withDefaults(
 	defineProps<{
 		config: IceDrawerProps;
+		visible: boolean;
 	}>(),
-	{}
+	{
+		visible: false
+	}
 );
-
-const auState = ref(true);
-
-const onClose = () => {
-	auState.value = false;
-};
 
 const finalConfig = computed(() => {
 	let config = Object.assign(
@@ -23,22 +20,38 @@ const finalConfig = computed(() => {
 			maskClosable: false,
 			bodyStyle: {
 				paddingBottom: "0px"
-			}
+			},
+			extraState: true,
+			onCancel: () => {},
+			onSubmit: () => {},
+			onClose: cancel
 		},
 		props.config
 	);
 
 	return config;
 });
+
+const cancel = () => {
+	finalConfig.value?.onCancel();
+};
+
+const submit = () => {
+	finalConfig.value?.onSubmit();
+};
 </script>
 
 <template>
-	<a-drawer v-bind="finalConfig" :visible="auState">
+	<a-drawer v-bind="finalConfig" :visible="visible">
 		<template #extra>
-			<a-button @click="onClose">取消</a-button>
-			<a-button style="margin-left: 20px" type="primary" @click="onClose">提交</a-button>
+			<template v-if="finalConfig.extraState">
+				<a-button type="primary" @click="submit">提交</a-button>
+				<a-button style="margin-left: 10px" @click="cancel">取消</a-button>
+			</template>
 		</template>
-		<div class="drawer-wrap">this is wrap</div>
+		<div class="drawer-wrap">
+			<slot></slot>
+		</div>
 	</a-drawer>
 </template>
 

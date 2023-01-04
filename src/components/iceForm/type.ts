@@ -10,6 +10,7 @@ export interface IceFormItem extends FormItemProps {
 }
 
 export interface IceFormProps extends FormProps {
+	btnsState?: boolean;
 	value: IceFormValue;
 	list: IceFormItem[];
 }

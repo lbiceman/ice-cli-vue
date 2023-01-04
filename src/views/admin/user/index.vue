@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from "vue";
 import { TableProps } from "ant-design-vue/lib/table";
-import { message } from "ant-design-vue";
+import { message, Modal } from "ant-design-vue";
 import {
 	TablePaginationConfig,
 	SorterResult,
@@ -14,7 +14,8 @@ import IceTable from "@/components/iceTable/index.vue";
 import IceForm from "@/components/iceForm/index.vue";
 import { IceColumn } from "@/components/iceTable/type";
 import { IceFormProps } from "@/components/iceForm/type";
-import AuDrawer from "./components/auDrawer.vue";
+import IceDrawer from "@/components/iceDrawer/index.vue";
+import { clone } from "@/utils/index";
 
 interface DataItem {
 	id?: number;
@@ -26,12 +27,18 @@ interface DataItem {
 	createTime?: string;
 }
 
-let tableList = ref([
+// 1新增  2修改
+let type = 1;
+
+const auState = ref(false);
+
+const tableList = ref([
 	{
 		id: 1,
 		name: "小明",
 		createTime: "2022-12-31",
 		key: 1,
+		sex: 1,
 		age: 18,
 		score: 10,
 		fav: "爱好"
@@ -41,6 +48,7 @@ let tableList = ref([
 		name: "小花",
 		createTime: "2022-12-30",
 		key: 2,
+		sex: 0,
 		age: 18,
 		score: 20,
 		fav: "爱好",
@@ -50,6 +58,7 @@ let tableList = ref([
 				name: "小花1",
 				createTime: "2022-12-29",
 				key: 20,
+				sex: 0,
 				age: 10,
 				score: 30,
 				fav: "爱好",
@@ -59,6 +68,7 @@ let tableList = ref([
 						name: "小花1-1",
 						createTime: "2022-12-28",
 						key: 4,
+						sex: 0,
 						age: 1,
 						score: 40,
 						fav: "爱好"
@@ -68,6 +78,7 @@ let tableList = ref([
 						name: "小花1-2",
 						createTime: "2022-12-27",
 						key: 5,
+						sex: 0,
 						age: 1,
 						score: 50,
 						fav: "爱好"
@@ -79,6 +90,7 @@ let tableList = ref([
 				name: "小花2",
 				createTime: "2022-12-26",
 				key: 21,
+				sex: 0,
 				age: 10,
 				score: 60,
 				fav: "爱好",
@@ -88,6 +100,7 @@ let tableList = ref([
 						name: "小花2-1",
 						createTime: "2022-12-25",
 						key: 210,
+						sex: 0,
 						age: 21,
 						score: 70,
 						fav: "爱好"
@@ -101,6 +114,7 @@ let tableList = ref([
 		name: "小杨",
 		createTime: "2022-12-24",
 		key: 3,
+		sex: 1,
 		age: 18,
 		score: 70,
 		fav: "爱好",
@@ -110,6 +124,7 @@ let tableList = ref([
 				name: "小杨1",
 				createTime: "2022-12-23",
 				key: 30,
+				sex: 1,
 				age: 10,
 				score: 80,
 				fav: "爱好",
@@ -119,6 +134,7 @@ let tableList = ref([
 						name: "小杨1-1",
 						createTime: "2022-12-22",
 						key: 10,
+						sex: 1,
 						age: 1,
 						score: 90,
 						fav: "爱好"
@@ -128,6 +144,7 @@ let tableList = ref([
 						name: "小杨1-2",
 						createTime: "2022-12-21",
 						key: 11,
+						sex: 1,
 						age: 1,
 						score: 100,
 						fav: "爱好"
@@ -139,6 +156,7 @@ let tableList = ref([
 				name: "小杨2",
 				createTime: "2022-12-20",
 				key: 31,
+				sex: 1,
 				age: 10,
 				score: 90,
 				fav: "爱好",
@@ -148,6 +166,7 @@ let tableList = ref([
 						name: "小杨2-1",
 						createTime: "2022-12-19",
 						key: 310,
+						sex: 1,
 						age: 1,
 						score: 80,
 						fav: "爱好"
@@ -157,6 +176,8 @@ let tableList = ref([
 		]
 	}
 ]);
+
+const loading = ref(true);
 
 let columns: IceColumn[] = [
 	{
@@ -221,10 +242,14 @@ let columns: IceColumn[] = [
 		render: [
 			{
 				component: "a-button",
-				props: () => ({
+				props: ({ record }) => ({
 					type: "link",
 					onClick: () => {
-						message.info("update");
+						let data = clone(record, {});
+						data.createTime = dayjs(data.createTime, "YYYY-MM-DD");
+						drawerFormState.value = data;
+						type = 2;
+						auState.value = true;
 					}
 				}),
 				icon: "iconfont ice-icon-edit",
@@ -236,7 +261,14 @@ let columns: IceColumn[] = [
 					type: "link",
 					danger: true,
 					onClick: () => {
-						message.error("删除");
+						Modal.confirm({
+							title: "提示",
+							content: "确认要删除吗?",
+							onOk() {
+								message.success("删除成功");
+							},
+							onCancel() {}
+						});
 					}
 				}),
 				icon: "iconfont ice-icon-delete",
@@ -245,8 +277,6 @@ let columns: IceColumn[] = [
 		]
 	}
 ];
-
-const loading = ref(true);
 
 const tableOnChange = (
 	pagination: TablePaginationConfig,
@@ -270,6 +300,24 @@ const rowSelection = ref<TableRowSelection>({
 	}
 });
 
+const tableConfig = computed(
+	(): TableProps => ({
+		bordered: true,
+		columns,
+		onChange: tableOnChange,
+		rowSelection: rowSelection.value,
+		loading: loading.value,
+		dataSource: tableList.value,
+		pagination: {
+			total: 20
+		}
+	})
+);
+
+setTimeout(() => {
+	loading.value = false;
+}, 500);
+
 const formList = [
 	{
 		component: "a-input",
@@ -289,7 +337,7 @@ const formList = [
 	{
 		component: "a-date-picker",
 		label: "日期",
-		name: "date",
+		name: "createTime",
 		format: "YYYY-MM-DD",
 		allowClear: true
 	}
@@ -298,38 +346,8 @@ const formList = [
 const formState = ref({
 	name: "",
 	sex: 1,
-	date: dayjs("2022-12-31", "YYYY-MM-DD")
+	createTime: dayjs("2022-12-31", "YYYY-MM-DD")
 });
-
-setTimeout(() => {
-	loading.value = false;
-}, 500);
-
-setTimeout(() => {
-	tableList.value.push({
-		id: 10,
-		name: "小1",
-		createTime: "2022-12-31",
-		key: 10,
-		age: 10,
-		score: 10,
-		fav: "爱好"
-	});
-}, 3000);
-
-const tableConfig = computed(
-	(): TableProps => ({
-		bordered: true,
-		columns,
-		onChange: tableOnChange,
-		rowSelection: rowSelection.value,
-		loading: loading.value,
-		dataSource: tableList.value,
-		pagination: {
-			total: 20
-		}
-	})
-);
 
 const formConfig = computed(
 	(): IceFormProps => ({
@@ -338,6 +356,35 @@ const formConfig = computed(
 		list: formList
 	})
 );
+
+const drawerConfig = computed(() => ({
+	title: "用户管理",
+	onCancel: () => {
+		auState.value = false;
+	},
+	onSubmit: () => {
+		if (type == 1) {
+			message.success("add");
+		} else if (type == 2) {
+			message.info("update");
+		}
+		auState.value = false;
+	}
+}));
+
+const drawerFormState = ref({});
+
+const drawerFormConfig = computed(() => ({
+	btnsState: false,
+	value: drawerFormState.value,
+	list: formList
+}));
+
+const add = () => {
+	drawerFormState.value = {};
+	type = 1;
+	auState.value = true;
+};
 </script>
 
 <template>
@@ -346,16 +393,25 @@ const formConfig = computed(
 			<IceForm :config="formConfig" />
 		</div>
 		<div class="menu-table">
+			<div class="menu-table-operate">
+				<a-button type="primary" @click="add"> 新增 </a-button>
+			</div>
 			<IceTable :config="tableConfig" />
 		</div>
 		<div class="menu-drawer">
-			<AuDrawer />
+			<IceDrawer :config="drawerConfig" :visible="auState">
+				<IceForm :config="drawerFormConfig" />
+			</IceDrawer>
 		</div>
 	</div>
 </template>
 
 <style lang="less" scoped>
 .menu-table {
+	.menu-table-operate {
+		background-color: #fff;
+		padding: 10px;
+	}
 	margin-top: 10px;
 }
 </style>

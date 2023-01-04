@@ -13,55 +13,60 @@ const props = withDefaults(
 	{}
 );
 
-const textFinal = computed(() => {
+const finalText = computed(() => {
 	return props.renderProps.text || "";
 });
 
-const columnFinal = computed((): IceColumn => {
+const finalCol = computed((): IceColumn => {
 	return props.renderProps.column || {};
 });
 
-const renderFinal = computed((): Render => {
-	return columnFinal.value.render || {};
+const finalRender = computed((): Render => {
+	return finalCol.value.render || {};
 });
 
-const recordFinal = computed(() => {
+const finalRow = computed(() => {
 	return props.renderProps.record || {};
 });
 
+const finalIndex = computed(() => {
+	return props.renderProps.index;
+});
+
 const funcRender = computed(() => {
-	return columnFinal.value.render(props.renderProps);
+	return finalCol.value.render(props.renderProps);
 });
 </script>
 
 <template>
-	<template v-if="renderFinal">
-		<template v-if="isFun(renderFinal)">
+	<template v-if="finalRender">
+		<template v-if="isFun(finalRender)">
 			<div v-html="funcRender"></div>
 		</template>
-		<template v-else-if="isStr(renderFinal)">
-			{{ renderFinal }}
+		<template v-else-if="isStr(finalRender)">
+			{{ finalRender }}
 		</template>
-		<template v-else-if="isObj(renderFinal)">
+		<template v-else-if="isObj(finalRender)">
 			<component
-				:is="renderFinal?.component || 'a-space'"
-				v-bind="renderFinal?.props && renderFinal?.props(renderProps)">
-				<template v-if="renderFinal?.icon">
-					<span :class="renderFinal?.icon"></span>
+				:is="finalRender?.component || 'a-space'"
+				v-bind="finalRender?.props && finalRender?.props(renderProps)">
+				<template v-if="finalRender?.icon">
+					<span :class="finalRender?.icon"></span>
 				</template>
-				{{ renderFinal?.text && renderFinal?.text(renderProps) }}
+				{{ finalRender?.text && finalRender?.text(renderProps) }}
 			</component>
 		</template>
-		<template v-else-if="isArr(renderFinal)">
-			<template v-for="(v, k) of renderFinal" :key="k">
-				<IceTableCol :render-props="{ column: { render: v }, record: recordFinal, text: textFinal }" />
+		<template v-else-if="isArr(finalRender)">
+			<template v-for="(v, k) of finalRender" :key="k">
+				<IceTableCol
+					:render-props="{ column: { render: v }, record: finalRow, index: finalIndex, text: finalText }" />
 			</template>
 		</template>
-		<template v-else-if="columnFinal.dataIndex">
-			{{ textFinal }}
+		<template v-else-if="finalCol.dataIndex">
+			{{ finalText }}
 		</template>
 	</template>
 	<template v-else>
-		{{ textFinal }}
+		{{ finalText }}
 	</template>
 </template>
