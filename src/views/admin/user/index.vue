@@ -37,6 +37,7 @@ const tableList = ref([
 		id: 1,
 		name: "小明",
 		createTime: "2022-12-31",
+		remark: "remark1",
 		key: 1,
 		sex: 1,
 		age: 18,
@@ -47,6 +48,7 @@ const tableList = ref([
 		id: 2,
 		name: "小花",
 		createTime: "2022-12-30",
+		remark: "remark2",
 		key: 2,
 		sex: 0,
 		age: 18,
@@ -57,6 +59,7 @@ const tableList = ref([
 				id: 21,
 				name: "小花1",
 				createTime: "2022-12-29",
+				remark: "remark3",
 				key: 20,
 				sex: 0,
 				age: 10,
@@ -67,6 +70,7 @@ const tableList = ref([
 						id: 201,
 						name: "小花1-1",
 						createTime: "2022-12-28",
+						remark: "remark4",
 						key: 4,
 						sex: 0,
 						age: 1,
@@ -77,6 +81,7 @@ const tableList = ref([
 						id: 202,
 						name: "小花1-2",
 						createTime: "2022-12-27",
+						remark: "remark5",
 						key: 5,
 						sex: 0,
 						age: 1,
@@ -89,6 +94,7 @@ const tableList = ref([
 				id: 6,
 				name: "小花2",
 				createTime: "2022-12-26",
+				remark: "remark6",
 				key: 21,
 				sex: 0,
 				age: 10,
@@ -99,6 +105,7 @@ const tableList = ref([
 						id: 7,
 						name: "小花2-1",
 						createTime: "2022-12-25",
+						remark: "remark7",
 						key: 210,
 						sex: 0,
 						age: 21,
@@ -113,6 +120,7 @@ const tableList = ref([
 		id: 8,
 		name: "小杨",
 		createTime: "2022-12-24",
+		remark: "remark8",
 		key: 3,
 		sex: 1,
 		age: 18,
@@ -123,6 +131,7 @@ const tableList = ref([
 				id: 9,
 				name: "小杨1",
 				createTime: "2022-12-23",
+				remark: "remark9",
 				key: 30,
 				sex: 1,
 				age: 10,
@@ -133,6 +142,7 @@ const tableList = ref([
 						id: 301,
 						name: "小杨1-1",
 						createTime: "2022-12-22",
+						remark: "remark10",
 						key: 10,
 						sex: 1,
 						age: 1,
@@ -143,6 +153,7 @@ const tableList = ref([
 						id: 302,
 						name: "小杨1-2",
 						createTime: "2022-12-21",
+						remark: "remark11",
 						key: 11,
 						sex: 1,
 						age: 1,
@@ -155,6 +166,7 @@ const tableList = ref([
 				id: 12,
 				name: "小杨2",
 				createTime: "2022-12-20",
+				remark: "remark12",
 				key: 31,
 				sex: 1,
 				age: 10,
@@ -165,6 +177,7 @@ const tableList = ref([
 						id: 13,
 						name: "小杨2-1",
 						createTime: "2022-12-19",
+						remark: "remark13",
 						key: 310,
 						sex: 1,
 						age: 1,
@@ -235,6 +248,11 @@ let columns: IceColumn[] = [
 	{
 		title: "创建时间",
 		dataIndex: "createTime",
+		render: ({ text }) => text
+	},
+	{
+		title: "备注",
+		dataIndex: "remark",
 		render: ({ text }) => text
 	},
 	{
@@ -370,6 +388,7 @@ const drawerConfig = computed(() => ({
 		} else if (type == 2) {
 			message.info("update");
 		}
+		console.log(drawerFormState);
 		auState.value = false;
 	}
 }));
@@ -379,7 +398,13 @@ const drawerFormState = ref({});
 const drawerFormConfig = computed(() => ({
 	btnsState: false,
 	value: drawerFormState.value,
-	list: formList
+	list: Array.prototype.concat(formList, [
+		{
+			component: "ice-editor",
+			label: "备注",
+			name: "remark"
+		}
+	])
 }));
 
 const add = () => {

@@ -40,7 +40,7 @@ export default defineConfig({
 		preprocessorOptions: {
 			less: {
 				javascriptEnabled: true,
-				additionalData: "@import '@/assets/style/global.less';"
+				additionalData: "@import '@/assets/style/common.less';"
 			}
 		}
 	},

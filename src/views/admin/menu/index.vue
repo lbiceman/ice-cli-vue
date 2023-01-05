@@ -162,7 +162,7 @@ const formConfig = computed(
 );
 
 const drawerConfig = computed(() => ({
-	title: "用户管理",
+	title: "菜单管理",
 	onCancel: () => {
 		auState.value = false;
 	},

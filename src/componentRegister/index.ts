@@ -25,6 +25,8 @@ import {
 	Space
 } from "ant-design-vue";
 
+import IceEditor from "@/components/editor/index.vue";
+
 import "./css";
 
 // 组件注册
@@ -51,6 +53,7 @@ const components: Component[] = [
 	Checkbox,
 	DatePicker,
 	Drawer,
+	IceEditor,
 	Space
 ];
 
