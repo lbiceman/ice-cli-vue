@@ -1,25 +1,11 @@
 <template>
 	<div class="ice-index">
 		<div class="ice-index-welcome">Welcome to ice-cli</div>
-		<div class="ice-index-introduce">
-			<a-descriptions :column="4">
-				<a-descriptions-item label="author">libing</a-descriptions-item>
-				<a-descriptions-item label="git">
-					<span class="span_btn" @click="jumpToGithub">https://github.com/lbiceman/ice-cli</span>
-				</a-descriptions-item>
-				<a-descriptions-item label="email">lbiceman@126.com</a-descriptions-item>
-				<a-descriptions-item label="address">henan,zhengzhou</a-descriptions-item>
-			</a-descriptions>
-		</div>
+		<p>vite + ts + vue + antd</p>
 	</div>
 </template>
 
-<script lang="ts" setup>
-const jumpToGithub = () => {
-	window.open("https://github.com/lbiceman/ice-cli");
-};
-console.log("Welcome");
-</script>
+<script lang="ts" setup></script>
 
 <style lang="less" scoped>
 .ice-index {
@@ -29,7 +15,7 @@ console.log("Welcome");
 	flex-direction: column;
 	min-height: 100%;
 	background-color: #fff;
-	padding: @ice-padding;
+	padding: @ice-pm;
 	border-radius: @ice-border-radius;
 	.ice-index-welcome {
 		line-height: 50px;
@@ -37,18 +23,6 @@ console.log("Welcome");
 		background-image: -webkit-gradient(linear, 100 200, 0 bottom, from(@ice-primary-color), to(#1ceac6));
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
-	}
-	.ice-index-introduce {
-		display: flex;
-		justify-content: center;
-		margin-top: 20px;
-		.span_btn {
-			color: @ice-primary-color;
-			cursor: pointer;
-			&:hover {
-				text-decoration: underline;
-			}
-		}
 	}
 }
 </style>

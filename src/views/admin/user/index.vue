@@ -20,11 +20,13 @@ import { clone } from "@/utils/index";
 interface DataItem {
 	id?: number;
 	name?: string;
+	createTime?: string;
+	remark?: string;
 	key?: number;
+	sex?: number;
 	age?: number;
 	score?: number;
 	fav?: string;
-	createTime?: string;
 }
 
 // 1新增  2修改
@@ -37,7 +39,7 @@ const tableList = ref([
 		id: 1,
 		name: "小明",
 		createTime: "2022-12-31",
-		remark: "remark1",
+		remark: '<h3><span style="color: rgb(115, 209, 61); background-color: rgb(246, 226, 234);">remark1</span></h3>',
 		key: 1,
 		sex: 1,
 		age: 18,
@@ -199,13 +201,7 @@ let columns: IceColumn[] = [
 			{
 				title: "姓名",
 				dataIndex: "name",
-				render: {
-					component: "a-tag",
-					props: () => ({
-						color: "#66bbff"
-					}),
-					text: ({ text }) => text
-				}
+				render: ({ text }) => text
 			},
 			{
 				title: "年龄",
@@ -440,7 +436,7 @@ const add = () => {
 .menu-table {
 	.menu-table-operate {
 		background-color: #fff;
-		padding: @ice-padding;
+		padding: @ice-pm;
 		display: flex;
 		justify-content: space-between;
 	}

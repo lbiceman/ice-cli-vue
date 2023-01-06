@@ -217,7 +217,7 @@ const add = () => {
 .menu-table {
 	.menu-table-operate {
 		background-color: #fff;
-		padding: @ice-padding;
+		padding: @ice-pm;
 		display: flex;
 		justify-content: space-between;
 	}

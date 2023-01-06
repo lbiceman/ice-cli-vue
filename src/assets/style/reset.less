@@ -3,6 +3,7 @@ body {
 	width: 100%;
 	min-height: 100%;
 }
+
 html,
 body,
 ul,
@@ -80,20 +81,28 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-	text-decoration: none;
-	font-weight: normal;
-	font-size: 100%;
-}
-
-s,
-i,
-em {
-	font-style: normal;
-	text-decoration: none;
-}
-
 p {
-	display: block;
-	margin: 0;
+	color: @ice-font-color;
+}
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 8px;
+	background-color: #fff;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: #ccc;
+}
+
+::selection {
+	background-color: #bbbbbb;
+	color: #ffffff;
 }

@@ -72,7 +72,7 @@ const reset = () => {
 .ice-form {
 	background-color: @ice-bg-color;
 	overflow: hidden;
-	padding: @ice-padding;
+	padding: @ice-pm;
 	border-radius: @ice-border-radius;
 }
 </style>
