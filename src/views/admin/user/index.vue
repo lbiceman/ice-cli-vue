@@ -398,7 +398,15 @@ const drawerFormConfig = computed(() => ({
 		{
 			component: "ice-editor",
 			label: "备注",
-			name: "remark"
+			name: "remark",
+			config: {
+				editorConfig: {
+					// 富文本高度建议填写大于300的。否则会抛警告
+					style: {
+						height: "310px"
+					}
+				}
+			}
 		}
 	])
 }));

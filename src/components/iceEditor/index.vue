@@ -2,20 +2,17 @@
 export default { name: "IceEditor" };
 </script>
 <script lang="ts" setup>
-import { ref, watch, shallowRef, onBeforeUnmount, watchEffect } from "vue";
+import { ref, watch, shallowRef, computed, onBeforeUnmount, watchEffect } from "vue";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
-import { IToolbarConfig } from "@wangeditor/editor";
 import "@wangeditor/editor/dist/css/style.css";
+import { IceEditorProps, IceEditorConfig, IceToolBarConfig } from "./type";
 
 const props = withDefaults(
 	defineProps<{
-		disabled?: boolean;
-		editorHeight?: string;
+		config?: IceEditorProps;
 		value?: string;
 	}>(),
 	{
-		disabled: false,
-		editorHeight: "310px",
 		value: ""
 	}
 );
@@ -24,22 +21,47 @@ const emits = defineEmits<{
 	(e: "update:value", value: string): void;
 }>();
 
+const mode = "simple";
 const editorRef = shallowRef();
 const html = ref("");
-const toolbarConfig: Partial<IToolbarConfig> = {};
-const editorConfig = {
-	placeholder: "请输入内容...",
-	MENU_CONF: {
-		uploadImage: {
-			base64LimitSize: 5 * 1024 * 1024 // 5M
-		}
-	}
-};
-const mode = "simple";
 
-const onCreated = (editor: any) => {
-	editorRef.value = editor;
-};
+const finalToolbarConfig = computed(() => {
+	let config: IceToolBarConfig = Object.assign(
+		{
+			mode,
+			class: "editor-toolbar",
+			defaultConfig: {}
+		},
+		props.config?.toolbarConfig
+	);
+
+	return config;
+});
+
+const finalEditorConfig = computed(() => {
+	let config: IceEditorConfig = Object.assign(
+		{
+			defaultConfig: {
+				placeholder: "请输入内容...",
+				MENU_CONF: {
+					uploadImage: {
+						base64LimitSize: 5 * 1024 * 1024 // 5M
+					}
+				}
+			},
+			mode,
+			style: {
+				height: "310px"
+			},
+			class: "editor-editor",
+			disabled: false,
+			onCreated: () => {}
+		},
+		props.config?.editorConfig
+	);
+
+	return config;
+});
 
 watchEffect(() => {
 	html.value = props.value;
@@ -52,6 +74,14 @@ watch(
 	}
 );
 
+const onCreated = (editor: any) => {
+	editorRef.value = editor;
+	let onCreated = finalEditorConfig.value.onCreated;
+	onCreated ? onCreated(editor) : "";
+	if (finalEditorConfig.value.disabled) editorRef.value.disable();
+	else editorRef.value.enable();
+};
+
 onBeforeUnmount(() => {
 	const editor = editorRef.value;
 	if (editor == null) return;
@@ -61,15 +91,8 @@ onBeforeUnmount(() => {
 
 <template>
 	<div class="ice-editor">
-		<Toolbar class="editor-toolbar" :editor="editorRef" :default-config="toolbarConfig" :mode="mode" />
-		<Editor
-			v-model="html"
-			class="editor-editor"
-			:style="{ height: editorHeight }"
-			:disabled="disabled"
-			:default-config="editorConfig"
-			:mode="mode"
-			@onCreated="onCreated" />
+		<Toolbar v-bind="finalToolbarConfig" :editor="editorRef" />
+		<Editor v-bind="finalEditorConfig" v-model="html" @onCreated="onCreated" />
 	</div>
 </template>
 

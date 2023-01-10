@@ -18,6 +18,7 @@ const getCurrRoute = () => {
 	const path = router.currentRoute.value.path;
 	let openMenus: Menu[] = [];
 	let selectedMenu: Menu | undefined = {};
+	let openKeys = [];
 
 	const findParentChain = (list: Menu[]): Menu | undefined => {
 		for (let i = 0; i < list.length; i++) {
@@ -31,10 +32,12 @@ const getCurrRoute = () => {
 		}
 	};
 	selectedMenu = findParentChain(menus);
+	openKeys = openMenus.map((item: Menu) => item.id);
 
 	return {
-		openKeys: openMenus.map((item: Menu) => item.id),
-		selectedKeys: [selectedMenu ? selectedMenu.id : ""]
+		// 第一次进入页面需要给一个默认值。这里1是首页的ID
+		openKeys: openKeys.length == 0 ? ["1"] : openKeys,
+		selectedKeys: selectedMenu ? [selectedMenu.id] : ["1"]
 	};
 };
 

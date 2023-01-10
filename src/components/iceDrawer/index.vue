@@ -21,6 +21,7 @@ const finalConfig = computed(() => {
 			bodyStyle: {
 				paddingBottom: "0px"
 			},
+			class: "ice-drawer",
 			extraState: true,
 			onCancel: () => {},
 			onSubmit: () => {},
