@@ -4,6 +4,7 @@ import path from "path";
 import viteCompression from "vite-plugin-compression";
 // 手动按需加载
 import { viteCommonjs, esbuildCommonjs } from "@originjs/vite-plugin-commonjs";
+import { getProxy } from "./config/proxy/index";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -49,13 +50,7 @@ export default defineConfig({
 		host: "127.0.0.1",
 		port: 9808,
 		open: true,
-		proxy: {
-			"/api": {
-				target: "http://XXX.XXX.com",
-				changeOrigin: true,
-				rewrite: (path: string) => path.replace(/^\/api/, "")
-			}
-		}
+		proxy: getProxy()
 	},
 	// 生产环境打包配置
 	build: {

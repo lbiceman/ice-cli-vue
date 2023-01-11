@@ -10,9 +10,11 @@ import { IceEditorProps, IceEditorConfig, IceToolBarConfig } from "./type";
 const props = withDefaults(
 	defineProps<{
 		config?: IceEditorProps;
+		disabled?: boolean;
 		value?: string;
 	}>(),
 	{
+		disabled: false,
 		value: ""
 	}
 );
@@ -54,7 +56,7 @@ const finalEditorConfig = computed(() => {
 				height: "310px"
 			},
 			class: "editor-editor",
-			disabled: false,
+			disabled: props.disabled || false,
 			onCreated: () => {}
 		},
 		props.config?.editorConfig

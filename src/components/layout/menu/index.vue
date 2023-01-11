@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref, toRaw } from "vue";
+import { ref, toRaw, watchEffect } from "vue";
 import { useMenuStore, Menu } from "@/store/index";
 import SubMenu from "./sub-menu.vue";
 import { findTree } from "@/utils/index";
@@ -10,15 +10,16 @@ const store = useMenuStore();
 const menus = toRaw(store.getMenus);
 const collapsed = ref(false);
 const router = useRouter();
-
+const openKeys = ref();
+const selectedKeys = ref();
 // 获取有children的菜单项
-let allSubmenuKeys = menus.filter((menu) => menu.children && menu.children.length > 0).map((menu) => menu.id);
+const allSubmenuKeys = menus.filter((menu) => menu.children && menu.children.length > 0).map((menu) => menu.id);
 
 const getCurrRoute = () => {
 	const path = router.currentRoute.value.path;
 	let openMenus: Menu[] = [];
 	let selectedMenu: Menu | undefined = {};
-	let openKeys = [];
+	let keys = [];
 
 	const findParentChain = (list: Menu[]): Menu | undefined => {
 		for (let i = 0; i < list.length; i++) {
@@ -32,29 +33,29 @@ const getCurrRoute = () => {
 		}
 	};
 	selectedMenu = findParentChain(menus);
-	openKeys = openMenus.map((item: Menu) => item.id);
+	keys = openMenus.map((item: Menu) => item.id);
 
 	return {
 		// 第一次进入页面需要给一个默认值。这里1是首页的ID
-		openKeys: openKeys.length == 0 ? ["1"] : openKeys,
+		openKeys: keys.length == 0 ? ["1"] : keys,
 		selectedKeys: selectedMenu ? [selectedMenu.id] : ["1"]
 	};
 };
 
-const { openKeys, selectedKeys } = getCurrRoute();
-
-const state = reactive({
-	openKeys,
-	selectedKeys
+// 当url变化时候重新选中左侧菜单
+watchEffect(() => {
+	const { openKeys: oKeys, selectedKeys: sKeys } = getCurrRoute();
+	openKeys.value = oKeys;
+	selectedKeys.value = sKeys;
 });
 
 const onOpenChange = (keys: string[]) => {
-	const latestOpenKey = keys.find((key) => state.openKeys.indexOf(key) === -1);
+	const latestOpenKey = keys.find((key) => openKeys.value.indexOf(key) === -1);
 
 	if (allSubmenuKeys.indexOf(latestOpenKey + "") === -1) {
-		state.openKeys = keys;
+		openKeys.value = keys;
 	} else {
-		state.openKeys = latestOpenKey ? [latestOpenKey] : [];
+		openKeys.value = latestOpenKey ? [latestOpenKey] : [];
 	}
 };
 
@@ -73,11 +74,11 @@ const menuItemClick = (menuItem: MenuItem) => {
 <template>
 	<div class="ice-menu" :class="collapsed ? 'ice-menu_min-width' : 'ice-menu_max-width'">
 		<a-menu
-			v-model:selectedKeys="state.selectedKeys"
+			v-model:selectedKeys="selectedKeys"
 			:inline-collapsed="collapsed"
 			mode="inline"
 			class="ice-menu-layout"
-			:open-keys="state.openKeys"
+			:open-keys="openKeys"
 			@click="menuItemClick"
 			@open-change="onOpenChange">
 			<template v-for="item of menus">

@@ -398,15 +398,15 @@ const drawerFormConfig = computed(() => ({
 		{
 			component: "ice-editor",
 			label: "备注",
-			name: "remark",
-			config: {
-				editorConfig: {
-					// 富文本高度建议填写大于300的。否则会抛警告
-					style: {
-						height: "310px"
-					}
-				}
-			}
+			name: "remark"
+			// config: {
+			// 	editorConfig: {
+			// 		// 富文本高度建议填写大于300的。否则会抛警告
+			// 		style: {
+			// 			height: "310px"
+			// 		}
+			// 	}
+			// }
 		}
 	])
 }));
@@ -427,7 +427,10 @@ const add = () => {
 			<div class="menu-table-operate">
 				<div></div>
 				<div class="operate-btns">
-					<a-button type="primary" @click="add"> 新增 </a-button>
+					<a-button type="primary" @click="add">
+						<span class="iconfont ice-icon-add"></span>
+						新增
+					</a-button>
 				</div>
 			</div>
 			<IceTable :config="tableConfig" />

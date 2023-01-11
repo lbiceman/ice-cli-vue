@@ -1,13 +1,19 @@
 <script lang="ts" setup>
 import { useMenuStore } from "@/store/index";
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 
 const store = useMenuStore();
 const { getCollapsed } = storeToRefs(store);
+const router = useRouter();
+
+const jump = () => {
+	router.push("/index");
+};
 </script>
 
 <template>
-	<div class="ice-logo" :class="getCollapsed ? 'ice-logo_min-width' : 'ice-logo_max-width'">
+	<div class="ice-logo" :class="getCollapsed ? 'ice-logo_min-width' : 'ice-logo_max-width'" @click="jump">
 		<p>
 			{{ getCollapsed ? "ICE" : "ICE-CLI(ICE)" }}
 		</p>

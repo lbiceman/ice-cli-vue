@@ -200,7 +200,10 @@ const add = () => {
 			<div class="menu-table-operate">
 				<div></div>
 				<div class="operate-btns">
-					<a-button type="primary" @click="add"> 新增 </a-button>
+					<a-button type="primary" @click="add">
+						<span class="iconfont ice-icon-add"></span>
+						新增
+					</a-button>
 				</div>
 			</div>
 			<IceTable :config="tableConfig" />

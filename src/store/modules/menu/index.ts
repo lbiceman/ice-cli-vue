@@ -40,10 +40,49 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 				icon: "ice-icon-computer"
 			},
 			{
-				id: "3",
+				id: "2",
 				name: "主页",
 				url: "/home",
 				icon: "ice-icon-home"
+			},
+			{
+				id: "3",
+				name: "特殊页",
+				url: "/404",
+				icon: "ice-icon-warning"
+			},
+			{
+				id: "4",
+				name: "组件示例",
+				url: "/example",
+				icon: "ice-icon-sys",
+				children: [
+					{
+						id: "40",
+						name: "form组件",
+						url: "/example/form"
+					},
+					{
+						id: "41",
+						name: "table组件",
+						url: "/example/table"
+					},
+					{
+						id: "42",
+						name: "drawer组件",
+						url: "/example/drawer"
+					},
+					{
+						id: "43",
+						name: "echarts组件",
+						url: "/example/echarts"
+					},
+					{
+						id: "44",
+						name: "editor组件",
+						url: "/example/editor"
+					}
+				]
 			},
 			{
 				id: "9",
@@ -67,12 +106,6 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 						url: "/admin/menu"
 					}
 				]
-			},
-			{
-				id: "2",
-				name: "特殊页",
-				url: "/404",
-				icon: "ice-icon-warning"
 			}
 		]
 	}),

@@ -18,11 +18,31 @@
 	padding: @ice-pm;
 	border-radius: @ice-border-radius;
 	.ice-index-welcome {
-		line-height: 50px;
-		font-size: 36px;
-		background-image: -webkit-gradient(linear, 100 200, 0 bottom, from(@ice-primary-color), to(#1ceac6));
+		background: linear-gradient(
+			30deg,
+			#edbc5d 19%,
+			transparent 19%,
+			transparent 20%,
+			#98e039 20%,
+			#98e039 39%,
+			transparent 39%,
+			transparent 40%,
+			#46e5b7 40%,
+			#46e5b7 59%,
+			transparent 59%,
+			transparent 60%,
+			#55bcff 60%,
+			#55bcff 79%,
+			transparent 79%,
+			transparent 80%,
+			#e858bf 80%
+		);
+		color: #fff;
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
+		line-height: 60px;
+		font-weight: bold;
+		font-size: 36px;
 	}
 }
 </style>

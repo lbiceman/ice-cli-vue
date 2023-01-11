@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import UserDesc from "./components/userDesc.vue";
 import TodoList from "./components/todoList.vue";
+import ComponentIntro from "./components/componentIntro.vue";
 </script>
 
 <template>
@@ -15,7 +16,10 @@ import TodoList from "./components/todoList.vue";
 				<TodoList />
 			</div>
 		</div>
-		<div class="home-sta home-item">这里还没有想好放什么组件</div>
+		<div class="home-intro home-item">
+			<!-- introduce -->
+			<ComponentIntro />
+		</div>
 	</div>
 </template>
 
@@ -38,7 +42,7 @@ import TodoList from "./components/todoList.vue";
 			width: 65%;
 		}
 	}
-	.home-sta {
+	.home-intro {
 		margin-top: @ice-pm;
 	}
 }
