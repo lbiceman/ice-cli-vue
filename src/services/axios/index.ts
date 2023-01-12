@@ -9,6 +9,8 @@ import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { isFun, isStr, isObj } from "@/utils/index";
 
 export declare interface AxiosExtraConfig {
+	// 请求哪个模块
+	module?: string;
 	// 是否可取消
 	cancelable?: boolean;
 }

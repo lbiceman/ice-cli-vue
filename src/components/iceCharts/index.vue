@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-const props = withDefaults(
+withDefaults(
 	defineProps<{
 		config?: object;
 	}>(),
-	{}
+	{
+		config: undefined
+	}
 );
 </script>
 

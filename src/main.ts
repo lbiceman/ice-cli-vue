@@ -9,6 +9,7 @@ import { createApp } from "vue";
 import router from "./router";
 import loading from "./directive/loading/index";
 import { registerComponents } from "./componentRegister/index";
+import { initAxios } from "./config/index";
 import "@/config/index";
 import "@/assets/style/reset.less";
 import "@/assets/style/common.less";
@@ -25,6 +26,7 @@ const iceApp = createApp(App);
  * 然后再去componentRegister/css文件里边引入css
  */
 registerComponents(iceApp);
+//  出屎化axios
 
 // 屏蔽警告信息
 // iceApp.config.warnHandler = () => null;
@@ -35,3 +37,5 @@ iceApp.directive("loading", loading);
 iceApp.use(createPinia());
 iceApp.use(router);
 iceApp.mount("#app");
+
+initAxios();

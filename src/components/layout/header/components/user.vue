@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { useUserStore } from "@/store/index";
 import { storeToRefs } from "pinia";
-import defaultAvator from "@/assets/images/user/user-icon.jpg";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/store/index";
+import defaultAvator from "@/assets/images/user/user-icon.jpg";
 
-const store = useUserStore();
-const { getUser } = storeToRefs(store);
+const { getUser } = storeToRefs(useUserStore());
 const router = useRouter();
 
 const dropdownClick = (item: any) => {

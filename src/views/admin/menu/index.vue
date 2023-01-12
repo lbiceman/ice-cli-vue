@@ -5,7 +5,6 @@ import { message, Modal } from "ant-design-vue";
 import {
 	TablePaginationConfig,
 	SorterResult,
-	TableRowSelection,
 	FilterValue,
 	TableCurrentDataSource
 } from "ant-design-vue/es/table/interface";
@@ -16,13 +15,6 @@ import { IceColumn } from "@/components/iceTable/type";
 import { IceFormProps } from "@/components/iceForm/type";
 import IceDrawer from "@/components/iceDrawer/index.vue";
 import { clone } from "@/utils/index";
-
-interface DataItem {
-	id?: number;
-	name?: string;
-	key?: number;
-	createTime?: string;
-}
 
 // 1新增  2修改
 let type = 1;

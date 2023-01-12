@@ -15,7 +15,8 @@ const props = withDefaults(
 	}>(),
 	{
 		disabled: false,
-		value: ""
+		value: "",
+		config: undefined
 	}
 );
 
@@ -94,7 +95,7 @@ onBeforeUnmount(() => {
 <template>
 	<div class="ice-editor">
 		<Toolbar v-bind="finalToolbarConfig" :editor="editorRef" />
-		<Editor v-bind="finalEditorConfig" v-model="html" @onCreated="onCreated" />
+		<Editor v-bind="finalEditorConfig" v-model="html" @on-created="onCreated" />
 	</div>
 </template>
 
