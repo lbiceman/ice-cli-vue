@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 import IceTable from "@/components/iceTable/index.vue";
 import IceForm from "@/components/iceForm/index.vue";
 import { IceColumn } from "@/components/iceTable/type";
-import { IceFormProps } from "@/components/iceForm/type";
+import { IceFormList, IceFormProps } from "@/components/iceForm/type";
 import IceDrawer from "@/components/iceDrawer/index.vue";
 import { clone } from "@/utils/index";
 
@@ -122,33 +122,40 @@ setTimeout(() => {
 	loading.value = false;
 }, 500);
 
-const formList = [
+const formList: IceFormList[] = [
 	{
-		component: "a-input",
-		label: "菜单名称",
-		name: "name",
-		placeholder: "请填写菜单名称"
+		item: {
+			component: "a-input",
+			placeholder: "请填写菜单名称"
+		},
+		formItem: {
+			label: "菜单名称",
+			name: "name"
+		}
 	},
 	{
-		component: "a-date-picker",
-		label: "创建时间",
-		placeholder: "请选择时间",
-		name: "createTime",
-		format: "YYYY-MM-DD",
-		allowClear: true
+		item: {
+			component: "a-date-picker",
+			placeholder: "请选择时间",
+			valueFormat: "YYYY-MM-DD",
+			allowClear: true
+		},
+		formItem: {
+			label: "创建时间",
+			name: "createTime"
+		}
 	}
 ];
 
 const formState = ref({
 	name: "",
-	sex: 1,
 	createTime: ""
 });
 
 const formConfig = computed(
 	(): IceFormProps => ({
 		layout: "inline",
-		value: formState.value,
+		model: formState.value,
 		list: formList
 	})
 );
@@ -172,7 +179,7 @@ const drawerFormState = ref({});
 
 const drawerFormConfig = computed(() => ({
 	btnsState: false,
-	value: drawerFormState.value,
+	model: drawerFormState.value,
 	list: formList
 }));
 

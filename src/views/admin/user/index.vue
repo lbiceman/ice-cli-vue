@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 import IceTable from "@/components/iceTable/index.vue";
 import IceForm from "@/components/iceForm/index.vue";
 import { IceColumn } from "@/components/iceTable/type";
-import { IceFormProps } from "@/components/iceForm/type";
+import { IceFormProps, IceFormList } from "@/components/iceForm/type";
 import IceDrawer from "@/components/iceDrawer/index.vue";
 import { clone } from "@/utils/index";
 import { useAxios } from "@/services/index";
@@ -346,43 +346,57 @@ setTimeout(() => {
 	loading.value = false;
 }, 500);
 
-const formList = [
+const formList: IceFormList[] = [
 	{
-		component: "a-input",
-		label: "姓名",
-		placeholder: "请填写姓名",
-		name: "name"
+		item: {
+			component: "a-input",
+			placeholder: "请填写姓名"
+		},
+		formItem: {
+			label: "姓名",
+			name: "name"
+		}
 	},
 	{
-		component: "a-select",
-		label: "性別",
-		placeholder: "请选择性别",
-		name: "sex",
-		allowClear: true,
-		options: [
-			{ value: 1, label: "男" },
-			{ value: 0, label: "女" }
-		]
+		item: {
+			component: "a-select",
+			placeholder: "请选择角色名称",
+			allowClear: true,
+			options: [
+				{ value: "1", label: "超级管理员" },
+				{ value: "2", label: "普通管理员" },
+				{ value: "3", label: "用户" }
+			]
+		},
+		formItem: {
+			label: "角色名称",
+			name: "roleName"
+		}
 	},
 	{
-		component: "a-date-picker",
-		label: "创建时间",
-		name: "createTime",
-		format: "YYYY-MM-DD",
-		allowClear: true
+		item: {
+			component: "a-date-picker",
+			placeholder: "请选择时间",
+			valueFormat: "YYYY-MM-DD",
+			allowClear: true
+		},
+		formItem: {
+			label: "创建时间",
+			name: "createTime"
+		}
 	}
 ];
 
 const formState = ref({
 	name: "",
-	sex: 1,
-	createTime: dayjs("2023-01-04", "YYYY-MM-DD")
+	roleName: "",
+	createTime: "2023-01-04"
 });
 
 const formConfig = computed(
 	(): IceFormProps => ({
 		layout: "inline",
-		value: formState.value,
+		model: formState.value,
 		list: formList
 	})
 );
@@ -407,20 +421,24 @@ const drawerFormState = ref({});
 
 const drawerFormConfig = computed(() => ({
 	btnsState: false,
-	value: drawerFormState.value,
+	model: drawerFormState.value,
 	list: Array.prototype.concat(formList, [
 		{
-			component: "ice-editor",
-			label: "备注",
-			name: "remark"
-			// config: {
-			// 	editorConfig: {
-			// 		// 富文本高度建议填写大于300的。否则会抛警告
-			// 		style: {
-			// 			height: "310px"
-			// 		}
-			// 	}
-			// }
+			item: {
+				component: "ice-editor",
+				config: {
+					editorConfig: {
+						// 富文本高度建议填写大于300的。否则会抛警告
+						style: {
+							height: "310px"
+						}
+					}
+				}
+			},
+			formItem: {
+				label: "备注",
+				name: "remark"
+			}
 		}
 	])
 }));

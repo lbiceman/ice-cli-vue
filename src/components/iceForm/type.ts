@@ -18,6 +18,7 @@ export interface IceFormValue {
 	[key: string]: string;
 }
 export interface IceFormProps extends FormProps {
+	btnsState?: boolean;
 	list?: IceFormList[];
 	onReset?: () => void;
 }

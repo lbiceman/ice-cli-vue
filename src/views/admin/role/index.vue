@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 import IceTable from "@/components/iceTable/index.vue";
 import IceForm from "@/components/iceForm/index.vue";
 import { IceColumn } from "@/components/iceTable/type";
-import { IceFormProps } from "@/components/iceForm/type";
+import { IceFormProps, IceFormList } from "@/components/iceForm/type";
 import IceDrawer from "@/components/iceDrawer/index.vue";
 import { clone } from "@/utils/index";
 
@@ -136,32 +136,44 @@ setTimeout(() => {
 	loading.value = false;
 }, 500);
 
-const formList = [
+const formList: IceFormList[] = [
 	{
-		component: "a-input",
-		label: "姓名",
-		placeholder: "请填写姓名",
-		name: "name"
+		item: {
+			component: "a-input",
+			placeholder: "请填写姓名"
+		},
+		formItem: {
+			label: "姓名",
+			name: "name"
+		}
 	},
 	{
-		component: "a-select",
-		label: "角色名称",
-		placeholder: "请选择角色名称",
-		name: "roleName",
-		allowClear: true,
-		options: [
-			{ value: "1", label: "超级管理员" },
-			{ value: "2", label: "普通管理员" },
-			{ value: "3", label: "用户" }
-		]
+		item: {
+			component: "a-select",
+			placeholder: "请选择角色名称",
+			allowClear: true,
+			options: [
+				{ value: "1", label: "超级管理员" },
+				{ value: "2", label: "普通管理员" },
+				{ value: "3", label: "用户" }
+			]
+		},
+		formItem: {
+			label: "角色名称",
+			name: "roleName"
+		}
 	},
 	{
-		component: "a-date-picker",
-		label: "创建时间",
-		placeholder: "请选择时间",
-		name: "createTime",
-		format: "YYYY-MM-DD",
-		allowClear: true
+		item: {
+			component: "a-date-picker",
+			placeholder: "请选择时间",
+			valueFormat: "YYYY-MM-DD",
+			allowClear: true
+		},
+		formItem: {
+			label: "创建时间",
+			name: "createTime"
+		}
 	}
 ];
 
@@ -174,7 +186,7 @@ const formState = ref({
 const formConfig = computed(
 	(): IceFormProps => ({
 		layout: "inline",
-		value: formState.value,
+		model: formState.value,
 		list: formList
 	})
 );
