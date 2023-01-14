@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import { FormExpose } from "ant-design-vue/es/form/Form";
+import { NamePath, ValidateOptions } from "ant-design-vue/es/form/interface";
 import { computed, ref } from "vue";
-import { IceFormProps, IceFormValue } from "./type";
+import { IceFormProps } from "./type";
 
 const props = withDefaults(
 	defineProps<{
@@ -9,10 +11,14 @@ const props = withDefaults(
 	{}
 );
 
-const emits = defineEmits<{
-	(e: "submit", value: IceFormValue): void;
-	(e: "reset"): void;
-}>();
+defineExpose<Partial<FormExpose>>({
+	validate: (nameList?: NamePath[] | string, options?: ValidateOptions) => formRef.value?.validate(nameList, options)
+});
+
+// const emits = defineEmits<{
+// 	(e: "submit", value: IceFormValue): void;
+// 	(e: "reset"): void;
+// }>();
 
 const formRef = ref();
 const finalConfig = computed(() =>
@@ -28,27 +34,32 @@ const finalConfig = computed(() =>
 		props.config
 	)
 );
-const finalFormList = computed(() => props.config.list);
-const finalFormState = computed(() => props.config.value);
+const finalFormList = computed(() => finalConfig.value.list);
+const finalFormState = computed(() => finalConfig.value.model || {});
 
 const submit = () => {
-	emits("submit", finalFormState.value);
+	// formRef.value.validate().then((state: Object) => {
+	// 	console.log("validate success", state);
+	// }).catch((error: Object) => {
+	// 	console.log("validate err", error);
+	// })
+	finalConfig.value.onFinish && finalConfig.value.onFinish(finalFormState.value);
 };
 
 const reset = () => {
-	emits("reset");
+	finalConfig.value.onReset && finalConfig.value.onReset();
 };
 </script>
 
 <template>
 	<div class="ice-form">
 		<a-form v-bind="finalConfig" ref="formRef" :model="finalFormState">
-			<template v-for="(item, i) of finalFormList" :key="i">
-				<a-form-item v-bind="item">
+			<template v-for="(li, i) of finalFormList" :key="i">
+				<a-form-item v-bind="li.formItem">
 					<component
-						:is="item.component || 'a-space'"
-						v-bind="item"
-						v-model:value="finalFormState[item.name]"
+						:is="li.item.component || 'a-space'"
+						v-bind="li.item"
+						v-model:value="finalFormState[li.formItem.name]"
 						class="ice-form-item">
 					</component>
 				</a-form-item>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { TableProps } from "ant-design-vue/lib/table";
 import { message, Modal } from "ant-design-vue";
 import {
@@ -16,6 +16,7 @@ import { IceColumn } from "@/components/iceTable/type";
 import { IceFormProps } from "@/components/iceForm/type";
 import IceDrawer from "@/components/iceDrawer/index.vue";
 import { clone } from "@/utils/index";
+import { useAxios } from "@/services/index";
 
 interface DataItem {
 	id?: number;
@@ -28,6 +29,19 @@ interface DataItem {
 	score?: number;
 	fav?: string;
 }
+
+const { data, run } = useAxios({
+	method: "post",
+	url: "/tope-common-business-web/offline/admin/list",
+	data: {},
+	module: "login"
+});
+
+run();
+
+watchEffect(() => {
+	console.log(data);
+});
 
 // 1新增  2修改
 let type = 1;
@@ -445,12 +459,13 @@ const add = () => {
 
 <style lang="less" scoped>
 .menu-table {
+	background-color: #fff;
+	padding: @ice-pm;
+	margin-top: 10px;
+	border-radius: @ice-border-radius;
 	.menu-table-operate {
-		background-color: #fff;
-		padding: @ice-pm;
 		display: flex;
 		justify-content: space-between;
 	}
-	margin-top: 10px;
 }
 </style>

@@ -4,13 +4,32 @@ import { useUserStore, useEnvStore } from "@/store/index";
 import { isProd } from "@/utils";
 import { AxiosResponse, AxiosError } from "axios";
 
-export interface AxiosResponseData<T> {
+// 这个data是response里边的。由后台开发人员包装好的，需要和首台开发人员讨论具体的字段类型
+export interface AxiosResponseData<D> {
 	code: number;
-	data: T;
+	data: D;
 	message: string | null;
 	requestId: string;
 	success: boolean;
 }
+
+export interface ErrorMsgMap {
+	[key: string]: string;
+}
+
+const errorMsgMap: ErrorMsgMap = {
+	"400": "请求错误",
+	"401": "未授权，请登录",
+	"403": "拒绝访问",
+	"404": "请求地址不存在",
+	"408": "请求超时",
+	"500": "服务器内部错误",
+	"501": "服务未实现",
+	"502": "网关错误",
+	"503": "服务不可用",
+	"504": "网关超时",
+	"505": "HTTP版本不受支持"
+};
 
 export const initAxios = () => {
 	const axios = getAxiosInstance();
@@ -51,47 +70,11 @@ export const initAxios = () => {
 				}
 				return Promise.reject(response);
 			}
-			return response;
+			return Promise.resolve(response);
 		},
 		(error: AxiosError) => {
 			if (error && error.response) {
-				switch (error.response.status) {
-					case 400:
-						error.message = "请求错误";
-						break;
-					case 401:
-						error.message = "未授权，请登录";
-						break;
-					case 403:
-						error.message = "拒绝访问";
-						break;
-					case 404:
-						error.message = `请求地址出错: ${error.response.config.url}`;
-						break;
-					case 408:
-						error.message = "请求超时";
-						break;
-					case 500:
-						error.message = "服务器内部错误";
-						break;
-					case 501:
-						error.message = "服务未实现";
-						break;
-					case 502:
-						error.message = "网关错误";
-						break;
-					case 503:
-						error.message = "服务不可用";
-						break;
-					case 504:
-						error.message = "网关超时";
-						break;
-					case 505:
-						error.message = "HTTP版本不受支持";
-						break;
-					default:
-						break;
-				}
+				error.message = errorMsgMap[error.response.status];
 			}
 			return Promise.reject(error);
 		}

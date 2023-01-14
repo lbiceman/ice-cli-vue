@@ -63,7 +63,7 @@ const finalConfig = computed(() => {
 <style lang="less" scoped>
 .ice-table {
 	overflow: hidden;
-	padding: @ice-pm;
+	margin-top: @ice-pm;
 	background-color: @ice-bg-color;
 	border-radius: @ice-border-radius;
 }

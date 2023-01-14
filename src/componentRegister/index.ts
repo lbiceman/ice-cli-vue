@@ -21,7 +21,9 @@ import {
 	Checkbox,
 	Popover,
 	DatePicker,
+	Cascader,
 	Drawer,
+	CheckboxGroup,
 	Space
 } from "ant-design-vue";
 
@@ -52,8 +54,10 @@ const components: Component[] = [
 	Popover,
 	Checkbox,
 	DatePicker,
+	Cascader,
 	Drawer,
 	IceEditor,
+	CheckboxGroup,
 	Space
 ];
 

@@ -22,3 +22,4 @@ import "ant-design-vue/es/space/style/index.less";
 import "ant-design-vue/es/date-picker/style/index.less";
 import "ant-design-vue/es/drawer/style/index.less";
 import "ant-design-vue/es/modal/style/index.less";
+import "ant-design-vue/es/cascader/style/index.less";

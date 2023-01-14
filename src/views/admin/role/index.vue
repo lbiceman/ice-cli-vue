@@ -236,12 +236,13 @@ const add = () => {
 
 <style lang="less" scoped>
 .menu-table {
+	background-color: #fff;
+	padding: @ice-pm;
+	margin-top: 10px;
+	border-radius: @ice-border-radius;
 	.menu-table-operate {
-		background-color: #fff;
-		padding: @ice-pm;
 		display: flex;
 		justify-content: space-between;
 	}
-	margin-top: 10px;
 }
 </style>
