@@ -8,7 +8,6 @@ import {
 	FilterValue,
 	TableCurrentDataSource
 } from "ant-design-vue/es/table/interface";
-import dayjs from "dayjs";
 import IceTable from "@/components/iceTable/index.vue";
 import IceForm from "@/components/iceForm/index.vue";
 import { IceColumn } from "@/components/iceTable/type";
@@ -64,7 +63,6 @@ let columns: IceColumn[] = [
 					type: "link",
 					onClick: () => {
 						let data = clone(record, {});
-						data.createTime = dayjs(data.createTime, "YYYY-MM-DD");
 						drawerFormState.value = data;
 						type = 2;
 						auState.value = true;

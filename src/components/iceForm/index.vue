@@ -21,6 +21,8 @@ defineExpose<Partial<FormExpose>>({
 // }>();
 
 const formRef = ref();
+// 不需要class的组件
+const noClass = ["a-switch"];
 const finalConfig = computed(() =>
 	Object.assign(
 		{
@@ -36,6 +38,8 @@ const finalConfig = computed(() =>
 );
 const finalFormList = computed(() => finalConfig.value.list);
 const finalFormState = computed(() => finalConfig.value.model || {});
+
+const getVModel = (val: string | undefined) => val || "value";
 
 const submit = () => {
 	// formRef.value.validate().then((state: Object) => {
@@ -59,8 +63,8 @@ const reset = () => {
 					<component
 						:is="li.item.component || 'a-space'"
 						v-bind="li.item"
-						v-model:value="finalFormState[li.formItem.name]"
-						class="ice-form-item">
+						v-model:[getVModel(li.formItem.vModel)]="finalFormState[li.formItem.name]"
+						:class="noClass.includes(li.item.component + '') ? '' : 'ice-form-item'">
 					</component>
 				</a-form-item>
 			</template>
@@ -75,7 +79,7 @@ const reset = () => {
 <style lang="less">
 .ice-form-item {
 	width: 100%;
-	min-width: 210px;
+	min-width: 200px;
 }
 </style>
 

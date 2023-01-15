@@ -24,6 +24,10 @@ import {
 	Cascader,
 	Drawer,
 	CheckboxGroup,
+	InputNumber,
+	Switch,
+	Upload,
+	RadioGroup,
 	Space
 } from "ant-design-vue";
 
@@ -58,6 +62,10 @@ const components: Component[] = [
 	Drawer,
 	IceEditor,
 	CheckboxGroup,
+	InputNumber,
+	Switch,
+	Upload,
+	RadioGroup,
 	Space
 ];
 

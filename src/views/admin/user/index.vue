@@ -9,7 +9,6 @@ import {
 	FilterValue,
 	TableCurrentDataSource
 } from "ant-design-vue/es/table/interface";
-import dayjs from "dayjs";
 import IceTable from "@/components/iceTable/index.vue";
 import IceForm from "@/components/iceForm/index.vue";
 import { IceColumn } from "@/components/iceTable/type";
@@ -21,6 +20,8 @@ import { useAxios } from "@/services/index";
 interface DataItem {
 	id?: number;
 	name?: string;
+	roleName?: string;
+	roleId?: number;
 	createTime?: string;
 	remark?: string;
 	key?: number;
@@ -53,6 +54,8 @@ const tableList = ref([
 		id: 1,
 		name: "小明",
 		createTime: "2022-12-31",
+		roleName: "管理员",
+		roleId: 1,
 		remark: '<h3><span style="color: rgb(115, 209, 61); background-color: rgb(246, 226, 234);">remark1</span></h3>',
 		key: 1,
 		sex: 1,
@@ -64,6 +67,8 @@ const tableList = ref([
 		id: 2,
 		name: "小花",
 		createTime: "2022-12-30",
+		roleName: "管理员",
+		roleId: 1,
 		remark: "remark2",
 		key: 2,
 		sex: 0,
@@ -75,6 +80,8 @@ const tableList = ref([
 				id: 21,
 				name: "小花1",
 				createTime: "2022-12-29",
+				roleName: "管理员",
+				roleId: 1,
 				remark: "remark3",
 				key: 20,
 				sex: 0,
@@ -86,6 +93,8 @@ const tableList = ref([
 						id: 201,
 						name: "小花1-1",
 						createTime: "2022-12-28",
+						roleName: "管理员",
+						roleId: 1,
 						remark: "remark4",
 						key: 4,
 						sex: 0,
@@ -97,6 +106,8 @@ const tableList = ref([
 						id: 202,
 						name: "小花1-2",
 						createTime: "2022-12-27",
+						roleName: "管理员",
+						roleId: 1,
 						remark: "remark5",
 						key: 5,
 						sex: 0,
@@ -110,6 +121,8 @@ const tableList = ref([
 				id: 6,
 				name: "小花2",
 				createTime: "2022-12-26",
+				roleName: "管理员",
+				roleId: 1,
 				remark: "remark6",
 				key: 21,
 				sex: 0,
@@ -121,6 +134,8 @@ const tableList = ref([
 						id: 7,
 						name: "小花2-1",
 						createTime: "2022-12-25",
+						roleName: "管理员",
+						roleId: 1,
 						remark: "remark7",
 						key: 210,
 						sex: 0,
@@ -136,6 +151,8 @@ const tableList = ref([
 		id: 8,
 		name: "小杨",
 		createTime: "2022-12-24",
+		roleName: "管理员",
+		roleId: 1,
 		remark: "remark8",
 		key: 3,
 		sex: 1,
@@ -147,6 +164,8 @@ const tableList = ref([
 				id: 9,
 				name: "小杨1",
 				createTime: "2022-12-23",
+				roleName: "管理员",
+				roleId: 1,
 				remark: "remark9",
 				key: 30,
 				sex: 1,
@@ -158,6 +177,8 @@ const tableList = ref([
 						id: 301,
 						name: "小杨1-1",
 						createTime: "2022-12-22",
+						roleName: "管理员",
+						roleId: 1,
 						remark: "remark10",
 						key: 10,
 						sex: 1,
@@ -169,6 +190,8 @@ const tableList = ref([
 						id: 302,
 						name: "小杨1-2",
 						createTime: "2022-12-21",
+						roleName: "管理员",
+						roleId: 1,
 						remark: "remark11",
 						key: 11,
 						sex: 1,
@@ -182,6 +205,8 @@ const tableList = ref([
 				id: 12,
 				name: "小杨2",
 				createTime: "2022-12-20",
+				roleName: "管理员",
+				roleId: 1,
 				remark: "remark12",
 				key: 31,
 				sex: 1,
@@ -193,6 +218,8 @@ const tableList = ref([
 						id: 13,
 						name: "小杨2-1",
 						createTime: "2022-12-19",
+						roleName: "管理员",
+						roleId: 1,
 						remark: "remark13",
 						key: 310,
 						sex: 1,
@@ -215,6 +242,11 @@ let columns: IceColumn[] = [
 			{
 				title: "姓名",
 				dataIndex: "name",
+				render: ({ text }) => text
+			},
+			{
+				title: "角色",
+				dataIndex: "roleName",
 				render: ({ text }) => text
 			},
 			{
@@ -274,7 +306,6 @@ let columns: IceColumn[] = [
 					type: "link",
 					onClick: () => {
 						let data = clone(record, {});
-						data.createTime = dayjs(data.createTime, "YYYY-MM-DD");
 						drawerFormState.value = data;
 						type = 2;
 						auState.value = true;
@@ -363,14 +394,14 @@ const formList: IceFormList[] = [
 			placeholder: "请选择角色名称",
 			allowClear: true,
 			options: [
-				{ value: "1", label: "超级管理员" },
-				{ value: "2", label: "普通管理员" },
-				{ value: "3", label: "用户" }
+				{ value: 1, label: "管理员" },
+				{ value: 2, label: "超级管理员" },
+				{ value: 3, label: "用户" }
 			]
 		},
 		formItem: {
 			label: "角色名称",
-			name: "roleName"
+			name: "roleId"
 		}
 	},
 	{

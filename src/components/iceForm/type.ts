@@ -1,4 +1,4 @@
-import type { FormProps, FormItemProps } from "ant-design-vue";
+import type { FormProps, FormItemProps, SwitchProps } from "ant-design-vue";
 import { Component, HTMLAttributes } from "vue";
 import type {
 	TreeProps,
@@ -36,6 +36,7 @@ export interface IceFormList {
 
 export interface IceFormItem extends FormItemProps {
 	name: string;
+	vModel?: "checked" | "value" | "file-list";
 }
 
 export type SupFormItem =
@@ -50,6 +51,7 @@ export type SupFormItem =
 	| (InputNumberProps & { component: "a-input-number" })
 	| (UploadProps & { component: "a-upload" })
 	| (DatePickerProps & { component: "a-date-picker" })
+	| (SwitchProps & { component: "a-switch" })
 	| {
 			component: string | Component;
 			[key: string]: any;

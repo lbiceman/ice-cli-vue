@@ -8,7 +8,6 @@ import {
 	FilterValue,
 	TableCurrentDataSource
 } from "ant-design-vue/es/table/interface";
-import dayjs from "dayjs";
 import IceTable from "@/components/iceTable/index.vue";
 import IceForm from "@/components/iceForm/index.vue";
 import { IceColumn } from "@/components/iceTable/type";
@@ -20,20 +19,22 @@ import { clone } from "@/utils/index";
 let type = 1;
 
 const auState = ref(false);
-
+const drawerFormState = ref({});
 const tableList = ref([
 	{
 		id: 1,
 		name: "小明",
 		createTime: "2022-12-31",
 		key: 1,
-		roleName: "普通管理员"
+		roleId: 1,
+		roleName: "管理员"
 	},
 	{
 		id: 2,
 		name: "小花",
 		createTime: "2022-12-30",
 		key: 2,
+		roleId: 2,
 		roleName: "超级管理员"
 	},
 	{
@@ -41,6 +42,7 @@ const tableList = ref([
 		name: "小杨",
 		createTime: "2022-12-24",
 		key: 3,
+		roleId: 3,
 		roleName: "用户"
 	}
 ]);
@@ -78,7 +80,6 @@ let columns: IceColumn[] = [
 					type: "link",
 					onClick: () => {
 						let data = clone(record, {});
-						data.createTime = dayjs(data.createTime, "YYYY-MM-DD");
 						drawerFormState.value = data;
 						type = 2;
 						auState.value = true;
@@ -153,14 +154,14 @@ const formList: IceFormList[] = [
 			placeholder: "请选择角色名称",
 			allowClear: true,
 			options: [
-				{ value: "1", label: "超级管理员" },
-				{ value: "2", label: "普通管理员" },
-				{ value: "3", label: "用户" }
+				{ value: 1, label: "管理员" },
+				{ value: 2, label: "超级管理员" },
+				{ value: 3, label: "用户" }
 			]
 		},
 		formItem: {
 			label: "角色名称",
-			name: "roleName"
+			name: "roleId"
 		}
 	},
 	{
@@ -179,7 +180,7 @@ const formList: IceFormList[] = [
 
 const formState = ref({
 	name: "",
-	roleName: null,
+	roleId: null,
 	createTime: ""
 });
 
@@ -206,11 +207,9 @@ const drawerConfig = computed(() => ({
 	}
 }));
 
-const drawerFormState = ref({});
-
 const drawerFormConfig = computed(() => ({
 	btnsState: false,
-	value: drawerFormState.value,
+	model: drawerFormState.value,
 	list: formList
 }));
 

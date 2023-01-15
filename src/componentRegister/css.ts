@@ -23,3 +23,7 @@ import "ant-design-vue/es/date-picker/style/index.less";
 import "ant-design-vue/es/drawer/style/index.less";
 import "ant-design-vue/es/modal/style/index.less";
 import "ant-design-vue/es/cascader/style/index.less";
+import "ant-design-vue/es/radio/style/index.less";
+import "ant-design-vue/es/input-number/style/index.less";
+import "ant-design-vue/es/switch/style/index.less";
+import "ant-design-vue/es/upload/style/index.less";
