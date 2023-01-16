@@ -22,7 +22,7 @@ const finalConfig = computed(() => {
 				paddingBottom: "0px"
 			},
 			class: "ice-drawer",
-			extraState: true,
+			btnsState: true,
 			onCancel: () => {},
 			onSubmit: () => {},
 			onClose: cancel
@@ -45,7 +45,7 @@ const submit = () => {
 <template>
 	<a-drawer v-bind="finalConfig" :visible="visible">
 		<template #extra>
-			<template v-if="finalConfig.extraState">
+			<template v-if="finalConfig.btnsState">
 				<a-button type="primary" @click="submit">提交</a-button>
 				<a-button style="margin-left: 10px" @click="cancel">取消</a-button>
 			</template>

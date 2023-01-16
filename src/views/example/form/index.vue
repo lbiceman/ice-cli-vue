@@ -173,14 +173,14 @@ const formConfig = computed(
 </script>
 
 <template>
-	<div class="ice-form">
+	<div class="ice-formWrap">
 		<h2>form组件</h2>
 		<IceForm ref="iceFormRef" :config="formConfig" />
 	</div>
 </template>
 
 <style lang="less" scoped>
-.ice-form {
+.ice-formWrap {
 	background-color: #fff;
 	padding: @ice-pm;
 	border-radius: @ice-border-radius;

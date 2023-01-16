@@ -22,7 +22,7 @@ defineExpose<Partial<FormExpose>>({
 
 const formRef = ref();
 // 不需要class的组件
-const noClass = ["a-switch"];
+const noClass = ["a-switch", "a-chexkbox-group", "a-radio-group"];
 const finalConfig = computed(() =>
 	Object.assign(
 		{
