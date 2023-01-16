@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/store";
 
 interface Form {
 	username: string;
@@ -15,7 +16,19 @@ const form = reactive<Form>({
 });
 
 const onFinish = (val: Form) => {
+	const userStore = useUserStore();
+	const userData = {
+		id: "1",
+		name: "lbiceman",
+		level: 1,
+		sex: 1,
+		userId: "980818",
+		address: "河南郑州",
+		phone: "186xxxx9932",
+		token: "lbiceman-980818-186xxxx9932"
+	};
 	console.log(val);
+	userStore.setUser(userData);
 	router.push("/index");
 };
 </script>

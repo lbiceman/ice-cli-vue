@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/store/index";
 import defaultAvator from "@/assets/images/user/user-icon.jpg";
 
-const { getUser } = storeToRefs(useUserStore());
+const { getUser, setUser } = useUserStore();
 const router = useRouter();
 
 const dropdownClick = (item: any) => {
 	if (item.item.name == "signout") {
+		setUser(null);
 		router.push("/login");
 	}
 };

@@ -6,7 +6,7 @@
 import App from "./App.vue";
 import { createPinia } from "pinia";
 import { createApp } from "vue";
-import router from "./router";
+import router, { initRouterBeforeEach } from "./router";
 import loading from "./directive/loading/index";
 import { registerComponents } from "./componentRegister/index";
 import { initAxios } from "./config/index";
@@ -39,3 +39,4 @@ iceApp.use(router);
 iceApp.mount("#app");
 
 initAxios();
+initRouterBeforeEach();

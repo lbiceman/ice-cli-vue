@@ -4,6 +4,7 @@
  * email: lbiceman@126.com
  */
 import { defineStore } from "pinia";
+import { getStorage, setStorage } from "@/utils/index";
 
 export interface User {
 	id?: string;
@@ -19,7 +20,7 @@ export interface User {
 }
 
 export interface UserStoreState {
-	user: User;
+	user: User | null;
 }
 
 export interface UserSotreActions {
@@ -34,28 +35,21 @@ export interface UserStoreGetters<T = UserStoreState> {
 
 export const useUserStore = defineStore<string, UserStoreState, UserStoreGetters, UserSotreActions>("user", {
 	state: () => ({
-		user: {
-			id: "1",
-			name: "lbiceman",
-			level: 1,
-			sex: 1,
-			userId: "980818",
-			address: "河南郑州",
-			phone: "",
-			token: "lbiceman",
-			isLogin: false
-		}
+		user: {}
 	}),
 
 	getters: {
-		getUser: (state: UserStoreState) => state.user,
-		isLogin: (state: UserStoreState) => state.user.isLogin
+		getUser: (state: UserStoreState) => {
+			return state.user ? getStorage("userData") : state.user;
+		},
+		isLogin: (state: UserStoreState) => state.user?.isLogin
 	},
 
 	actions: {
 		setUser(this: UserStoreState, data: User | null) {
-			if (!data) return;
-			data.isLogin = true;
+			if (data) data.isLogin = true;
+
+			setStorage("userData", data);
 			this.user = data;
 		}
 	}

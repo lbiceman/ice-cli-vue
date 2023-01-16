@@ -33,6 +33,7 @@ const formList: IceFormList[] = [
 		},
 		formItem: {
 			label: "爱好",
+			required: true,
 			name: "fav"
 		}
 	},

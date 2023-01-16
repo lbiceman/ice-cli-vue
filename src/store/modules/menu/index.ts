@@ -55,7 +55,7 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 				id: "4",
 				name: "组件示例",
 				url: "/example",
-				icon: "ice-icon-sys",
+				icon: "ice-icon-example",
 				children: [
 					{
 						id: "40",
