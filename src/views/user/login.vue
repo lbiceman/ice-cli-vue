@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import { reactive } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/store";
+import IceForm from "@/components/iceForm/index.vue";
+import { IceFormProps, IceFormList } from "@/components/iceForm/type";
 
 interface Form {
 	username: string;
@@ -10,10 +12,60 @@ interface Form {
 
 const router = useRouter();
 
-const form = reactive<Form>({
+const iceFormRef = ref();
+const formState = ref<Form>({
 	username: "lbiceman",
 	password: "123456"
 });
+
+const formList: IceFormList[] = [
+	{
+		item: {
+			component: "a-input",
+			allowClear: true,
+			placeholder: "用户名"
+		},
+		formItem: {
+			label: "用户名",
+			required: true,
+			name: "username"
+		}
+	},
+	{
+		item: {
+			component: "a-input-password",
+			placeholder: "密码"
+		},
+		formItem: {
+			label: "密码",
+			required: true,
+			name: "password"
+		}
+	}
+];
+
+const formConfig = computed(
+	(): IceFormProps => ({
+		model: formState.value,
+		list: formList,
+		onFinish: () => {
+			iceFormRef.value
+				.validate()
+				.then((state: any) => {
+					onFinish(state);
+				})
+				.catch((error: any) => {
+					console.log("validate err", error);
+				});
+		},
+		onReset: () => {
+			formState.value = {
+				username: "",
+				password: ""
+			};
+		}
+	})
+);
 
 const onFinish = (val: Form) => {
 	const userStore = useUserStore();
@@ -36,24 +88,7 @@ const onFinish = (val: Form) => {
 <template>
 	<div class="ice-login">
 		<div class="login-container">
-			<a-form
-				class="login-form"
-				:model="form"
-				name="basic"
-				:label-col="{ span: 6 }"
-				:wrapper-col="{ span: 16 }"
-				autocomplete="off"
-				@finish="onFinish">
-				<a-form-item name="username" label="用户名" :rules="[{ required: true, message: '请填写用户名' }]">
-					<a-input v-model:value="form.username" />
-				</a-form-item>
-				<a-form-item name="password" label="密码" :rules="[{ required: true, message: '请填写密码' }]">
-					<a-input-password v-model:value="form.password" />
-				</a-form-item>
-				<div class="login-form-btn">
-					<a-button type="primary" html-type="submit">登录</a-button>
-				</div>
-			</a-form>
+			<IceForm ref="iceFormRef" :config="formConfig" />
 		</div>
 	</div>
 </template>
@@ -76,13 +111,6 @@ const onFinish = (val: Form) => {
 		border: 1px solid #eee;
 		padding: 50px 20px;
 		border-radius: #eee;
-		.login-form {
-			width: 100%;
-			.login-form-btn {
-				display: flex;
-				justify-content: center;
-			}
-		}
 	}
 }
 </style>
