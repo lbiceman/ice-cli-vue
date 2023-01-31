@@ -22,14 +22,17 @@ import Menu from "@/components/layout/menu/index.vue";
 <style lang="less" scoped>
 .ice-layout {
 	min-height: 100%;
+	min-width: 1024px;
 	.layout-content {
 		min-height: calc(100vh - @ice-header-height);
 		display: flex;
 	}
 	.layout-content-main {
 		width: 100%;
+		height: calc(100vh - @ice-header-height);
 		background-color: #f8f8f8;
-		padding: 10px;
+		overflow-y: auto;
+		padding: @ice-pm;
 	}
 }
 </style>

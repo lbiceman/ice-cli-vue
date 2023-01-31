@@ -2,12 +2,14 @@
 import zhCN from "ant-design-vue/es/locale/zh_CN";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
+import { useEnvStore } from "@/store/index";
 
 dayjs.locale("zh-cn");
 
+const envStore = useEnvStore();
 // 获取环境变量
-const env = import.meta.env.MODE;
-console.log(env);
+const currEnv = import.meta.env.APP_ENV;
+envStore.setCurrent(currEnv);
 </script>
 
 <template>

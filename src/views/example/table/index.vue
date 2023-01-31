@@ -1,0 +1,362 @@
+<script lang="ts" setup>
+import { computed, ref } from "vue";
+import { TableProps } from "ant-design-vue/lib/table";
+import {
+	TablePaginationConfig,
+	SorterResult,
+	TableRowSelection,
+	FilterValue,
+	TableCurrentDataSource
+} from "ant-design-vue/es/table/interface";
+import { message, Modal } from "ant-design-vue";
+import IceTable from "@/components/iceTable/index.vue";
+import { IceColumn } from "@/components/iceTable/type";
+
+interface DataItem {
+	id?: number;
+	name?: string;
+	roleName?: string;
+	roleId?: number;
+	createTime?: string;
+	remark?: string;
+	key?: number;
+	sex?: number;
+	age?: number;
+	score?: number;
+	fav?: string;
+}
+
+const loading = ref(false);
+const columns: IceColumn[] = [
+	{
+		title: "个人信息",
+		children: [
+			{
+				title: "姓名",
+				dataIndex: "name",
+				render: ({ text }) => text
+			},
+			{
+				title: "角色",
+				dataIndex: "roleName",
+				render: ({ text }) => text
+			},
+			{
+				title: "年龄",
+				sorter: true,
+				dataIndex: "age",
+				render: {
+					component: "a-tag",
+					props: ({ text }) => {
+						return {
+							color: parseInt(text) >= 20 ? "#87d068" : parseInt(text) >= 15 ? "#2db7f5" : "#E8D82C"
+						};
+					},
+					text: ({ text }) => text
+				}
+			},
+			{
+				title: "爱好",
+				dataIndex: "fav",
+				render: ({ text }) => text
+			},
+			{
+				title: "分数",
+				dataIndex: "score",
+				render: {
+					component: "a-progress",
+					props: ({ text }) => {
+						return {
+							format: () => text,
+							strokeColor: {
+								"0%": "#87d068",
+								"100%": "#66bbff"
+							},
+							percent: parseFloat(text)
+						};
+					}
+				}
+			}
+		]
+	},
+	{
+		title: "创建时间",
+		dataIndex: "createTime",
+		render: ({ text }) => text
+	},
+	{
+		title: "备注",
+		dataIndex: "remark",
+		render: ({ text }) => text
+	},
+	{
+		title: "操作",
+		render: [
+			{
+				component: "a-button",
+				props: ({ record }) => ({
+					type: "link",
+					onClick: () => {
+						message.info("update");
+						console.log("update", record);
+					}
+				}),
+				icon: "iconfont ice-icon-edit",
+				text: () => " 修改"
+			},
+			{
+				component: "a-button",
+				props: () => ({
+					type: "link",
+					danger: true,
+					onClick: () => {
+						Modal.confirm({
+							title: "提示",
+							content: "确认要删除吗?",
+							onOk() {
+								message.success("删除成功");
+							},
+							onCancel() {}
+						});
+					}
+				}),
+				icon: "iconfont ice-icon-delete",
+				text: () => "删除"
+			}
+		]
+	}
+];
+const tableList = ref([
+	{
+		id: 1,
+		name: "小明",
+		createTime: "2022-12-31",
+		roleName: "管理员",
+		roleId: 1,
+		remark: '<h3><span style="color: rgb(115, 209, 61); background-color: rgb(246, 226, 234);">remark1</span></h3>',
+		key: 1,
+		sex: 1,
+		age: 18,
+		score: 10,
+		fav: "爱好"
+	},
+	{
+		id: 2,
+		name: "小花",
+		createTime: "2022-12-30",
+		roleName: "管理员",
+		roleId: 1,
+		remark: "remark2",
+		key: 2,
+		sex: 0,
+		age: 18,
+		score: 20,
+		fav: "爱好",
+		children: [
+			{
+				id: 21,
+				name: "小花1",
+				createTime: "2022-12-29",
+				roleName: "管理员",
+				roleId: 1,
+				remark: "remark3",
+				key: 20,
+				sex: 0,
+				age: 10,
+				score: 30,
+				fav: "爱好",
+				children: [
+					{
+						id: 201,
+						name: "小花1-1",
+						createTime: "2022-12-28",
+						roleName: "管理员",
+						roleId: 1,
+						remark: "remark4",
+						key: 4,
+						sex: 0,
+						age: 1,
+						score: 40,
+						fav: "爱好"
+					},
+					{
+						id: 202,
+						name: "小花1-2",
+						createTime: "2022-12-27",
+						roleName: "管理员",
+						roleId: 1,
+						remark: "remark5",
+						key: 5,
+						sex: 0,
+						age: 1,
+						score: 50,
+						fav: "爱好"
+					}
+				]
+			},
+			{
+				id: 6,
+				name: "小花2",
+				createTime: "2022-12-26",
+				roleName: "管理员",
+				roleId: 1,
+				remark: "remark6",
+				key: 21,
+				sex: 0,
+				age: 10,
+				score: 60,
+				fav: "爱好",
+				children: [
+					{
+						id: 7,
+						name: "小花2-1",
+						createTime: "2022-12-25",
+						roleName: "管理员",
+						roleId: 1,
+						remark: "remark7",
+						key: 210,
+						sex: 0,
+						age: 21,
+						score: 70,
+						fav: "爱好"
+					}
+				]
+			}
+		]
+	},
+	{
+		id: 8,
+		name: "小杨",
+		createTime: "2022-12-24",
+		roleName: "管理员",
+		roleId: 1,
+		remark: "remark8",
+		key: 3,
+		sex: 1,
+		age: 18,
+		score: 70,
+		fav: "爱好",
+		children: [
+			{
+				id: 9,
+				name: "小杨1",
+				createTime: "2022-12-23",
+				roleName: "管理员",
+				roleId: 1,
+				remark: "remark9",
+				key: 30,
+				sex: 1,
+				age: 10,
+				score: 80,
+				fav: "爱好",
+				children: [
+					{
+						id: 301,
+						name: "小杨1-1",
+						createTime: "2022-12-22",
+						roleName: "管理员",
+						roleId: 1,
+						remark: "remark10",
+						key: 10,
+						sex: 1,
+						age: 1,
+						score: 90,
+						fav: "爱好"
+					},
+					{
+						id: 302,
+						name: "小杨1-2",
+						createTime: "2022-12-21",
+						roleName: "管理员",
+						roleId: 1,
+						remark: "remark11",
+						key: 11,
+						sex: 1,
+						age: 1,
+						score: 100,
+						fav: "爱好"
+					}
+				]
+			},
+			{
+				id: 12,
+				name: "小杨2",
+				createTime: "2022-12-20",
+				roleName: "管理员",
+				roleId: 1,
+				remark: "remark12",
+				key: 31,
+				sex: 1,
+				age: 10,
+				score: 90,
+				fav: "爱好",
+				children: [
+					{
+						id: 13,
+						name: "小杨2-1",
+						createTime: "2022-12-19",
+						roleName: "管理员",
+						roleId: 1,
+						remark: "remark13",
+						key: 310,
+						sex: 1,
+						age: 1,
+						score: 80,
+						fav: "爱好"
+					}
+				]
+			}
+		]
+	}
+]);
+
+const tableOnChange = (
+	pagination: TablePaginationConfig,
+	filters: Record<string, FilterValue | null>,
+	sorter: SorterResult | SorterResult[],
+	extra: TableCurrentDataSource
+) => {
+	console.log(pagination, filters, sorter, extra);
+};
+
+const rowSelection = ref<TableRowSelection>({
+	checkStrictly: false,
+	onChange: (selectedRowKeys: (string | number)[], selectedRows: DataItem[]) => {
+		console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
+	},
+	onSelect: (record: DataItem, selected: boolean, selectedRows: DataItem[]) => {
+		console.log(record, selected, selectedRows);
+	},
+	onSelectAll: (selected: boolean, selectedRows: DataItem[], changeRows: DataItem[]) => {
+		console.log(selected, selectedRows, changeRows);
+	}
+});
+
+const tableConfig = computed(
+	(): TableProps => ({
+		bordered: true,
+		columns,
+		onChange: tableOnChange,
+		rowSelection: rowSelection.value,
+		loading: loading.value,
+		dataSource: tableList.value,
+		pagination: {
+			total: 13
+		}
+	})
+);
+</script>
+
+<template>
+	<div class="ice-tableWrap">
+		<IceTable :config="tableConfig" />
+	</div>
+</template>
+
+<style lang="less" scoped>
+.ice-tableWrap {
+	background-color: #fff;
+	border-radius: @ice-border-radius;
+	padding: @ice-pm;
+}
+</style>

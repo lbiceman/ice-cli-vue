@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { computed, ref, toRefs } from "vue";
-import { IceFormProps, IceFormValue } from "./type";
+import { FormExpose } from "ant-design-vue/es/form/Form";
+import { NamePath, ValidateOptions } from "ant-design-vue/es/form/interface";
+import { computed, ref } from "vue";
+import { IceFormProps } from "./type";
 
 const props = withDefaults(
 	defineProps<{
@@ -9,41 +11,64 @@ const props = withDefaults(
 	{}
 );
 
-const emits = defineEmits<{
-	(e: "submit", value: IceFormValue): void;
-	(e: "reset"): void;
-}>();
+defineExpose<Partial<FormExpose>>({
+	validate: (nameList?: NamePath[] | string, options?: ValidateOptions) => formRef.value?.validate(nameList, options)
+});
+
+// const emits = defineEmits<{
+// 	(e: "submit", value: IceFormValue): void;
+// 	(e: "reset"): void;
+// }>();
 
 const formRef = ref();
-const { config } = toRefs(props);
-const finalFormList = computed(() => props.config.list);
-const finalFormState = computed(() => props.config.value);
+// 不需要class的组件
+const noClass = ["a-switch", "a-chexkbox-group", "a-radio-group"];
+const finalConfig = computed(() =>
+	Object.assign(
+		{
+			labelCol: {
+				style: {
+					minWidth: "80px"
+				}
+			},
+			btnsState: true
+		},
+		props.config
+	)
+);
+const finalFormList = computed(() => finalConfig.value.list);
+const finalFormState = computed(() => finalConfig.value.model || {});
+
+const getVModel = (val: string | undefined) => val || "value";
 
 const submit = () => {
-	console.log(finalFormState.value);
-
-	emits("submit", finalFormState.value);
+	// formRef.value.validate().then((state: Object) => {
+	// 	console.log("validate success", state);
+	// }).catch((error: Object) => {
+	// 	console.log("validate err", error);
+	// })
+	finalConfig.value.onFinish && finalConfig.value.onFinish(finalFormState.value);
 };
 
 const reset = () => {
-	emits("reset");
+	finalConfig.value.onReset && finalConfig.value.onReset();
 };
 </script>
 
 <template>
 	<div class="ice-form">
-		<a-form v-bind="config" ref="formRef" :model="finalFormState">
-			<template v-for="(item, i) of finalFormList" :key="i">
-				<a-form-item v-bind="item">
+		<a-form v-bind="finalConfig" ref="formRef" :model="finalFormState">
+			<template v-for="(li, i) of finalFormList" :key="i">
+				<a-form-item v-bind="li.formItem">
 					<component
-						:is="item.component || 'a-space'"
-						v-bind="item"
-						v-model:value="finalFormState[item.name]"
-						class="ice-form-item">
+						:is="li.item.component || 'a-space'"
+						v-bind="li.item"
+						v-model:[getVModel(li.formItem.vModel)]="finalFormState[li.formItem.name]"
+						:class="noClass.includes(li.item.component + '') ? '' : 'ice-form-item'">
 					</component>
 				</a-form-item>
 			</template>
-			<a-form-item>
+			<a-form-item v-if="finalConfig.btnsState">
 				<a-button type="primary" @click="submit">确认</a-button>
 				<a-button style="margin-left: 10px" @click="reset">重置</a-button>
 			</a-form-item>
@@ -53,7 +78,8 @@ const reset = () => {
 
 <style lang="less">
 .ice-form-item {
-	min-width: 100px;
+	width: 100%;
+	min-width: 200px;
 }
 </style>
 
@@ -61,7 +87,7 @@ const reset = () => {
 .ice-form {
 	background-color: @ice-bg-color;
 	overflow: hidden;
-	padding: 12px;
+	padding: @ice-pm;
 	border-radius: @ice-border-radius;
 }
 </style>

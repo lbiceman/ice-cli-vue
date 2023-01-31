@@ -48,7 +48,7 @@ const finalConfig = computed(() => {
 .ant-table-tbody > tr > td,
 .ant-table tfoot > tr > th,
 .ant-table tfoot > tr > td {
-	padding: 10px;
+	padding: @ice-pm;
 	color: @ice-font-color;
 }
 .ant-table-thead > tr > th {
@@ -63,7 +63,7 @@ const finalConfig = computed(() => {
 <style lang="less" scoped>
 .ice-table {
 	overflow: hidden;
-	padding: 12px;
+	margin-top: @ice-pm;
 	background-color: @ice-bg-color;
 	border-radius: @ice-border-radius;
 }

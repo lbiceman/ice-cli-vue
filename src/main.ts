@@ -6,9 +6,10 @@
 import App from "./App.vue";
 import { createPinia } from "pinia";
 import { createApp } from "vue";
-import router from "./router";
+import router, { initRouterBeforeEach } from "./router";
 import loading from "./directive/loading/index";
 import { registerComponents } from "./componentRegister/index";
+import { initAxios } from "./config/index";
 import "@/config/index";
 import "@/assets/style/reset.less";
 import "@/assets/style/common.less";
@@ -35,3 +36,7 @@ iceApp.directive("loading", loading);
 iceApp.use(createPinia());
 iceApp.use(router);
 iceApp.mount("#app");
+
+//  出屎化axios
+initAxios();
+initRouterBeforeEach();

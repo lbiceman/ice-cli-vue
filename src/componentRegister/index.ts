@@ -21,8 +21,17 @@ import {
 	Checkbox,
 	Popover,
 	DatePicker,
+	Cascader,
+	Drawer,
+	CheckboxGroup,
+	InputNumber,
+	Switch,
+	Upload,
+	RadioGroup,
 	Space
 } from "ant-design-vue";
+
+import IceEditor from "@/components/IceEditor/index.vue";
 
 import "./css";
 
@@ -49,6 +58,14 @@ const components: Component[] = [
 	Popover,
 	Checkbox,
 	DatePicker,
+	Cascader,
+	Drawer,
+	IceEditor,
+	CheckboxGroup,
+	InputNumber,
+	Switch,
+	Upload,
+	RadioGroup,
 	Space
 ];
 

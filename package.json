@@ -15,6 +15,8 @@
 		"@ant-design/icons-vue": "^6.1.0",
 		"@vueuse/components": "^8.9.4",
 		"@vueuse/core": "^8.9.4",
+		"@wangeditor/editor": "^5.1.23",
+		"@wangeditor/editor-for-vue": "^5.1.12",
 		"ant-design-vue": "^3.2.14",
 		"axios": "^0.27.2",
 		"dayjs": "^1.11.4",
@@ -51,11 +53,6 @@
 		"hooks": {
 			"pre-commit": "lint-staged"
 		}
-	},
-	"commotlint": {
-		"extends": [
-			"@commitlint/config-conventional"
-		]
 	},
 	"lint-staged": {
 		"*.{js,jsx,vue,ts,tsx}": [
