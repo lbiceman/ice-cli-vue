@@ -44,6 +44,7 @@ const formList: IceFormList[] = [
 	}
 ];
 
+// 测试代码提交
 const formConfig = computed(
 	(): IceFormProps => ({
 		model: formState.value,
@@ -53,6 +54,7 @@ const formConfig = computed(
 				.validate()
 				.then((state: any) => {
 					onFinish(state);
+					console.log(state);
 				})
 				.catch((error: any) => {
 					console.log("validate err", error);
