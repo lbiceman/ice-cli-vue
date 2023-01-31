@@ -26,7 +26,7 @@ const open = (url: string) => {
 				<span class="span_btn" @click="jump('/example/form')">form</span>，
 				<span class="span_btn" @click="jump('/example/table')">table</span>，
 				<span class="span_btn" @click="jump('/example/drawer')">drawer</span>，
-				<span class="span_btn" @click="jump('/example/echarts')">echarts</span>,
+				<span class="span_btn" @click="jump('/example/echarts')">echarts</span>，
 				<span class="span_btn" @click="jump('/example/editor')">editor</span>
 				等组件进行快速的创建
 			</p>

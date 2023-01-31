@@ -44,7 +44,6 @@ const formList: IceFormList[] = [
 	}
 ];
 
-// 测试代码提交
 const formConfig = computed(
 	(): IceFormProps => ({
 		model: formState.value,

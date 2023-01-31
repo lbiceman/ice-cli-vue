@@ -26,7 +26,6 @@ const iceApp = createApp(App);
  * 然后再去componentRegister/css文件里边引入css
  */
 registerComponents(iceApp);
-//  出屎化axios
 
 // 屏蔽警告信息
 // iceApp.config.warnHandler = () => null;
@@ -38,5 +37,6 @@ iceApp.use(createPinia());
 iceApp.use(router);
 iceApp.mount("#app");
 
+//  出屎化axios
 initAxios();
 initRouterBeforeEach();
