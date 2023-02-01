@@ -31,19 +31,6 @@ interface DataItem {
 	fav?: string;
 }
 
-const { data, run } = useAxios({
-	method: "post",
-	url: "/tope-common-business-web/offline/admin/list",
-	data: {},
-	module: "login"
-});
-
-run();
-
-watchEffect(() => {
-	console.log(data);
-});
-
 // 1新增  2修改
 let type = 1;
 

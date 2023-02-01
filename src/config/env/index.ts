@@ -27,11 +27,11 @@ export const envList: EnvConfig[] = [
 		modules: {
 			common: {
 				proxyUrl: "dev-common",
-				targetUrl: "https://dev-g-gateway.tope365.com"
+				targetUrl: "http://127.0.0.1:4523/m1/2236834-0-default"
 			},
 			login: {
 				proxyUrl: "dev-login",
-				targetUrl: "https://dev-g-gateway.tope365.com"
+				targetUrl: ""
 			}
 		}
 	},
@@ -41,11 +41,11 @@ export const envList: EnvConfig[] = [
 		modules: {
 			common: {
 				proxyUrl: "test-common",
-				targetUrl: "https://qa-chin-gw.tope365.com"
+				targetUrl: ""
 			},
 			login: {
 				proxyUrl: "test-login",
-				targetUrl: "https://qa-g-gateway.tope365.com"
+				targetUrl: ""
 			}
 		}
 	},
@@ -55,20 +55,10 @@ export const envList: EnvConfig[] = [
 		modules: {
 			common: {
 				proxyUrl: "prod-common",
-				targetUrl: "https://chin-gw.tope365.com"
+				targetUrl: ""
 			},
 			login: {
 				proxyUrl: "prod-login",
-				targetUrl: "https://g-gateway.tope365.com"
-			}
-		}
-	},
-	{
-		env: "mock",
-		name: "mock环境",
-		modules: {
-			common: {
-				proxyUrl: "mock",
 				targetUrl: ""
 			}
 		}

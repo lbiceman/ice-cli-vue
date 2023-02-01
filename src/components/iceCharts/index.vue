@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-withDefaults(
+import { ref, computed } from "vue";
+
+const props = withDefaults(
 	defineProps<{
 		config?: object;
 	}>(),
@@ -7,6 +9,8 @@ withDefaults(
 		config: undefined
 	}
 );
+
+const finalConfig = computed(() => ({}));
 </script>
 
 <template>

@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { computed, reactive, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/store";
 import IceForm from "@/components/iceForm/index.vue";
 import { IceFormProps, IceFormList } from "@/components/iceForm/type";
+import { useAxios } from "@/services";
 
 interface Form {
 	username: string;
@@ -11,6 +12,7 @@ interface Form {
 }
 
 const router = useRouter();
+const userStore = useUserStore();
 
 const iceFormRef = ref();
 const formState = ref<Form>({
@@ -53,7 +55,6 @@ const formConfig = computed(
 				.validate()
 				.then((state: any) => {
 					onFinish(state);
-					console.log(state);
 				})
 				.catch((error: any) => {
 					console.log("validate err", error);
@@ -68,21 +69,35 @@ const formConfig = computed(
 	})
 );
 
+const { run: loginRun, data: loginData } = useAxios({
+	url: "/ice-cli/login",
+	method: "post"
+});
+
+watchEffect(() => {
+	if (loginData.value) {
+		if (loginData.value.code != 200) return;
+		// const userData = {
+		// 	id: "1",
+		// 	name: "lbiceman",
+		// 	level: 1,
+		// 	sex: 1,
+		// 	userId: "980818",
+		// 	address: "河南郑州",
+		// 	phone: "186xxxx9932",
+		// 	token: "lbiceman-980818-186xxxx9932"
+		// };
+		// console.log(val);
+		const userData = loginData.value.data.user || {};
+		userStore.setUser(userData);
+		router.push("/index");
+	}
+});
+
 const onFinish = (val: Form) => {
-	const userStore = useUserStore();
-	const userData = {
-		id: "1",
-		name: "lbiceman",
-		level: 1,
-		sex: 1,
-		userId: "980818",
-		address: "河南郑州",
-		phone: "186xxxx9932",
-		token: "lbiceman-980818-186xxxx9932"
-	};
-	console.log(val);
-	userStore.setUser(userData);
-	router.push("/index");
+	loginRun({
+		data: val
+	});
 };
 </script>
 

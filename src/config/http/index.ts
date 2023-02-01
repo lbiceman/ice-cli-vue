@@ -44,7 +44,7 @@ export const initAxios = () => {
 		url = url || "";
 		const currModule = currEnvObj?.modules[requestModule];
 
-		if (getUser.isLogin) {
+		if (getUser && getUser.isLogin) {
 			headers["token"] = getUser.token || "";
 		}
 		// 如果请求地址是http开头，和axios保持一致
@@ -68,7 +68,7 @@ export const initAxios = () => {
 					setUser(null);
 					router.push("/login");
 				}
-				return Promise.reject(response);
+				return Promise.resolve(response);
 			}
 			return Promise.resolve(response);
 		},

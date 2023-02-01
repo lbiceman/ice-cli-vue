@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { TableProps } from "ant-design-vue/lib/table";
 import { message, Modal } from "ant-design-vue";
 import {
@@ -14,38 +14,19 @@ import { IceColumn } from "@/components/iceTable/type";
 import { IceFormProps, IceFormList } from "@/components/iceForm/type";
 import IceDrawer from "@/components/iceDrawer/index.vue";
 import { clone } from "@/utils/index";
+import { useAxios } from "@/services";
 
 // 1新增  2修改
 let type = 1;
 
 const auState = ref(false);
 const drawerFormState = ref({});
-const tableList = ref([
-	{
-		id: 1,
-		name: "小明",
-		createTime: "2022-12-31",
-		key: 1,
-		roleId: 1,
-		roleName: "管理员"
-	},
-	{
-		id: 2,
-		name: "小花",
-		createTime: "2022-12-30",
-		key: 2,
-		roleId: 2,
-		roleName: "超级管理员"
-	},
-	{
-		id: 8,
-		name: "小杨",
-		createTime: "2022-12-24",
-		key: 3,
-		roleId: 3,
-		roleName: "用户"
-	}
-]);
+const tableList = ref();
+const page = ref({
+	total: 0,
+	current: 1,
+	pageSize: 10
+});
 
 const loading = ref(true);
 
@@ -128,14 +109,10 @@ const tableConfig = computed(
 		loading: loading.value,
 		dataSource: tableList.value,
 		pagination: {
-			total: 3
+			total: page.value.total
 		}
 	})
 );
-
-setTimeout(() => {
-	loading.value = false;
-}, 500);
 
 const formList: IceFormList[] = [
 	{
@@ -212,6 +189,21 @@ const drawerFormConfig = computed(() => ({
 	model: drawerFormState.value,
 	list: formList
 }));
+
+const { run, data } = useAxios({
+	url: "/ice-cli/getRoleList",
+	method: "get"
+});
+
+watchEffect(() => {
+	if (data.value) {
+		loading.value = false;
+		tableList.value = data.value.data.list;
+		page.value.total = data.value.data.page.total;
+	}
+});
+
+run();
 
 const add = () => {
 	drawerFormState.value = {};
