@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref, toRaw, watchEffect } from "vue";
+import { useRouter } from "vue-router";
 import { useMenuStore, Menu } from "@/store/index";
 import SubMenu from "./sub-menu.vue";
 import { findTree } from "@/utils/index";
-import { useRouter } from "vue-router";
 import { MenuItem } from "./type";
 
 const store = useMenuStore();
