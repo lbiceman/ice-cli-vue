@@ -33,7 +33,7 @@ interface DataItem {
 
 const { data, run } = useAxios({
 	method: "post",
-	url: "/tope-common-business-web/offline/admin/list",
+	url: "/common/offline/admin/list",
 	data: {},
 	module: "login"
 });
