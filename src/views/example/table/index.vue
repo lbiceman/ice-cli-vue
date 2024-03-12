@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { TableProps } from "ant-design-vue/lib/table";
 import {
 	TablePaginationConfig,
@@ -11,6 +11,7 @@ import {
 import { message, Modal } from "ant-design-vue";
 import IceTable from "@/components/iceTable/index.vue";
 import { IceColumn } from "@/components/iceTable/type";
+import { useAxios } from "@/services";
 
 interface DataItem {
 	id?: number;
@@ -25,6 +26,17 @@ interface DataItem {
 	score?: number;
 	fav?: string;
 }
+
+const { run: getListRun, data: getListData } = useAxios({
+	method: "POST",
+	url: "/v1/api/procurementPlan/page",
+	data: {
+		current: 1,
+		size: 100,
+		isAll: true,
+		companyCode: 105
+	}
+});
 
 const loading = ref(false);
 const columns: IceColumn[] = [
@@ -310,6 +322,8 @@ const tableList = ref([
 	}
 ]);
 
+getListRun();
+
 const tableOnChange = (
 	pagination: TablePaginationConfig,
 	filters: Record<string, FilterValue | null>,
@@ -344,6 +358,14 @@ const tableConfig = computed(
 			total: 13
 		}
 	})
+);
+
+watch(
+	() => getListData.value,
+	() => {
+		let val = getListData.value;
+		console.log(val);
+	}
 );
 </script>
 

@@ -46,6 +46,7 @@ export const initAxios = () => {
 
 		if (getUser.isLogin) {
 			headers["token"] = getUser.token || "";
+			headers["Authorization"] = getUser.token || "";
 		}
 		// 如果请求地址是http开头，和axios保持一致
 		if (url && url.startsWith("http")) return config;

@@ -78,9 +78,9 @@ const onFinish = (val: Form) => {
 		userId: "980818",
 		address: "河南郑州",
 		phone: "186xxxx9932",
-		token: "lbiceman-980818-186xxxx9932"
+		// token: "lbiceman-980818-186xxxx9932"
+		token: "Bearer eyJraWQiOiJmZTg5NGY4Yi05NjQ1LTQ1NTMtYjlmNS1jOTVlY2IyMjNhNGQiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImF1ZCI6IndzcCIsIm5iZiI6MTcxMDIwMjIwNSwiZXhwIjoxNzEwODI4NzI1LCJpYXQiOjE3MTAyMDIyMDV9.iw5vb86aIAqADC8ZvQVAxzZG4BMuk3qB_QyVqngC2y7y8CkKoSBQgWOT6UvU686d3jb_6HGYQw8RZE6hIwRLdSrlaCHmxNMGoA6j9l1HQ0nPUYwEUaN1idPv6ZzH_3_6P9OKD-Xh8acps_fo6EiL4l37bNUUHx2UfQNAWDo2d1dTr_pJQ32zq8_dFA71cHl9at96LT0e90-7kD0kD3svHgJz_nsSIMRNjQUcsMMeA-y8KJ_m5nr9oS7GafUF0V4LsqkDBzVFXzABJGfVmerGhzLPB-mRVfPHtyWayif3dq76u8nNqtY0W_d4S9Qb8lfuoWfMeH3tJKHSn-8_2QVvlA"
 	};
-	console.log(val);
 	userStore.setUser(userData);
 	router.push("/index");
 };

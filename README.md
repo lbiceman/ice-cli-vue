@@ -37,6 +37,7 @@ commit 提交备注必须以以下字段开头:
     git commit -m "fix: 修复用户token失效BUG。"
 
 todo:
+
 -   [ ] 大文件分片上传功能
 -   [ ] 虚拟表格
--   [ ] echarts组件
+-   [ ] echarts 组件
