@@ -54,6 +54,7 @@ const formConfig = computed(
 			iceFormRef.value
 				.validate()
 				.then((state: any) => {
+					loginJump();
 					onFinish(state);
 				})
 				.catch((error: any) => {
@@ -77,22 +78,26 @@ const { run: loginRun, data: loginData } = useAxios({
 watchEffect(() => {
 	if (loginData.value) {
 		if (loginData.value.code != 200) return;
-		// const userData = {
-		// 	id: "1",
-		// 	name: "lbiceman",
-		// 	level: 1,
-		// 	sex: 1,
-		// 	userId: "980818",
-		// 	address: "河南郑州",
-		// 	phone: "186xxxx9932",
-		// 	token: "lbiceman-980818-186xxxx9932"
-		// };
-		// console.log(val);
 		const userData = loginData.value.data.user || {};
 		userStore.setUser(userData);
 		router.push("/index");
 	}
 });
+
+const loginJump = () => {
+	const userData = {
+		id: "1",
+		name: "lbiceman",
+		level: 1,
+		sex: 1,
+		userId: "980818",
+		address: "河南郑州",
+		phone: "186xxxx9932",
+		token: "lbiceman-980818-186xxxx9932"
+	};
+	userStore.setUser(userData);
+	router.push("/index");
+};
 
 const onFinish = (val: Form) => {
 	loginRun({

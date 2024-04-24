@@ -4,7 +4,7 @@ export default { name: "IceTableCol" };
 <script setup lang="ts">
 import { computed } from "vue";
 import { isFun, isStr, isObj, isArr } from "@/utils/index";
-import { IceColumn, IceCellProps, Render } from "./type";
+import { IceColumn, IceCellProps, Render, RenderFunc } from "./type";
 
 const props = withDefaults(
 	defineProps<{
@@ -14,19 +14,23 @@ const props = withDefaults(
 );
 
 const finalText = computed(() => {
-	return props.renderProps.text || "";
+	return props.renderProps?.text || "";
 });
 
 const finalCol = computed((): IceColumn => {
-	return props.renderProps.column || {};
+	return props.renderProps?.column || {};
 });
 
-const finalRender = computed((): Render => {
-	return finalCol.value.render || {};
+const finalRender = computed(() => {
+	return finalCol.value?.render;
+});
+
+const finalRenderObj = computed(() => {
+	return finalCol.value?.render as Render;
 });
 
 const finalRow = computed(() => {
-	return props.renderProps.record || {};
+	return props.renderProps?.record || {};
 });
 
 const finalIndex = computed(() => {
@@ -34,7 +38,8 @@ const finalIndex = computed(() => {
 });
 
 const funcRender = computed(() => {
-	return finalCol.value.render(props.renderProps);
+	let r = finalCol.value.render as RenderFunc;
+	return r(props.renderProps);
 });
 </script>
 
@@ -46,18 +51,18 @@ const funcRender = computed(() => {
 		<template v-else-if="isStr(finalRender)">
 			{{ finalRender }}
 		</template>
-		<template v-else-if="isObj(finalRender)">
+		<template v-else-if="isObj(finalRenderObj)">
 			<component
-				:is="finalRender?.component || 'a-space'"
-				v-bind="finalRender?.props && finalRender?.props(renderProps)">
-				<template v-if="finalRender?.icon">
-					<span :class="finalRender?.icon"></span>
+				:is="finalRenderObj?.component || 'a-space'"
+				v-bind="finalRenderObj?.props && finalRenderObj.props(renderProps)">
+				<template v-if="finalRenderObj?.icon">
+					<span :class="finalRenderObj?.icon"></span>
 				</template>
-				{{ finalRender?.text && finalRender?.text(renderProps) }}
+				{{ finalRenderObj?.text && finalRenderObj?.text(renderProps) }}
 			</component>
 		</template>
 		<template v-else-if="isArr(finalRender)">
-			<template v-for="(v, k) of finalRender" :key="k">
+			<template v-for="(v, k) of (finalRender as Render[])" :key="k">
 				<IceTableCol
 					:render-props="{ column: { render: v }, record: finalRow, index: finalIndex, text: finalText }" />
 			</template>

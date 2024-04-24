@@ -4,17 +4,21 @@ import type { TransformCellTextProps } from "ant-design-vue/es/table/interface";
 
 export interface Render {
 	component?: string | Component;
-	props?: (props: IceCellProps) => void;
-	text?: (props: IceCellProps) => void;
+	props?: (props: IceCellProps) => any;
+	text?: (props: IceCellProps) => string;
 	icon?: string;
 }
 
+export type RenderFunc = (props: IceCellProps) => string;
+
 export interface IceColumn extends ColumnType {
-	// iceSque 展示序号
 	type?: string;
 	children?: IceColumn[];
 	// 自定义渲染
-	render?: Render | Render[] | ((props: IceCellProps) => string) | string;
+	render?: Render | Render[] | RenderFunc | string;
 }
 
-export type IceCellProps = TransformCellTextProps;
+export type IceCellProps = TransformCellTextProps & {
+	render?: Render | Render[] | RenderFunc | string;
+	column?: IceColumn;
+};
