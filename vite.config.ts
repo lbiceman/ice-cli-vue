@@ -55,12 +55,6 @@ export default defineConfig({
 	// 生产环境打包配置
 	build: {
 		sourcemap: false,
-		terserOptions: {
-			//去除 console debugger
-			compress: {
-				drop_console: true,
-				drop_debugger: true
-			}
-		}
+		minify: "esbuild"
 	}
 });

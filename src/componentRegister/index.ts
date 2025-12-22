@@ -31,7 +31,7 @@ import {
 	Space
 } from "ant-design-vue";
 
-import IceEditor from "@/components/IceEditor/index.vue";
+import IceEditor from "@/components/iceEditor/index.vue";
 
 import "./css";
 
