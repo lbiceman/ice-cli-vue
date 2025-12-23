@@ -73,14 +73,8 @@ const menuItemClick = (menuItem: MenuItem) => {
 
 <template>
 	<div class="ice-menu" :class="collapsed ? 'ice-menu_min-width' : 'ice-menu_max-width'">
-		<a-menu
-			v-model:selectedKeys="selectedKeys"
-			:inline-collapsed="collapsed"
-			mode="inline"
-			class="ice-menu-layout"
-			:open-keys="openKeys"
-			@click="menuItemClick"
-			@open-change="onOpenChange">
+		<a-menu v-model:selectedKeys="selectedKeys" :inline-collapsed="collapsed" mode="inline" class="ice-menu-layout"
+			:open-keys="openKeys" @click="menuItemClick" @open-change="onOpenChange">
 			<template v-for="item of menus">
 				<template v-if="item.children && item.children.length > 0">
 					<SubMenu :id="item.id" :key="item.id" :menu="item" />
@@ -106,40 +100,91 @@ const menuItemClick = (menuItem: MenuItem) => {
 	.ant-menu.ant-menu-inline-collapsed {
 		width: @ice-menu-min-width;
 	}
+
 	.ant-menu-inline .ant-menu-item,
 	.ant-menu-inline .ant-menu-submenu-title {
 		width: auto;
 	}
+
 	.ant-menu-submenu-selected,
 	.ant-menu-item-selected,
-	.ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow,
+	.ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow,
 	.ant-menu-light .ant-menu-submenu-active {
-		color: @ice-primary-color;
+		color: var(--ice-primary-color);
 	}
+
 	.ant-menu-submenu-expand-icon,
 	.ant-menu-submenu-arrow {
-		color: @ice-font-color;
+		color: var(--ice-font-color);
 	}
+
 	.ant-menu-inline .ant-menu-item::after {
-		border-right: 6px solid @ice-primary-color;
+		border-right: 6px solid var(--ice-primary-color);
 		border-bottom-left-radius: @ice-border-radius;
 		border-top-left-radius: @ice-border-radius;
 	}
+
 	.ant-menu-light .ant-menu-item:hover {
-		color: @ice-primary-color;
+		color: var(--ice-primary-color);
 	}
+
 	.ant-menu-light .ant-menu-submenu-title:hover {
-		color: @ice-primary-color;
+		color: var(--ice-primary-color);
 	}
+
 	.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-		background-color: @ice-primary-opacity-color;
+		background-color: var(--ice-primary-opacity-color);
 	}
+
 	.ant-menu-item:active,
 	.ant-menu-submenu-title:active {
-		background-color: @ice-primary-opacity-color;
+		background-color: var(--ice-primary-opacity-color);
 	}
+
 	.ant-menu-submenu-title .ant-menu-item-icon {
 		font-size: 16px;
+	}
+}
+
+// 夜间模式菜单样式
+html.dark .ice-menu {
+	.ant-menu {
+		background: var(--ice-card-bg) !important;
+		color: var(--ice-font-color);
+
+		.ant-menu-item {
+			color: var(--ice-font-color);
+			background: transparent;
+
+			&:hover {
+				color: var(--ice-primary-color);
+				background: var(--ice-primary-opacity-color) !important;
+			}
+
+			&.ant-menu-item-selected {
+				background: var(--ice-primary-opacity-color) !important;
+				color: var(--ice-primary-color);
+			}
+		}
+
+		.ant-menu-submenu {
+			>.ant-menu-submenu-title {
+				color: var(--ice-font-color);
+
+				&:hover {
+					color: var(--ice-primary-color);
+					background: var(--ice-primary-opacity-color) !important;
+				}
+			}
+
+			.ant-menu-sub {
+				background: var(--ice-card-bg);
+
+				.ant-menu-item {
+					color: var(--ice-font-color);
+				}
+			}
+		}
 	}
 }
 </style>
@@ -150,32 +195,47 @@ const menuItemClick = (menuItem: MenuItem) => {
 	height: 100%;
 	transition: @ice-transition;
 	box-sizing: border-box;
-	border-top: 1px solid #eee;
-	.ice-menu-layout {
-		height: 100%;
-		.ice-menu-icon {
-			margin-right: 5px;
-		}
+	border-top: 1px solid var(--ice-border-color);
+	background: var(--ice-card-bg);
+
+	// 确保ant-menu组件背景色正确
+	:deep(.ant-menu) {
+		background: var(--ice-card-bg);
+		color: var(--ice-font-color);
+		border-right: none;
 	}
-	.ice-menu-collapsed {
-		position: absolute;
-		bottom: 20px;
-		right: 16px;
-		span {
-			display: inline-block;
-			font-size: 30px;
-			color: @ice-font-color;
-			cursor: pointer;
-			transition: @ice-transition;
-			&:hover {
-				transform: rotate(180deg);
-			}
+}
+
+.ice-menu-layout {
+	height: 100%;
+
+	.ice-menu-icon {
+		margin-right: 5px;
+	}
+}
+
+.ice-menu-collapsed {
+	position: absolute;
+	bottom: 20px;
+	right: 16px;
+
+	span {
+		display: inline-block;
+		font-size: 30px;
+		color: var(--ice-font-color);
+		cursor: pointer;
+		transition: @ice-transition;
+
+		&:hover {
+			transform: rotate(180deg);
 		}
 	}
 }
+
 .ice-menu_max-width {
 	width: @ice-menu-max-width;
 }
+
 .ice-menu_min-width {
 	width: @ice-menu-min-width;
 }

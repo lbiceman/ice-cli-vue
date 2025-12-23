@@ -17,9 +17,55 @@
 @ice-border-radius: 5px;
 // 动画过度时间
 @ice-transition: all 0.3s ease-out;
-// 文字颜色
-@ice-font-color: #666;
-// 北京颜色
-@ice-bg-color: #fff;
 // 盒子的边距 padding margin 距离
 @ice-pm: 16px;
+
+// 浅色主题变量
+@ice-font-color: #666;
+@ice-bg-color: #fff;
+@ice-bg-secondary: #f5f5f5;
+@ice-border-color: #e8e8e8;
+@ice-card-bg: #fff;
+
+// 深色主题变量
+@ice-dark-font-color: #e6e6e6;
+@ice-dark-bg-color: #141414;
+@ice-dark-bg-secondary: #1f1f1f;
+@ice-dark-border-color: #434343;
+@ice-dark-card-bg: #1f1f1f;
+
+// CSS变量定义 - 默认浅色主题
+:root {
+	--ice-primary-color: @ice-primary-color;
+	--ice-primary-opacity-color: @ice-primary-opacity-color;
+	--ice-danger-color: @ice-danger-color;
+	--ice-success-color: @ice-success-color;
+	--ice-warning-color: @ice-warning-color;
+	
+	// 浅色主题
+	--ice-font-color: @ice-font-color;
+	--ice-bg-color: @ice-bg-color;
+	--ice-bg-secondary: @ice-bg-secondary;
+	--ice-border-color: @ice-border-color;
+	--ice-card-bg: @ice-card-bg;
+}
+
+// 深色主题
+html.dark {
+	--ice-font-color: @ice-dark-font-color;
+	--ice-bg-color: @ice-dark-bg-color;
+	--ice-bg-secondary: @ice-dark-bg-secondary;
+	--ice-border-color: @ice-dark-border-color;
+	--ice-card-bg: @ice-dark-card-bg;
+}
+
+// 使用CSS变量的样式
+body {
+	color: var(--ice-font-color);
+	background: var(--ice-bg-color);
+	transition: @ice-transition;
+}
+
+h1, h2, h3, h4, h5, p {
+	color: var(--ice-font-color);
+}

@@ -14,7 +14,7 @@
 	align-items: center;
 	flex-direction: column;
 	min-height: 100%;
-	background-color: #fff;
+	background-color: var(--ice-bg-color);
 	padding: @ice-pm;
 	border-radius: @ice-border-radius;
 	.ice-index-welcome {

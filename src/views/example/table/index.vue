@@ -377,7 +377,7 @@ watch(
 
 <style lang="less" scoped>
 .ice-tableWrap {
-	background-color: #fff;
+	background-color: var(--ice-card-bg);
 	border-radius: @ice-border-radius;
 	padding: @ice-pm;
 }

@@ -80,14 +80,83 @@ const reset = () => {
 .ice-form-item {
 	width: 100%;
 	min-width: 200px;
+	background-color: var(--ice-bg-color);
+	color: var(--ice-font-color);
 }
 </style>
 
 <style lang="less" scoped>
 .ice-form {
-	background-color: @ice-bg-color;
+	background-color: var(--ice-bg-color);
 	overflow: hidden;
 	padding: @ice-pm;
 	border-radius: @ice-border-radius;
+}
+
+/* 表单标签样式 */
+:deep(.ant-form-item-label > label) {
+	color: var(--ice-font-color);
+}
+
+/* 输入框样式 */
+:deep(.ant-input) {
+	background-color: var(--ice-bg-color);
+	border-color: var(--ice-border-color);
+	color: var(--ice-font-color);
+}
+
+:deep(.ant-input:focus) {
+	border-color: rgb(102, 187, 255);
+	box-shadow: 0 0 0 2px rgba(102, 187, 255, 0.2);
+}
+
+/* 选择器样式 */
+:deep(.ant-select-selector) {
+	background-color: var(--ice-bg-color) !important;
+	border-color: var(--ice-border-color) !important;
+	color: var(--ice-font-color) !important;
+}
+
+:deep(.ant-select-arrow) {
+	color: var(--ice-font-color);
+}
+
+/* 日期选择器样式 */
+:deep(.ant-picker) {
+	background-color: var(--ice-bg-color);
+	border-color: var(--ice-border-color);
+	color: var(--ice-font-color);
+}
+
+:deep(.ant-picker:hover) {
+	border-color: rgb(102, 187, 255);
+}
+
+/* 按钮样式 */
+:deep(.ant-btn) {
+	background-color: var(--ice-bg-color);
+	border-color: var(--ice-border-color);
+	color: var(--ice-font-color);
+}
+
+:deep(.ant-btn-primary) {
+	background-color: rgb(102, 187, 255);
+	border-color: rgb(102, 187, 255);
+	color: #fff;
+}
+
+:deep(.ant-btn:hover) {
+	border-color: rgb(102, 187, 255);
+	color: rgb(102, 187, 255);
+}
+
+/* 错误信息样式 */
+:deep(.ant-form-item-explain-error) {
+	color: #ff4d4f;
+}
+
+/* 必填星号样式 */
+:deep(.ant-form-item-required::before) {
+	color: #ff4d4f;
 }
 </style>

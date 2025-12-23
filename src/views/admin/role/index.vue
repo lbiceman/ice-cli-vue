@@ -247,13 +247,14 @@ const add = () => {
 
 <style lang="less" scoped>
 .menu-table {
-	background-color: #fff;
+	background-color: var(--ice-card-bg);
 	padding: @ice-pm;
 	margin-top: 10px;
 	border-radius: @ice-border-radius;
 	.menu-table-operate {
 		display: flex;
 		justify-content: space-between;
+		margin-bottom: var(--ice-pm);
 	}
 }
 </style>

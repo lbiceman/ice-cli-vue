@@ -27,3 +27,4 @@ import "ant-design-vue/es/radio/style/index.less";
 import "ant-design-vue/es/input-number/style/index.less";
 import "ant-design-vue/es/switch/style/index.less";
 import "ant-design-vue/es/upload/style/index.less";
+import "ant-design-vue/es/icon/style/index.less";

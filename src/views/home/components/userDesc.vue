@@ -51,10 +51,10 @@ const jumpToGithub = () => {
 }
 .info-desc {
 	margin-top: @ice-pm;
-	border-top: 1px solid #ddd;
+	border-top: 1px solid var(--ice-border-color);
 	padding-top: @ice-pm;
 	.span_btn {
-		color: @ice-primary-color;
+		color: var(--ice-primary-color);
 		cursor: pointer;
 		&:hover {
 			text-decoration: underline;

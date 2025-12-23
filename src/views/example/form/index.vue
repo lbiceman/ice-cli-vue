@@ -182,7 +182,7 @@ const formConfig = computed(
 
 <style lang="less" scoped>
 .ice-formWrap {
-	background-color: #fff;
+	background-color: var(--ice-card-bg);
 	padding: @ice-pm;
 	border-radius: @ice-border-radius;
 }
