@@ -31,6 +31,19 @@ interface DataItem {
 	fav?: string;
 }
 
+const { data, run } = useAxios({
+	method: "post",
+	url: "/common/offline/admin/list",
+	data: {},
+	module: "login"
+});
+
+run();
+
+watchEffect(() => {
+	console.log(data);
+});
+
 // 1新增  2修改
 let type = 1;
 
@@ -495,7 +508,7 @@ const add = () => {
 
 <style lang="less" scoped>
 .menu-table {
-	background-color: #fff;
+	background-color: var(--ice-card-bg);
 	padding: @ice-pm;
 	margin-top: 10px;
 	border-radius: @ice-border-radius;

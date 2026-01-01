@@ -1,0 +1,369 @@
+<script lang="ts" setup>
+import { ref, watchEffect, computed, watch } from "vue";
+import axios from "axios";
+import http from "@/api/index";
+import { type UploadFile, type UploadRawFile, ElMessage } from "element-plus";
+import { Upload, Link, Delete } from "@element-plus/icons-vue";
+import { getToken } from "@/utils/cookie";
+import type { FileList } from "@/views/management/find/daily/types";
+import { getFileName, getRangeRandom } from "@/utils/tools";
+import usePost from "@/hooks/usePost";
+
+const props = withDefaults(
+	defineProps<{
+		from?: "approve" | "create";
+		label?: string;
+		fileList?: FileList[];
+		disabled?: boolean;
+		limit?: number;
+		showTip?: boolean;
+		// fileName?: string | number;
+		// 供应商资料 supplier/zl
+		// 供应商营业执照 supplier/zz
+		// 供应商资质文件 supplier/qual
+		// 日常寻源创建-物料资料 search/materials
+		parentPath?:
+			| "supplier/zl"
+			| "supplier/zz"
+			| "supplier/qual"
+			| "search/materials"
+			| "access/frameAgreement"
+			| "access/qualityDutyMethod"
+			| "access/formalFrameAgreement"
+			| "access/formalQualityDutyMethod";
+	}>(),
+	{
+		limit: 1,
+		label: "物料资料",
+		from: "create",
+		showTip: true,
+		parentPath: "supplier/zl"
+	}
+);
+
+const emits = defineEmits<{
+	(e: "upload-success", val: FileList): void;
+	(e: "upload-del", url: string, file: FileList): void;
+	(e: "upload-btn-click"): void;
+	(e: "upload-change", file: any, fileList: any): void;
+	(e: "upload-before", file: any): void;
+}>();
+
+const sliceFileUploadRun = (formData: FormData) => {
+	return Promise.resolve(http.post("/bgscm-api/minioFile/chunked?random=" + Math.random(), formData));
+};
+
+const {
+	run: allFileUploadFinishRun,
+	data: allFileUploadFinishData,
+	error: allFileUploadFinishError
+} = usePost("POST", "/bgscm-api/minioFile/join");
+
+// 按照10M分片
+const chunkSize = 10 * 1024 * 1024;
+const commonUrl = "/bgscm-api/file/upload";
+// 文件大小  500M
+const fileSize = 500;
+let currFileName = "";
+let shardUpload = false;
+
+const fileAccept = ref("*");
+const fileModelList = ref<FileList[]>([]);
+const fileUploading = ref(false);
+let hashProgress = ref(0);
+let chunksCount = ref(0);
+let fileHash = ref("");
+let fileProgress = ref(0);
+let worker: any = {};
+
+const finalDisabled = computed(() => {
+	// 正在上传时候需等待上传完成
+	if (fileUploading.value && fileProgress.value != 100) return true;
+	return props.disabled;
+});
+
+// 使用worker线程辅助计算
+const calcFileHash = (chunks: any) => {
+	if (window.Worker) {
+		return new Promise(resolve => {
+			worker = new Worker("/calcFileHash.js");
+			worker.postMessage({ chunks });
+			// 监听计算结果，发送给主线程
+			worker.onmessage = (e: any) => {
+				const { hash } = e.data;
+				hashProgress.value = e.data.hashProgress;
+				if (!hash) return;
+				worker.terminate();
+				resolve(hash);
+			};
+		});
+	}
+};
+
+// 按照固定的每片大小对文件进行分块
+const sliceFile = (file: UploadRawFile) => {
+	if (file.size < chunkSize) return [file];
+	const result = [];
+	for (let i = 0; i < file.size; i = i + chunkSize) {
+		result.push(file.slice(i, i + chunkSize));
+	}
+	return result;
+};
+
+// 按照chunks数量创建进行上传
+const fileUpload = (fileMd5: string, chunks: Blob[], fileName: string) => {
+	let reqList: any = [];
+	for (let i = 0; i < chunks.length; i++) {
+		let data = new FormData();
+		data.append("file", chunks[i]);
+		data.append("totalPieces", chunks.length + "");
+		data.append("filePath", props.parentPath);
+		data.append("currIndex", i + "");
+		data.append("name", fileName);
+		data.append("md5", fileMd5);
+		reqList.push(
+			sliceFileUploadRun(data).then((res: any) => {
+				//	计算进度
+				fileProgress.value = Math.ceil(((res.data || Math.random()) / chunksCount.value) * 100);
+				return res;
+			})
+		);
+	}
+	Promise.allSettled(reqList).then((val: any) => {
+		console.log("allres", val);
+		fileProgress.value = 99;
+		allFileUploadFinishRun({ fileName: currFileName, hash: fileHash.value });
+	});
+};
+
+const fileBefore = async (file: UploadRawFile) => {
+	let name = file.name || "";
+	let len = name.split(/(?=[^.]+$)/)[0].length;
+	if (len > 39) {
+		ElMessage({ type: "error", message: "超出文件名称最大限制" });
+		return false;
+	}
+	if (file.size > fileSize * 1024 * 1024) {
+		ElMessage({ type: "error", message: "超出文件大小限制" });
+		return false;
+	}
+	if (/\,|\，/.test(name)) {
+		ElMessage({ type: "error", message: "文件名称禁止包含,，" });
+		return false;
+	}
+	fileUploading.value = true;
+	currFileName = name;
+	shardUpload = file.size >= chunkSize;
+	emits("upload-before", file);
+	return true;
+};
+
+const fileRemove = (uploadFile: UploadFile) => {
+	emits("upload-del", uploadFile.response ? (uploadFile.response as any).data : uploadFile.name, uploadFile.response as any);
+};
+
+const fileExceed = () => {
+	ElMessage({ type: "error", message: "只能上传" + props.limit + "个文件" });
+};
+
+const download = (u: string, name: string) => {
+	axios
+		.get(u, {
+			responseType: "blob"
+		})
+		.then(res => {
+			const { data, headers } = res;
+			const fileName = name || "";
+			const blob = new Blob([data], { type: headers["content-type"] });
+			let dom = document.createElement("a");
+			let url = window.URL.createObjectURL(blob);
+			dom.href = url;
+			dom.download = decodeURI(fileName);
+			dom.style.display = "none";
+			document.body.appendChild(dom);
+			dom.click();
+			dom.parentNode?.removeChild(dom);
+			window.URL.revokeObjectURL(url);
+		});
+};
+
+const downloadFile = (url: string | undefined, name: string) => {
+	if (!url) return;
+	let imgs = ["png", "jpg", "jpeg", "gif", "pdf", "pptx"];
+	let ip = location.origin + "/mio-cdn/bgscm/";
+	let lastName = url.split(".")[1];
+	if (imgs.includes(lastName)) return window.open(ip + url);
+	download(ip + url, name);
+};
+
+const fileChange = (uploadFile: any, uploadFiles: any) => {
+	emits("upload-change", uploadFile, uploadFiles);
+};
+
+const uploadBtnClick = () => {
+	emits("upload-btn-click");
+};
+
+const del = (index: number) => {
+	if (fileModelList.value[index].filePath) {
+		emits("upload-del", fileModelList.value[index].name, fileModelList.value[index]);
+	} else {
+		fileProgress.value = 0;
+		fileUploading.value = false;
+	}
+	fileModelList.value.splice(index, 1);
+};
+
+const chunksUpload = async (options: any) => {
+	// 根据文件大小判断是否执行分片
+	if (shardUpload) {
+		fileProgress.value = getRangeRandom(1, 30);
+		let file = options.file;
+		const chunks = sliceFile(file);
+		chunksCount.value = chunks.length;
+		const fileMd5: any = await calcFileHash(chunks);
+		fileHash.value = fileMd5;
+		fileUpload(fileMd5, chunks, file.name);
+	} else {
+		fileProgress.value = getRangeRandom(1, 99);
+		let formData = new FormData();
+		formData.append("parentPath", options.data.parentPath);
+		formData.append("file", options.file);
+		http
+			.post(commonUrl, formData, {
+				header: {
+					"Content-Type": "multipart/form-data"
+				}
+			})
+			.then((res: any) => {
+				if (res.data) {
+					fileProgress.value = 100;
+					emits("upload-success", { name: currFileName, filePath: res.data });
+				}
+			});
+	}
+};
+
+watchEffect(() => {
+	if (props.fileList && props.fileList.length > 0) fileModelList.value = props.fileList;
+	else fileModelList.value = [];
+});
+
+watch(
+	() => allFileUploadFinishData.value,
+	() => {
+		let val: any = allFileUploadFinishData.value;
+		if (val.code == 200) {
+			fileProgress.value = 100;
+			fileUploading.value = false;
+			emits("upload-success", { name: currFileName, filePath: val });
+		}
+	}
+);
+
+watch(
+	() => allFileUploadFinishError.value,
+	() => {
+		let val: any = allFileUploadFinishError.value;
+		if (val) fileUploading.value = false;
+	}
+);
+</script>
+
+<template>
+	<div>
+		<template v-if="from == 'create'">
+			<el-upload
+				:disabled="finalDisabled"
+				ref="uploadRef"
+				:limit="limit"
+				v-model:file-list="fileModelList"
+				class="form-upload"
+				:on-exceed="fileExceed"
+				:before-upload="fileBefore"
+				:on-change="fileChange"
+				:http-request="chunksUpload"
+				:auto-upload="true"
+				:show-file-list="false"
+				:on-remove="fileRemove"
+				:headers="{ Authorization: `Bearer ${getToken()}` }"
+				:action="commonUrl"
+				:accept="fileAccept"
+				:data="{ parentPath }"
+			>
+				<template #trigger>
+					<el-button @click="uploadBtnClick" :disabled="finalDisabled">
+						<template #icon>
+							<i class="iconfont icon-upload"></i>
+						</template>
+						上传文件
+					</el-button>
+					<!-- <el-button @click="uploadBtnClick" :disabled="finalDisabled" :icon="Upload">上传文件</el-button> -->
+				</template>
+				<template #default>
+					<ul>
+						<template v-if="fileProgress != 100 && fileUploading">
+							<el-progress :percentage="fileProgress" />
+						</template>
+						<li class="scm_fileList-item" v-for="(item, i) in fileModelList" :key="i">
+							<el-icon><Link /></el-icon>
+							<span @click="downloadFile(item.filePath, item.name)">{{ item.name || getFileName(item.filePath) }}</span>
+							<el-icon @click="del(i)" style="margin-left: 10px"><Delete /></el-icon>
+						</li>
+					</ul>
+				</template>
+				<template #tip v-if="showTip">
+					<span class="tip">文件大小限制{{ fileSize }}M</span>
+				</template>
+			</el-upload>
+		</template>
+		<template v-if="from == 'approve'">
+			<ul>
+				<template v-if="fileModelList.length > 0">
+					<li class="scm_fileList-item" v-for="(item, i) in fileModelList" :key="i">
+						<el-icon><Link /></el-icon>
+						<span @click="downloadFile(item.filePath, item.name)">{{ item.name || getFileName(item.filePath) }}</span>
+					</li>
+				</template>
+				<template v-else>
+					<el-upload :disabled="true" class="form-upload">
+						<template #trigger>
+							<el-button :disabled="true" :icon="Upload">上传文件</el-button>
+						</template>
+						<br v-if="showTip" />
+						<template #tip v-if="showTip">
+							<span class="tip">文件大小限制{{ fileSize }}M</span>
+						</template>
+					</el-upload>
+				</template>
+			</ul>
+		</template>
+	</div>
+</template>
+
+<style lang="scss" scoped>
+.form-upload {
+	.tip {
+		color: #abb4bc;
+	}
+	:deep(.el-button) {
+		border-radius: 0;
+	}
+}
+.scm_fileList-item {
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	color: #1e8fa0;
+	cursor: pointer;
+	span {
+		&:not(:first-child) {
+			margin-left: 6px;
+			line-height: 20px;
+		}
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+</style>

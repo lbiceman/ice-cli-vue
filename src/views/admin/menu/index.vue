@@ -215,7 +215,7 @@ const add = () => {
 
 <style lang="less" scoped>
 .menu-table {
-	background-color: #fff;
+	background-color: var(--ice-card-bg);
 	padding: @ice-pm;
 	margin-top: 10px;
 	border-radius: @ice-border-radius;

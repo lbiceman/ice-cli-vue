@@ -26,7 +26,7 @@ const jump = () => {
 	align-items: center;
 	justify-content: center;
 	height: 100%;
-	color: @ice-font-color;
+	color: var(--ice-font-color);
 	transition: @ice-transition;
 	overflow: hidden;
 	cursor: pointer;
@@ -37,7 +37,7 @@ const jump = () => {
 	}
 }
 .ice-logo_max-width {
-	width: @ice-menu-max-width;
+	width: @ice-menu-max-width;;
 }
 .ice-logo_min-width {
 	width: @ice-menu-min-width;

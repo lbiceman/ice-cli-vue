@@ -66,7 +66,7 @@ const config = computed(
 
 <style lang="less" scoped>
 .ice-editorWrap {
-	background-color: #fff;
+	background-color: var(--ice-bg-color);
 	border-radius: @ice-border-radius;
 	padding: @ice-pm;
 	.editorWrap-value {

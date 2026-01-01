@@ -27,11 +27,11 @@ export const envList: EnvConfig[] = [
 		modules: {
 			common: {
 				proxyUrl: "dev-common",
-				targetUrl: "http://127.0.0.1:4523/m1/2236834-0-default"
+				targetUrl: "https://dev.dev.com"
 			},
 			login: {
 				proxyUrl: "dev-login",
-				targetUrl: ""
+				targetUrl: "https://dev.dev.com"
 			}
 		}
 	},
@@ -41,11 +41,11 @@ export const envList: EnvConfig[] = [
 		modules: {
 			common: {
 				proxyUrl: "test-common",
-				targetUrl: ""
+				targetUrl: "https://qa.test.com"
 			},
 			login: {
 				proxyUrl: "test-login",
-				targetUrl: ""
+				targetUrl: "https://qa.test.com"
 			}
 		}
 	},
@@ -55,10 +55,20 @@ export const envList: EnvConfig[] = [
 		modules: {
 			common: {
 				proxyUrl: "prod-common",
-				targetUrl: ""
+				targetUrl: "https://prod.prod.com"
 			},
 			login: {
 				proxyUrl: "prod-login",
+				targetUrl: "https://prod.prod.com"
+			}
+		}
+	},
+	{
+		env: "mock",
+		name: "mock环境",
+		modules: {
+			common: {
+				proxyUrl: "mock",
 				targetUrl: ""
 			}
 		}

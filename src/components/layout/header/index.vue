@@ -18,5 +18,8 @@ import User from "./components/user.vue";
 	align-items: center;
 	justify-content: space-between;
 	height: @ice-header-height;
+	background: var(--ice-card-bg);
+	border-bottom: 1px solid var(--ice-border-color);
+	transition: @ice-transition;
 }
 </style>

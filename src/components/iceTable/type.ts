@@ -18,7 +18,6 @@ export interface IceColumn extends ColumnType {
 	render?: Render | Render[] | RenderFunc | string;
 }
 
-export type IceCellProps = TransformCellTextProps & {
-	render?: Render | Render[] | RenderFunc | string;
-	column?: IceColumn;
-};
+export interface IceCellProps extends TransformCellTextProps {
+	column: IceColumn;
+}

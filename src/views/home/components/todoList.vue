@@ -34,7 +34,7 @@ const todoList = ref([
 
 <style lang="less" scoped>
 .todo-title {
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid var(--ice-border-color);
 	padding-bottom: @ice-pm;
 }
 

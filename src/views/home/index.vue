@@ -27,7 +27,7 @@ import ComponentIntro from "./components/componentIntro.vue";
 .ice-home {
 	// 首页组件都用到了这个CSS
 	.home-item {
-		background-color: @ice-bg-color;
+		background-color: var(--ice-card-bg);
 		padding: @ice-pm;
 		border-radius: @ice-border-radius;
 	}

@@ -36,7 +36,7 @@ const open = () => {
 
 <style lang="less" scoped>
 .ice-drawerWrap {
-	background-color: #fff;
+	background-color: var(--ice-bg-color);
 	border-radius: @ice-border-radius;
 	padding: @ice-pm;
 }

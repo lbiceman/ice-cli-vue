@@ -23,16 +23,24 @@ import Menu from "@/components/layout/menu/index.vue";
 .ice-layout {
 	min-height: 100%;
 	min-width: 1024px;
+	background: var(--ice-bg-color);
 	.layout-content {
 		min-height: calc(100vh - @ice-header-height);
 		display: flex;
+		
+		.layout-content-menu {
+			background: var(--ice-card-bg);
+			border-right: 1px solid var(--ice-border-color);
+			transition: @ice-transition;
+		}
 	}
 	.layout-content-main {
 		width: 100%;
 		height: calc(100vh - @ice-header-height);
-		background-color: #f8f8f8;
+		background-color: var(--ice-bg-secondary);
 		overflow-y: auto;
 		padding: @ice-pm;
+		transition: @ice-transition;
 	}
 }
 </style>

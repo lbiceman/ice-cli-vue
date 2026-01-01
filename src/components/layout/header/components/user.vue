@@ -39,6 +39,7 @@ const dropdownClick = (item: any) => {
 	display: flex;
 	align-items: center;
 	justify-content: right;
+	gap: 12px;
 	.user-avator {
 		img {
 			width: 36px;
@@ -51,8 +52,9 @@ const dropdownClick = (item: any) => {
 		.user-name-dropdown-title {
 			cursor: pointer;
 			transition: @ice-transition;
+			color: var(--ice-font-color);
 			&:hover {
-				color: @ice-primary-color;
+				color: var(--ice-primary-color);
 			}
 		}
 	}

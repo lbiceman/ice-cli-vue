@@ -21,12 +21,8 @@ const finalCol = computed((): IceColumn => {
 	return props.renderProps?.column || {};
 });
 
-const finalRender = computed(() => {
-	return finalCol.value?.render;
-});
-
-const finalRenderObj = computed(() => {
-	return finalCol.value?.render as Render;
+const finalRender = computed((): Render => {
+	return finalCol.value.render as Render;
 });
 
 const finalRow = computed(() => {
@@ -38,8 +34,7 @@ const finalIndex = computed(() => {
 });
 
 const funcRender = computed(() => {
-	let r = finalCol.value.render as RenderFunc;
-	return r(props.renderProps);
+	return (finalCol.value.render as (obj: IceCellProps) => string)(props.renderProps);
 });
 </script>
 
