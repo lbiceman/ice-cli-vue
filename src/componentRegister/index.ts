@@ -31,7 +31,9 @@ import {
 	Space,
 	Tree,
 	TreeNode,
-	TreeSelect
+	TreeSelect,
+	TreeSelectNode,
+	Avatar
 } from "ant-design-vue";
 
 import IceEditor from "@/components/iceEditor/index.vue";
@@ -72,7 +74,9 @@ const components: Component[] = [
 	Space,
 	Tree,
 	TreeNode,
-	TreeSelect
+	TreeSelect,
+	TreeSelectNode,
+	Avatar
 ];
 
 export const registerComponents = (app: App): App => {

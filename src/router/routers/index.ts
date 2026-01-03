@@ -6,13 +6,14 @@ import { adminRoutes } from "./admin";
 import { homeRoutes } from "./home";
 import { exampleRoutes } from "./example";
 import { dashboardRoutes } from "./dashboard";
+import { matrixRoutes } from "./matrix";
 
 const layoutRouters: RouteRecordRaw[] = [
 	{
 		path: "/",
 		component: () => import("@/views/layout/index.vue"),
 		// 这里放layout的子集路由
-		children: [...indexRouters, ...adminRoutes, ...homeRoutes, ...exampleRoutes]
+		children: [...indexRouters, ...adminRoutes, ...homeRoutes, ...exampleRoutes, ...matrixRoutes]
 	}
 ];
 

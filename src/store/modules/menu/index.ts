@@ -84,6 +84,29 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 				]
 			},
 			{
+				id: "11",
+				name: "矩阵资产管理",
+				url: "/matrix",
+				icon: "ice-icon-sys",
+				children: [
+					{
+						id: "111",
+						name: "经销商档案",
+						url: "/matrix/distributor"
+					},
+					{
+						id: "112",
+						name: "账号资产库",
+						url: "/matrix/account"
+					},
+					{
+						id: "113",
+						name: "粉丝画像",
+						url: "/matrix/fans"
+					}
+				]
+			},
+			{
 				id: "3",
 				name: "特殊页",
 				url: "/404",
