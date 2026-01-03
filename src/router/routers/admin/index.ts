@@ -20,6 +20,11 @@ export const adminRoutes: RouteRecordRaw[] = [
 				path: "/admin/menu",
 				meta: { title: "菜单管理" },
 				component: () => import("@/views/admin/menu/index.vue")
+			},
+			{
+				path: "/admin/auth",
+				meta: { title: "权限管理" },
+				component: () => import("@/views/admin/auth/index.vue")
 			}
 		]
 	}

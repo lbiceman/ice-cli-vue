@@ -36,6 +36,10 @@ const finalIndex = computed(() => {
 const funcRender = computed(() => {
 	return (finalCol.value.render as (obj: IceCellProps) => string)(props.renderProps);
 });
+
+const finalRenderObj = computed(() => {
+	return finalCol.value.render as { component?: string; props?: (obj: IceCellProps) => object; icon?: string; text?: (obj: IceCellProps) => string };
+});
 </script>
 
 <template>

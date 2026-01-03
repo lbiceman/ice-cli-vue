@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/store";
 import IceForm from "@/components/iceForm/index.vue";

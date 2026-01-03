@@ -5,6 +5,7 @@ import { loginRoutes } from "./login";
 import { adminRoutes } from "./admin";
 import { homeRoutes } from "./home";
 import { exampleRoutes } from "./example";
+import { dashboardRoutes } from "./dashboard";
 
 const layoutRouters: RouteRecordRaw[] = [
 	{
@@ -19,6 +20,7 @@ export const routes: RouteRecordRaw[] = [
 	// 这里放和layout同级别的路由
 	...specialRouters,
 	...layoutRouters,
+	...dashboardRoutes,
 	...loginRoutes,
 	{
 		path: "/:pathMatch(.*)",

@@ -46,6 +46,44 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 				icon: "ice-icon-home"
 			},
 			{
+				id: "10",
+				name: "数据大屏",
+				url: "/dashboard",
+				icon: "ice-icon-warning",
+				children: [
+					{
+						id: "101",
+						name: "核心总览大屏",
+						url: "/dashboard/overview"
+					},
+					{
+						id: "102",
+						name: "内容数据大屏",
+						url: "/dashboard/content"
+					},
+					{
+						id: "103",
+						name: "直播数据大屏",
+						url: "/dashboard/live"
+					},
+					{
+						id: "104",
+						name: "粉丝数据大屏",
+						url: "/dashboard/fans"
+					},
+					{
+						id: "105",
+						name: "线索与转化大屏",
+						url: "/dashboard/conversion"
+					},
+					{
+						id: "106",
+						name: "投放数据大屏",
+						url: "/dashboard/advertising"
+					}
+				]
+			},
+			{
 				id: "3",
 				name: "特殊页",
 				url: "/404",
@@ -104,6 +142,11 @@ export const useMenuStore = defineStore<string, MenuStoreState, MenuStoreGetters
 						id: "92",
 						name: "菜单管理",
 						url: "/admin/menu"
+					},
+					{
+						id: "93",
+						name: "权限管理",
+						url: "/admin/auth"
 					}
 				]
 			}

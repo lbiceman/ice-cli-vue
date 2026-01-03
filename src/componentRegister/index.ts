@@ -28,7 +28,10 @@ import {
 	Switch,
 	Upload,
 	RadioGroup,
-	Space
+	Space,
+	Tree,
+	TreeNode,
+	TreeSelect
 } from "ant-design-vue";
 
 import IceEditor from "@/components/iceEditor/index.vue";
@@ -66,7 +69,10 @@ const components: Component[] = [
 	Switch,
 	Upload,
 	RadioGroup,
-	Space
+	Space,
+	Tree,
+	TreeNode,
+	TreeSelect
 ];
 
 export const registerComponents = (app: App): App => {

@@ -69,3 +69,77 @@ body {
 h1, h2, h3, h4, h5, p {
 	color: var(--ice-font-color);
 }
+
+// Tree组件样式
+.ant-tree {
+	background: transparent;
+	color: var(--ice-font-color);
+
+	.ant-tree-treenode {
+		padding: 4px 0;
+	}
+
+	.ant-tree-node-content-wrapper {
+		color: var(--ice-font-color);
+		border-radius: @ice-border-radius;
+
+		&:hover {
+			background-color: var(--ice-primary-opacity-color);
+		}
+
+		&.ant-tree-node-selected {
+			background-color: var(--ice-primary-opacity-color);
+			color: var(--ice-primary-color);
+		}
+	}
+
+	.ant-tree-switcher {
+		color: var(--ice-font-color);
+
+		&:hover {
+			color: var(--ice-primary-color);
+		}
+	}
+
+	.ant-tree-checkbox {
+		.ant-tree-checkbox-inner {
+			border-color: var(--ice-border-color);
+
+			&:hover {
+				border-color: var(--ice-primary-color);
+			}
+		}
+
+		&.ant-tree-checkbox-checked {
+			.ant-tree-checkbox-inner {
+				background-color: var(--ice-primary-color);
+				border-color: var(--ice-primary-color);
+			}
+		}
+
+		&.ant-tree-checkbox-indeterminate {
+			.ant-tree-checkbox-inner {
+				background-color: var(--ice-primary-color);
+				border-color: var(--ice-primary-color);
+			}
+		}
+	}
+
+	.ant-tree-title {
+		color: var(--ice-font-color);
+	}
+}
+
+// 深色主题下Tree组件样式
+html.dark .ant-tree {
+	.ant-tree-checkbox-inner {
+		background-color: var(--ice-card-bg);
+		border-color: var(--ice-border-color);
+	}
+
+	.ant-tree-checkbox-checked .ant-tree-checkbox-inner,
+	.ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner {
+		background-color: var(--ice-primary-color);
+		border-color: var(--ice-primary-color);
+	}
+}
